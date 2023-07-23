@@ -9,9 +9,9 @@
 1. Клонируем в текущую директорию `git clone git@github.com:axlle-com/base.git .`
 2. Создаем базу данных `DATABASE:ax_blog`; `USERNAME:root`; `PASSWORD:`
 3. Файл `.env.example` переименовываем в `.env` и заполняем подключение к БД
-4. Запускаем команду `composer update`
+4. Запускаем команду `composer update` запускать в консоли из папки проекта
 5. При проблеме composer `COMPOSER_MEMORY_LIMIT=-1 composer update`
-6. Запускаем команду `php artisan migrate`
+6. Запускаем команду `php artisan migrate` запускать в консоли из папки проекта
 7. Если возникли проблемы с базой `database/files/db.sql` можно взять дамп
 8. Лежит схема MySQL Workbench `database/files/ax_blog.mwb`, можно развернуть
 9. После миграций все базы будут развернуты, тестовый пользователь `login:axlle@mail.ru | password:558088`
