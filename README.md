@@ -6,15 +6,29 @@
 ```
 Запуск приложения:
 ```
-1. Клонируем в текущую директорию `git clone git@bitbucket.org:axlle-com/a-shop.git .`
-2. Создаем базу данных `DATABASE:ax_linoor`; `USERNAME:root`; `PASSWORD:`
+1. Клонируем в текущую директорию `git clone git@github.com:axlle-com/base.git .`
+2. Создаем базу данных `DATABASE:ax_blog`; `USERNAME:root`; `PASSWORD:`
 3. Файл `.env.example` переименовываем в `.env` и заполняем подключение к БД
 4. Запускаем команду `composer update`
 5. При проблеме composer `COMPOSER_MEMORY_LIMIT=-1 composer update`
-6. Запускаем команду `php artisan migrate` или лучше `php artisan first:dump` если нужны тестовые данные
-7. Если возникли проблемы с базой `storage/db/db.sql` можно взять дамп
-8. `storage/db/shop.mwb` Лежит схема MySQL Workbench, можно развернуть
-9. После миграций все базы будут развернуты, тестовый пользователь `login:axlle@mail.ru | password:558088` url `/admin/login`
+6. Запускаем команду `php artisan migrate`
+7. Если возникли проблемы с базой `database/files/db.sql` можно взять дамп
+8. Лежит схема MySQL Workbench `database/files/ax_blog.mwb`, можно развернуть
+9. После миграций все базы будут развернуты, тестовый пользователь `login:axlle@mail.ru | password:558088`
+
+```
+Работа с валютами:
+```
+1. Запуск парсера валют за 180 дней (парсит в очереди) `php artisan currency`
+2. Получить все валюты `GET` `/api/v1/currency`
+3. Запросить курс валюты за определенный день `GET` `/api/v1/currency-rate?currency={CODE}&date={DATE}`
+   пример : `/api/v1/currency-rate?currency=AUD&date=23.07.2023`
+```json
+{
+    "CODE": "required|string",
+    "DATE": "nullable|string"
+}
+```
 
 ---
 На память
@@ -23,4 +37,3 @@
 3. `php artisan config:clear`
 4. `php artisan view:clear`
 ---
-
