@@ -19,9 +19,10 @@
 ```
 Работа с валютами:
 ```
-1. Запуск парсера валют за 180 дней (парсит в очереди) `php artisan currency`
-2. Получить все валюты `GET` `/api/v1/currency`
-3. Запросить курс валюты за определенный день `GET` `/api/v1/currency-rate?currency={CODE}&date={DATE}`
+1. Запуск парсера валют за 180 дней (парсит в очереди) `php artisan currency` запускать в консоли из папки проекта
+2. Запуск очередей `php artisan queue:work` запускать в консоли из папки проекта
+3. Получить все валюты `GET` `/api/v1/currency`
+4. Запросить курс валюты за определенный день `GET` `/api/v1/currency-rate?currency={CODE}&date={DATE}`
    пример : `/api/v1/currency-rate?currency=AUD&date=23.07.2023`
 ```json
 {
