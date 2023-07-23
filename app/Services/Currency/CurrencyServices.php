@@ -130,6 +130,9 @@ class CurrencyServices extends BaseServices
         }
         $countCurrency = $this->currency->count();
         $countCurrencyRate = $this->currencyExchangeRate->countByDay($date);
-        return $countCurrency === $countCurrencyRate;
+        if ($countCurrency) {
+            return $countCurrency === $countCurrencyRate;
+        }
+        return false;
     }
 }
