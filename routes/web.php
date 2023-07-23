@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 require_once 'admin.php'; # /admin
-Route::get('/', function () {
+
+Route::get('/', static function () {
     return view('welcome');
 });
