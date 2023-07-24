@@ -70,36 +70,34 @@ class CurrencyServices extends BaseServices
     {
         $key = md5($currencyDto->toJson());
         $_this = $this;
-        return Cache::remember($key, 900, static function () use ($currencyDto, $_this) {
-            /** @var Currency $currency */
-            if ($currency = $_this->currency->getByCode($currencyDto->currency)) {
-                $dateEnd = $_this->getValidTime(strtotime($currencyDto->date));
-                $dateStart = $_this->getValidTime($dateEnd - (60 * 60 * 24));
-                /** @var CurrencyExchangeRate[] $rate */
+        /** @var Currency $currency */
+        if ($currency = $_this->currency->getByCode($currencyDto->currency)) {
+            $dateEnd = $_this->getValidTime(strtotime($currencyDto->date));
+            $dateStart = $_this->getValidTime($dateEnd - (60 * 60 * 24));
+            /** @var CurrencyExchangeRate[] $rate */
+            $rate = $_this->currencyExchangeRate->getOneByPeriod([
+                'currency_id' => $currency->id,
+                'date_start' => $dateStart,
+                'date_end' => $dateEnd,
+            ]);
+            if (count($rate) < 2) {
+                $dates = [];
+                foreach ($rate as $item) {
+                    $dates[] = $item->date_rate;
+                }
+                $newDates = array_diff([$dateStart, $dateEnd], $dates);
+                foreach ($newDates as $value) {
+                    $_this->saveExchangeRateForDay($value);
+                }
                 $rate = $_this->currencyExchangeRate->getOneByPeriod([
                     'currency_id' => $currency->id,
                     'date_start' => $dateStart,
                     'date_end' => $dateEnd,
                 ]);
-                if (count($rate) < 2) {
-                    $dates = [];
-                    foreach ($rate as $item) {
-                        $dates[] = $item->date_rate;
-                    }
-                    $newDates = array_diff([$dateStart, $dateEnd], $dates);
-                    foreach ($newDates as $value) {
-                        $_this->saveExchangeRateForDay($value);
-                    }
-                    $rate = $_this->currencyExchangeRate->getOneByPeriod([
-                        'currency_id' => $currency->id,
-                        'date_start' => $dateStart,
-                        'date_end' => $dateEnd,
-                    ]);
-                }
-                return $rate;
             }
-            return null;
-        });
+            return $rate;
+        }
+        return null;
     }
 
     /**
