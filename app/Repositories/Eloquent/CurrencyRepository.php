@@ -3,8 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Currency\Currency;
-use App\Repositories\Eloquent\Base\BaseRepository;
-use App\Repositories\ICurrencyRepository;
+use App\Repositories\Interfaces\ICurrencyRepository;
 use Illuminate\Support\Facades\Cache;
 
 /**

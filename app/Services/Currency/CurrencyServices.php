@@ -6,12 +6,11 @@ use App\Components\CurrencyAgent;
 use App\DTO\CurrencyFiltersDTO;
 use App\Models\Currency\Currency;
 use App\Models\Currency\CurrencyExchangeRate;
-use App\Repositories\ICurrencyExchangeRateRepository;
-use App\Repositories\ICurrencyRepository;
+use App\Repositories\Interfaces\ICurrencyExchangeRateRepository;
+use App\Repositories\Interfaces\ICurrencyRepository;
 use App\Services\BaseServices;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Cache;
 use SimpleXMLElement;
 
 class CurrencyServices extends BaseServices
@@ -24,10 +23,9 @@ class CurrencyServices extends BaseServices
      * @param ICurrencyExchangeRateRepository $currencyExchangeRate
      */
     public function __construct(
-        ICurrencyRepository             $currency,
+        ICurrencyRepository $currency,
         ICurrencyExchangeRateRepository $currencyExchangeRate
-    )
-    {
+    ) {
         $this->currency = $currency;
         $this->currencyExchangeRate = $currencyExchangeRate;
     }

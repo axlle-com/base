@@ -8,9 +8,6 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 class Request extends FormRequest
 {
-
-    protected $stopOnFirstFailure = false;
-
     public function authorize(): bool
     {
         return true;

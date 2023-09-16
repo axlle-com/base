@@ -2,6 +2,8 @@ const mix = require('laravel-mix');
 
 /********** admin **********/
 mix.styles([
+    'resources/plugins/vuexy/fonts/feather/iconfont.css',
+    'resources/plugins/vuexy/fonts/font-awesome/css/font-awesome.css',
     'resources/plugins/vuexy/vendors/css/vendors.min.css',
     'resources/plugins/vuexy/vendors/css/tables/datatable/dataTables.bootstrap5.min.css',
     'resources/plugins/vuexy/vendors/css/tables/datatable/responsive.bootstrap5.min.css',
@@ -13,8 +15,7 @@ mix.styles([
     'resources/plugins/vuexy/css/themes/bordered-layout.css',
     'resources/plugins/vuexy/css/core/menu/menu-types/vertical-menu.css',
     'resources/plugins/vuexy/css/plugins/forms/pickers/form-flat-pickr.css',
-    'resources/plugins/vuexy/fonts/feather/iconfont.css',
-    'resources/plugins/vuexy/fonts/font-awesome/css/font-awesome.css',
+    'resources/plugins/vuexy/css/pages/authentication.css',
 
 ], 'public/admin/css/main.css');
 mix.scripts([
@@ -31,8 +32,8 @@ mix.scripts([
     'public/main/js/glob.js',
 ], 'public/admin/js/main.js');
 
-mix.copy('resources/plugins/vuexy/fonts/font-awesome/webfonts', 'public/admin/webfonts');
-mix.copy('resources/plugins/vuexy/fonts/feather/fonts', 'public/admin/fonts');
+mix.copy('resources/plugins/vuexy/fonts/font-awesome/webfonts', 'public/webfonts');
+mix.copy('resources/plugins/vuexy/fonts/feather/fonts', 'public/fonts');
 // mix.copy('resources/admin/img', 'public/img');
 // mix.copy([
 //     'resources/plugins/material-design-icons-iconfont/fonts',

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Repositories\Eloquent\Base;
+namespace App\Repositories\Eloquent;
 
 use App\Models\BaseModel;
-use Illuminate\Support\Collection;
+use App\Repositories\Interfaces\IBaseRepository;
+use Illuminate\Database\Eloquent\Collection;
 
-abstract class BaseRepository implements EloquentRepositoryInterface
+abstract class BaseRepository implements IBaseRepository
 {
     /**
      * @var BaseModel
@@ -21,7 +22,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
      */
     public function all()
     {

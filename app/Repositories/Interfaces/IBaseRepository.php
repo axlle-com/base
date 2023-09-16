@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Repositories\Eloquent\Base;
+namespace App\Repositories\Interfaces;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Interface EloquentRepositoryInterface
+ * Interface IBaseRepository
  */
-interface EloquentRepositoryInterface
+interface IBaseRepository
 {
     public function create(array $attributes): Model;
 

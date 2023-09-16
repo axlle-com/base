@@ -248,7 +248,7 @@ const _glob = {
 
         setData(response) {
             this.response = response;
-            if (response.status && response.data) {
+            if (response.status) {
                 this.data = response.data;
                 this.form ? this.form[0].reset() : null;
             } else {
@@ -347,7 +347,7 @@ const _glob = {
                     help.text('').hide();
                 } else {
                     field.addClass('is-invalid');
-                    help.text(self.ERROR_FIELD).show();
+                    help.text(_glob.ERROR_FIELD).show();
                     err = true;
                 }
             } else {
@@ -356,7 +356,7 @@ const _glob = {
                     help.text('').hide();
                 } else {
                     field.addClass('is-invalid');
-                    help.text(self.ERROR_FIELD).show();
+                    help.text(_glob.ERROR_FIELD).show();
                     err = true;
                 }
             }

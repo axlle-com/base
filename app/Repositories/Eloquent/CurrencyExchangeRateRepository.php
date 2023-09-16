@@ -3,8 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Currency\CurrencyExchangeRate;
-use App\Repositories\Eloquent\Base\BaseRepository;
-use App\Repositories\ICurrencyExchangeRateRepository;
+use App\Repositories\Interfaces\ICurrencyExchangeRateRepository;
 use Illuminate\Database\Eloquent\Collection;
 
 /**

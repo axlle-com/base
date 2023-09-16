@@ -5,9 +5,9 @@ namespace App\Providers;
 use App\Repositories\Eloquent\CurrencyExchangeRateRepository;
 use App\Repositories\Eloquent\CurrencyRepository;
 use App\Repositories\Eloquent\UserRepository;
-use App\Repositories\ICurrencyExchangeRateRepository;
-use App\Repositories\ICurrencyRepository;
-use App\Repositories\IUserRepository;
+use App\Repositories\Interfaces\ICurrencyExchangeRateRepository;
+use App\Repositories\Interfaces\ICurrencyRepository;
+use App\Repositories\Interfaces\IUserRepository;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Sanctum\Sanctum;
 
