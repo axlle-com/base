@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+
 /**
  * Class Setting
  *
@@ -13,8 +15,8 @@ namespace App\Models;
  * @property string|null $value_text
  * @property array|null $value_json
  * @property int|null $value_bool
- * @property int $created_at
- * @property int $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $deleted_at
  *
  * @package App\Models
@@ -22,8 +24,6 @@ namespace App\Models;
 class Setting extends BaseModel
 {
 	protected $table = 'setting';
-	protected $perPage = 30;
-	public static $snakeAttributes = false;
 
 	protected $casts = [
 		'value_json' => 'json',

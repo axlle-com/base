@@ -2,16 +2,19 @@
 
 namespace App\Models;
 
+use App\Models\History\History;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Ip
  *
  * @property int $id
  * @property string $ip
- * @property int|null $status
- * @property int|null $created_at
- * @property int|null $updated_at
+ * @property bool|null $status
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $deleted_at
  *
  * @property Collection|History[] $histories
@@ -22,11 +25,9 @@ use Illuminate\Database\Eloquent\Collection;
 class Ip extends BaseModel
 {
 	protected $table = 'ip';
-	protected $perPage = 30;
-	public static $snakeAttributes = false;
 
 	protected $casts = [
-		'status' => 'int'
+		'status' => 'bool'
 	];
 
 	protected $fillable = [
@@ -34,13 +35,19 @@ class Ip extends BaseModel
 		'status'
 	];
 
-	public function histories()
-	{
-		return $this->hasMany(History::class, 'ips_id');
+    /**
+     * @return HasMany
+     */
+	public function histories(): HasMany
+    {
+		return $this->hasMany(History::class, 'ip_id');
 	}
 
-	public function loggers()
-	{
-		return $this->hasMany(Logger::class, 'ips_id');
+    /**
+     * @return HasMany
+     */
+	public function loggers(): HasMany
+    {
+		return $this->hasMany(Logger::class, 'ip_id');
 	}
 }

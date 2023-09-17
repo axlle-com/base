@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+
 /**
  * Class Url
  *
@@ -11,8 +13,8 @@ namespace App\Models;
  * @property string $alias
  * @property string $url
  * @property string|null $url_old
- * @property int|null $created_at
- * @property int|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $deleted_at
  *
  * @package App\Models
@@ -20,8 +22,6 @@ namespace App\Models;
 class Url extends BaseModel
 {
 	protected $table = 'url';
-	protected $perPage = 30;
-	public static $snakeAttributes = false;
 
 	protected $casts = [
 		'resource_id' => 'int'

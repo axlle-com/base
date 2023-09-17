@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\User\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -14,8 +16,8 @@ use Illuminate\Database\Eloquent\Collection;
  * @property string|null $username
  * @property string|null $type
  * @property string|null $language_code
- * @property int $created_at
- * @property int $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $deleted_at
  *
  * @property User|null $user
@@ -26,8 +28,6 @@ use Illuminate\Database\Eloquent\Collection;
 class TelegramUser extends BaseModel
 {
 	protected $table = 'telegram_user';
-	protected $perPage = 30;
-	public static $snakeAttributes = false;
 
 	protected $casts = [
 		'user_id' => 'int'

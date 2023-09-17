@@ -31,7 +31,7 @@ abstract class BaseRepository implements IBaseRepository
 
     public function create(array $attributes): BaseModel
     {
-        return $this->model->create($attributes);
+        return $this->model::create($attributes);
     }
 
     public function find(int $id, array $with = [], array $params = []): ?BaseModel
@@ -57,5 +57,20 @@ abstract class BaseRepository implements IBaseRepository
         $model = $this->find($id);
 
         return $model && $model->update($attributes);
+    }
+
+    /**
+     * @param array $attributes
+     * @param array $with
+     * @return BaseModel|null
+     */
+    public function findByAttributes(array $attributes, array $with = []): ?BaseModel
+    {
+        $query = $this->model::query()->with($with);
+        foreach ($attributes as $key => $value) {
+            $query = $query->where($key, $value);
+        }
+
+        return $query->first();
     }
 }

@@ -2,6 +2,6 @@
 
 namespace App\Repositories\Interfaces;
 
-interface IUserRepository
+interface IUserRepository extends IBaseRepository
 {
 }

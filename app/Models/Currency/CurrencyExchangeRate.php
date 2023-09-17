@@ -41,12 +41,4 @@ class CurrencyExchangeRate extends BaseModel
     {
         return $this->belongsTo(Currency::class);
     }
-
-//    protected function dateRate(): Attribute
-//    {
-//        return Attribute::make(
-//            get: static fn($value) => $value,
-//            set: static fn($value) => strtotime($value)
-//        );
-//    }
 }

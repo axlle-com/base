@@ -10,6 +10,6 @@ Route::group(['prefix' => 'admin'], static function () {
     Route::post('/login', [AuthAjaxController::class, 'login'])->name('admin.login');
 });
 
-Route::group(['prefix' => 'admin'], static function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'employee'], static function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 });

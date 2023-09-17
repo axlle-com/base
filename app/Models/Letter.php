@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+
 /**
  * Class Letter
  *
@@ -12,9 +14,9 @@ namespace App\Models;
  * @property int $person_id
  * @property string|null $subject
  * @property string|null $text
- * @property int|null $is_viewed
- * @property int|null $created_at
- * @property int|null $updated_at
+ * @property bool|null $is_viewed
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $deleted_at
  *
  * @package App\Models
@@ -22,13 +24,11 @@ namespace App\Models;
 class Letter extends BaseModel
 {
 	protected $table = 'letter';
-	protected $perPage = 30;
-	public static $snakeAttributes = false;
 
 	protected $casts = [
 		'resource_id' => 'int',
 		'person_id' => 'int',
-		'is_viewed' => 'int'
+		'is_viewed' => 'bool'
 	];
 
 	protected $fillable = [

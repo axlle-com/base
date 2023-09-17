@@ -287,7 +287,7 @@ const _glob = {
                 }
                 error = json.error;
             }
-            if (response.status === 400 || response.status_code === 400) {
+            if (response.status === 400 || response.status_code === 400 || response.status === 419) {
                 if (error && Object.keys(error).length) {
                     for (let key in error) {
                         let selector = `[data-validator="${key}"]`;
@@ -297,8 +297,7 @@ const _glob = {
                             $(selector).addClass('is-invalid');
                         }
                     }
-                } else if (Object.keys(response.error).length) {
-
+                } else if (response.error && Object.keys(response.error).length) {
                     for (let key in response.error) {
                         let selector = `[data-validator="${key}"]`;
                         if (form) {

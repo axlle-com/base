@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -16,16 +15,12 @@ use Illuminate\Support\Str;
  * @property int|null $updated_at
  * @property int|null $deleted_at
  *
+ * @method static create(array $attributes)
+ *
  */
 abstract class BaseModel extends Model
 {
-    protected $dateFormat = 'U';
     protected $perPage = 30;
-    protected $casts = [
-        'created_at' => 'timestamp',
-        'updated_at' => 'timestamp',
-        'deleted_at' => 'timestamp',
-    ];
     protected bool $isNew = false;
 
     /**
@@ -33,16 +28,22 @@ abstract class BaseModel extends Model
      */
     protected static function boot(): void
     {
-        self::creating(static function ($model) {});
-        self::created(static function ($model) {});
-        self::updating(static function ($model) {});
-        self::updated(static function ($model) {});
-        self::deleting(static function ($model) {});
-        self::deleted(static function ($model) {});
+        self::creating(static function ($model) {
+        });
+        self::created(static function ($model) {
+        });
+        self::updating(static function ($model) {
+        });
+        self::updated(static function ($model) {
+        });
+        self::deleting(static function ($model) {
+        });
+        self::deleted(static function ($model) {
+        });
         parent::boot();
     }
 
-    public static function className(string $table = 'user'): ?string
+    public static function className(string $table): ?string
     {
         $classes = File::allFiles(app_path('Models'));
         foreach ($classes as $class) {
@@ -68,28 +69,6 @@ abstract class BaseModel extends Model
         $column = $column ? '.' . trim($column, '.') : '';
 
         return (new static())->getTable($column);
-    }
-
-    protected function updatedAt(): Attribute
-    {
-        return Attribute::make(
-            set: static fn($value) => strtotime($value),
-        );
-    }
-
-    protected function deletedAt(): Attribute
-    {
-        return Attribute::make(
-            set: static fn($value) => strtotime($value),
-        );
-    }
-
-    protected function createdAt(): Attribute
-    {
-        return Attribute::make(
-            get: static fn($value) => $value,
-            set: static fn($value) => strtotime($value)
-        );
     }
 
     public function getCreatedAtShot(): string

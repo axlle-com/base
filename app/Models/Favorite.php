@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+
 /**
  * Class Favorite
  *
@@ -9,8 +11,8 @@ namespace App\Models;
  * @property string $resource
  * @property int $resource_id
  * @property string|null $description
- * @property int|null $created_at
- * @property int|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $deleted_at
  *
  * @package App\Models
@@ -18,9 +20,6 @@ namespace App\Models;
 class Favorite extends BaseModel
 {
 	protected $table = 'favorites';
-	protected $perPage = 30;
-	public static $snakeAttributes = false;
-
 	protected $casts = [
 		'resource_id' => 'int'
 	];

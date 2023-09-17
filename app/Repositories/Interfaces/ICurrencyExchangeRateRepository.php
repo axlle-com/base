@@ -4,7 +4,7 @@ namespace App\Repositories\Interfaces;
 
 use Illuminate\Database\Eloquent\Collection;
 
-interface ICurrencyExchangeRateRepository
+interface ICurrencyExchangeRateRepository extends IBaseRepository
 {
     /**
      * @param array $attributes

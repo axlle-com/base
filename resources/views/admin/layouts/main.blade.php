@@ -84,144 +84,24 @@
             </ul>
         </div>
         <ul class="nav navbar-nav align-items-center ms-auto">
-            <li class="nav-item dropdown dropdown-language"><a class="nav-link dropdown-toggle" id="dropdown-flag"
-                                                               href="#" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                               aria-expanded="false"><i
-                        class="flag-icon flag-icon-us"></i><span class="selected-language">English</span></a>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-flag"><a class="dropdown-item"
-                                                                                                href="#"
-                                                                                                data-language="en"><i
-                            class="flag-icon flag-icon-us"></i> English</a><a class="dropdown-item" href="#"
-                                                                              data-language="fr"><i
-                            class="flag-icon flag-icon-fr"></i> French</a><a class="dropdown-item" href="#"
-                                                                             data-language="de"><i
-                            class="flag-icon flag-icon-de"></i> German</a><a class="dropdown-item" href="#"
-                                                                             data-language="pt"><i
-                            class="flag-icon flag-icon-pt"></i> Portuguese</a></div>
-            </li>
-            <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon"
-                                                                                         data-feather="moon"></i></a>
-            </li>
-            <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon"
-                                                                                   data-feather="search"></i></a>
+            <li class="nav-item nav-search">
+                <a class="nav-link nav-link-search"><i class="ficon" data-feather="search"></i></a>
                 <div class="search-input">
                     <div class="search-input-icon"><i data-feather="search"></i></div>
-                    <input class="form-control input" type="text" placeholder="Explore Vuexy..." tabindex="-1"
+                    <input class="form-control input"
+                           type="text"
+                           placeholder="Explore Vuexy..."
+                           tabindex="-1"
                            data-search="search">
                     <div class="search-input-close"><i data-feather="x"></i></div>
                     <ul class="search-list search-list-main"></ul>
                 </div>
             </li>
-            <li class="nav-item dropdown dropdown-cart me-25"><a class="nav-link" href="#" data-bs-toggle="dropdown"><i
-                        class="ficon" data-feather="shopping-cart"></i><span
-                        class="badge rounded-pill bg-primary badge-up cart-item-count">6</span></a>
-                <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
-                    <li class="dropdown-menu-header">
-                        <div class="dropdown-header d-flex">
-                            <h4 class="notification-title mb-0 me-auto">My Cart</h4>
-                            <div class="badge rounded-pill badge-light-primary">4 Items</div>
-                        </div>
-                    </li>
-                    <li class="scrollable-container media-list">
-                        <div class="list-item align-items-center"><img class="d-block rounded me-1"
-                                                                       src="../../../app-assets/images/pages/eCommerce/1.png"
-                                                                       alt="donuts" width="62">
-                            <div class="list-item-body flex-grow-1"><i class="ficon cart-item-remove"
-                                                                       data-feather="x"></i>
-                                <div class="media-heading">
-                                    <h6 class="cart-item-title"><a class="text-body" href="app-ecommerce-details.html">
-                                            Apple watch 5</a></h6><small class="cart-item-by">By Apple</small>
-                                </div>
-                                <div class="cart-item-qty">
-                                    <div class="input-group">
-                                        <input class="touchspin-cart" type="number" value="1">
-                                    </div>
-                                </div>
-                                <h5 class="cart-item-price">$374.90</h5>
-                            </div>
-                        </div>
-                        <div class="list-item align-items-center"><img class="d-block rounded me-1"
-                                                                       src="../../../app-assets/images/pages/eCommerce/7.png"
-                                                                       alt="donuts" width="62">
-                            <div class="list-item-body flex-grow-1"><i class="ficon cart-item-remove"
-                                                                       data-feather="x"></i>
-                                <div class="media-heading">
-                                    <h6 class="cart-item-title"><a class="text-body" href="app-ecommerce-details.html">
-                                            Google Home Mini</a></h6><small class="cart-item-by">By Google</small>
-                                </div>
-                                <div class="cart-item-qty">
-                                    <div class="input-group">
-                                        <input class="touchspin-cart" type="number" value="3">
-                                    </div>
-                                </div>
-                                <h5 class="cart-item-price">$129.40</h5>
-                            </div>
-                        </div>
-                        <div class="list-item align-items-center"><img class="d-block rounded me-1"
-                                                                       src="../../../app-assets/images/pages/eCommerce/2.png"
-                                                                       alt="donuts" width="62">
-                            <div class="list-item-body flex-grow-1"><i class="ficon cart-item-remove"
-                                                                       data-feather="x"></i>
-                                <div class="media-heading">
-                                    <h6 class="cart-item-title"><a class="text-body" href="app-ecommerce-details.html">
-                                            iPhone 11 Pro</a></h6><small class="cart-item-by">By Apple</small>
-                                </div>
-                                <div class="cart-item-qty">
-                                    <div class="input-group">
-                                        <input class="touchspin-cart" type="number" value="2">
-                                    </div>
-                                </div>
-                                <h5 class="cart-item-price">$699.00</h5>
-                            </div>
-                        </div>
-                        <div class="list-item align-items-center"><img class="d-block rounded me-1"
-                                                                       src="../../../app-assets/images/pages/eCommerce/3.png"
-                                                                       alt="donuts" width="62">
-                            <div class="list-item-body flex-grow-1"><i class="ficon cart-item-remove"
-                                                                       data-feather="x"></i>
-                                <div class="media-heading">
-                                    <h6 class="cart-item-title"><a class="text-body" href="app-ecommerce-details.html">
-                                            iMac Pro</a></h6><small class="cart-item-by">By Apple</small>
-                                </div>
-                                <div class="cart-item-qty">
-                                    <div class="input-group">
-                                        <input class="touchspin-cart" type="number" value="1">
-                                    </div>
-                                </div>
-                                <h5 class="cart-item-price">$4,999.00</h5>
-                            </div>
-                        </div>
-                        <div class="list-item align-items-center"><img class="d-block rounded me-1"
-                                                                       src="../../../app-assets/images/pages/eCommerce/5.png"
-                                                                       alt="donuts" width="62">
-                            <div class="list-item-body flex-grow-1"><i class="ficon cart-item-remove"
-                                                                       data-feather="x"></i>
-                                <div class="media-heading">
-                                    <h6 class="cart-item-title"><a class="text-body" href="app-ecommerce-details.html">
-                                            MacBook Pro</a></h6><small class="cart-item-by">By Apple</small>
-                                </div>
-                                <div class="cart-item-qty">
-                                    <div class="input-group">
-                                        <input class="touchspin-cart" type="number" value="1">
-                                    </div>
-                                </div>
-                                <h5 class="cart-item-price">$2,999.00</h5>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="dropdown-menu-footer">
-                        <div class="d-flex justify-content-between mb-1">
-                            <h6 class="fw-bolder mb-0">Total:</h6>
-                            <h6 class="text-primary fw-bolder mb-0">$10,999.00</h6>
-                        </div>
-                        <a class="btn btn-primary w-100" href="app-ecommerce-checkout.html">Checkout</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown dropdown-notification me-25"><a class="nav-link" href="#"
-                                                                         data-bs-toggle="dropdown"><i class="ficon"
-                                                                                                      data-feather="bell"></i><span
-                        class="badge rounded-pill bg-danger badge-up">5</span></a>
+            <li class="nav-item dropdown dropdown-notification me-25">
+                <a class="nav-link" href="#" data-bs-toggle="dropdown">
+                    <i class="ficon" data-feather="bell"></i>
+                    <span class="badge rounded-pill bg-danger badge-up">5</span>
+                </a>
                 <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
                     <li class="dropdown-menu-header">
                         <div class="dropdown-header d-flex">
@@ -229,7 +109,8 @@
                             <div class="badge rounded-pill badge-light-primary">6 New</div>
                         </div>
                     </li>
-                    <li class="scrollable-container media-list"><a class="d-flex" href="#">
+                    <li class="scrollable-container media-list">
+                        <a class="d-flex" href="#">
                             <div class="list-item d-flex align-items-start">
                                 <div class="me-1">
                                     <div class="avatar"><img
@@ -241,7 +122,8 @@
                                     </p><small class="notification-text"> Won the monthly best seller badge.</small>
                                 </div>
                             </div>
-                        </a><a class="d-flex" href="#">
+                        </a>
+                        <a class="d-flex" href="#">
                             <div class="list-item d-flex align-items-start">
                                 <div class="me-1">
                                     <div class="avatar"><img
@@ -253,7 +135,8 @@
                                     </p><small class="notification-text"> You have 10 unread messages</small>
                                 </div>
                             </div>
-                        </a><a class="d-flex" href="#">
+                        </a>
+                        <a class="d-flex" href="#">
                             <div class="list-item d-flex align-items-start">
                                 <div class="me-1">
                                     <div class="avatar bg-light-danger">
@@ -286,7 +169,8 @@
                                         usage</small>
                                 </div>
                             </div>
-                        </a><a class="d-flex" href="#">
+                        </a>
+                        <a class="d-flex" href="#">
                             <div class="list-item d-flex align-items-start">
                                 <div class="me-1">
                                     <div class="avatar bg-light-success">
@@ -299,7 +183,8 @@
                                     </p><small class="notification-text"> Last month sales report generated</small>
                                 </div>
                             </div>
-                        </a><a class="d-flex" href="#">
+                        </a>
+                        <a class="d-flex" href="#">
                             <div class="list-item d-flex align-items-start">
                                 <div class="me-1">
                                     <div class="avatar bg-light-warning">
@@ -314,38 +199,61 @@
                             </div>
                         </a>
                     </li>
-                    <li class="dropdown-menu-footer"><a class="btn btn-primary w-100" href="#">Read all
-                            notifications</a></li>
+                    <li class="dropdown-menu-footer">
+                        <a class="btn btn-primary w-100" href="#">Read all notifications</a>
+                    </li>
                 </ul>
             </li>
-            <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link"
-                                                           id="dropdown-user" href="#" data-bs-toggle="dropdown"
-                                                           aria-haspopup="true" aria-expanded="false">
-                    <div class="user-nav d-sm-flex d-none"><span class="user-name fw-bolder">John Doe</span><span
-                            class="user-status">Admin</span></div>
-                    <span class="avatar"><img class="round"
-                                              src="../../../app-assets/images/portrait/small/avatar-s-11.jpg"
-                                              alt="avatar" height="40" width="40"><span
-                            class="avatar-status-online"></span></span>
+            <li class="nav-item dropdown dropdown-user">
+                <a class="nav-link dropdown-toggle dropdown-user-link"
+                   id="dropdown-user" href="#" data-bs-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <div class="user-nav d-sm-flex d-none">
+                        <span class="user-name fw-bolder">John Doe</span>
+                        <span class="user-status">Admin</span>
+                    </div>
+                    <span class="avatar">
+                        <img class="round"
+                             src="../../../app-assets/images/portrait/small/avatar-s-11.jpg"
+                             alt="avatar"
+                             height="40"
+                             width="40">
+                        <span class="avatar-status-online"></span>
+                    </span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user"><a class="dropdown-item"
-                                                                                                href="page-profile.html"><i
-                            class="me-50" data-feather="user"></i> Profile</a><a class="dropdown-item"
-                                                                                 href="app-email.html"><i class="me-50"
-                                                                                                          data-feather="mail"></i>
-                        Inbox</a><a class="dropdown-item" href="app-todo.html"><i class="me-50"
-                                                                                  data-feather="check-square"></i> Task</a><a
-                        class="dropdown-item" href="app-chat.html"><i class="me-50" data-feather="message-square"></i>
-                        Chats</a>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
+                    <a class="dropdown-item" href="page-profile.html">
+                        <i class="me-50" data-feather="user"></i>
+                        Profile
+                    </a>
+                    <a class="dropdown-item" href="app-email.html">
+                        <i class="me-50" data-feather="mail"></i>
+                        Inbox
+                    </a>
+                    <a class="dropdown-item" href="app-todo.html">
+                        <i class="me-50"
+                           data-feather="check-square"></i> Task</a><a
+                        class="dropdown-item" href="app-chat.html">
+                        <i class="me-50" data-feather="message-square"></i>
+                        Chats
+                    </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="page-account-settings-account.html"><i class="me-50"
-                                                                                          data-feather="settings"></i>
-                        Settings</a><a class="dropdown-item" href="page-pricing.html"><i class="me-50"
-                                                                                         data-feather="credit-card"></i>
-                        Pricing</a><a class="dropdown-item" href="page-faq.html"><i class="me-50"
-                                                                                    data-feather="help-circle"></i> FAQ</a><a
-                        class="dropdown-item" href="auth-login-cover.html"><i class="me-50" data-feather="power"></i>
-                        Logout</a>
+                    <a class="dropdown-item" href="page-account-settings-account.html">
+                        <i class="me-50" data-feather="settings"></i>
+                        Settings
+                    </a>
+                    <a class="dropdown-item" href="page-pricing.html">
+                        <i class="me-50" data-feather="credit-card"></i>
+                        Pricing
+                    </a>
+                    <a class="dropdown-item" href="page-faq.html">
+                        <i class="me-50" data-feather="help-circle"></i>
+                        FAQ
+                    </a>
+                    <a class="dropdown-item" href="auth-login-cover.html">
+                        <i class="me-50" data-feather="power"></i>
+                        Logout
+                    </a>
                 </div>
             </li>
         </ul>
@@ -366,34 +274,37 @@
             </div>
             <small class="search-data-size me-50 text-muted">&apos;17kb</small>
         </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between w-100"
-                                   href="app-file-manager.html">
+    <li class="auto-suggestion">
+        <a class="d-flex align-items-center justify-content-between w-100" href="app-file-manager.html">
             <div class="d-flex">
-                <div class="me-75"><img src="../../../app-assets/images/icons/jpg.png" alt="png" height="32"></div>
+                <div class="me-75">
+                    <img src="../../../app-assets/images/icons/jpg.png" alt="png" height="32">
+                </div>
                 <div class="search-data">
-                    <p class="search-data-title mb-0">52 JPG file Generated</p><small class="text-muted">FontEnd
-                        Developer</small>
+                    <p class="search-data-title mb-0">52 JPG file Generated</p>
+                    <small class="text-muted">FontEnd Developer</small>
                 </div>
             </div>
             <small class="search-data-size me-50 text-muted">&apos;11kb</small>
         </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between w-100"
-                                   href="app-file-manager.html">
+    <li class="auto-suggestion">
+        <a class="d-flex align-items-center justify-content-between w-100" href="app-file-manager.html">
             <div class="d-flex">
                 <div class="me-75"><img src="../../../app-assets/images/icons/pdf.png" alt="png" height="32"></div>
                 <div class="search-data">
-                    <p class="search-data-title mb-0">25 PDF File Uploaded</p><small class="text-muted">Digital
-                        Marketing Manager</small>
+                    <p class="search-data-title mb-0">25 PDF File Uploaded</p>
+                    <small class="text-muted">Digital Marketing Manager</small>
                 </div>
             </div>
             <small class="search-data-size me-50 text-muted">&apos;150kb</small>
         </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between w-100"
-                                   href="app-file-manager.html">
+    <li class="auto-suggestion">
+        <a class="d-flex align-items-center justify-content-between w-100" href="app-file-manager.html">
             <div class="d-flex">
                 <div class="me-75"><img src="../../../app-assets/images/icons/doc.png" alt="png" height="32"></div>
                 <div class="search-data">
-                    <p class="search-data-title mb-0">Anna_Strong.doc</p><small class="text-muted">Web Designer</small>
+                    <p class="search-data-title mb-0">Anna_Strong.doc</p>
+                    <small class="text-muted">Web Designer</small>
                 </div>
             </div>
             <small class="search-data-size me-50 text-muted">&apos;256kb</small>
@@ -401,43 +312,47 @@
     <li class="d-flex align-items-center"><a href="#">
             <h6 class="section-label mt-75 mb-0">Members</h6>
         </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between py-50 w-100"
-                                   href="app-user-view-account.html">
+    <li class="auto-suggestion">
+        <a class="d-flex align-items-center justify-content-between py-50 w-100" href="app-user-view-account.html">
             <div class="d-flex align-items-center">
-                <div class="avatar me-75"><img src="../../../app-assets/images/portrait/small/avatar-s-8.jpg" alt="png"
-                                               height="32"></div>
+                <div class="avatar me-75">
+                    <img src="../../../app-assets/images/portrait/small/avatar-s-8.jpg" alt="png" height="32"></div>
                 <div class="search-data">
-                    <p class="search-data-title mb-0">John Doe</p><small class="text-muted">UI designer</small>
+                    <p class="search-data-title mb-0">John Doe</p>
+                    <small class="text-muted">UI designer</small>
                 </div>
             </div>
         </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between py-50 w-100"
-                                   href="app-user-view-account.html">
+    <li class="auto-suggestion">
+        <a class="d-flex align-items-center justify-content-between py-50 w-100" href="app-user-view-account.html">
             <div class="d-flex align-items-center">
-                <div class="avatar me-75"><img src="../../../app-assets/images/portrait/small/avatar-s-1.jpg" alt="png"
-                                               height="32"></div>
+                <div class="avatar me-75">
+                    <img src="../../../app-assets/images/portrait/small/avatar-s-1.jpg" alt="png" height="32">
+                </div>
                 <div class="search-data">
-                    <p class="search-data-title mb-0">Michal Clark</p><small class="text-muted">FontEnd
-                        Developer</small>
+                    <p class="search-data-title mb-0">Michal Clark</p>
+                    <small class="text-muted">FontEnd Developer</small>
                 </div>
             </div>
         </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between py-50 w-100"
-                                   href="app-user-view-account.html">
+    <li class="auto-suggestion">
+        <a class="d-flex align-items-center justify-content-between py-50 w-100" href="app-user-view-account.html">
             <div class="d-flex align-items-center">
-                <div class="avatar me-75"><img src="../../../app-assets/images/portrait/small/avatar-s-14.jpg" alt="png"
-                                               height="32"></div>
+                <div class="avatar me-75">
+                    <img src="../../../app-assets/images/portrait/small/avatar-s-14.jpg" alt="png" height="32">
+                </div>
                 <div class="search-data">
-                    <p class="search-data-title mb-0">Milena Gibson</p><small class="text-muted">Digital Marketing
-                        Manager</small>
+                    <p class="search-data-title mb-0">Milena Gibson</p>
+                    <small class="text-muted">Digital Marketing Manager</small>
                 </div>
             </div>
         </a></li>
-    <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between py-50 w-100"
-                                   href="app-user-view-account.html">
+    <li class="auto-suggestion">
+        <a class="d-flex align-items-center justify-content-between py-50 w-100" href="app-user-view-account.html">
             <div class="d-flex align-items-center">
-                <div class="avatar me-75"><img src="../../../app-assets/images/portrait/small/avatar-s-6.jpg" alt="png"
-                                               height="32"></div>
+                <div class="avatar me-75">
+                    <img src="../../../app-assets/images/portrait/small/avatar-s-6.jpg" alt="png" height="32">
+                </div>
                 <div class="search-data">
                     <p class="search-data-title mb-0">Anna Strong</p><small class="text-muted">Web Designer</small>
                 </div>
@@ -445,11 +360,14 @@
         </a></li>
 </ul>
 <ul class="main-search-list-defaultlist-other-list d-none">
-    <li class="auto-suggestion justify-content-between"><a
-            class="d-flex align-items-center justify-content-between w-100 py-50">
-            <div class="d-flex justify-content-start"><span class="me-75" data-feather="alert-circle"></span><span>No results found.</span>
+    <li class="auto-suggestion justify-content-between">
+        <a class="d-flex align-items-center justify-content-between w-100 py-50">
+            <div class="d-flex justify-content-start">
+                <span class="me-75" data-feather="alert-circle"></span>
+                <span>No results found.</span>
             </div>
-        </a></li>
+        </a>
+    </li>
 </ul>
 <!-- END: Header-->
 <!-- BEGIN: Main Menu-->
@@ -539,34 +457,11 @@
                         <h2 class="content-header-title float-start mb-0">DataTables</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a>
-                                </li>
-                                <li class="breadcrumb-item"><a href="#">Datatable</a>
-                                </li>
-                                <li class="breadcrumb-item active">Advanced
-                                </li>
+                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">Datatable</a></li>
+                                <li class="breadcrumb-item active">Advanced</li>
                             </ol>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
-                <div class="mb-1 breadcrumb-right">
-                    <div class="dropdown">
-                        <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
-                                data-feather="grid"></i></button>
-                        <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" href="app-todo.html"><i
-                                    class="me-1" data-feather="check-square"></i><span class="align-middle">Todo</span></a><a
-                                class="dropdown-item" href="app-chat.html"><i class="me-1"
-                                                                              data-feather="message-square"></i><span
-                                    class="align-middle">Chat</span></a><a class="dropdown-item"
-                                                                           href="app-email.html"><i class="me-1"
-                                                                                                    data-feather="mail"></i><span
-                                    class="align-middle">Email</span></a><a class="dropdown-item"
-                                                                            href="app-calendar.html"><i class="me-1"
-                                                                                                        data-feather="calendar"></i><span
-                                    class="align-middle">Calendar</span></a></div>
                     </div>
                 </div>
             </div>
@@ -576,7 +471,7 @@
             <div class="row" id="table-responsive">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header border-bottom p-1">
+                        <div class="card-header p-1">
                             <div class="head-label">
                                 <h6 class="mb-0">DataTable with Buttons</h6>
                             </div>
@@ -612,59 +507,59 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <p class="card-text">
-                                Responsive tables allow tables to be scrolled horizontally with ease. Make any table
-                                responsive
-                                across all
-                                viewports by adding <code class="highlighter-rouge">.table-responsive</code> class on
-                                <code class="highlighter-rouge">.table</code>. Or, pick a maximum breakpoint with which
-                                to have
-                                a responsive
-                                table up to by adding <code class="highlighter-rouge">
-                                    .table-responsive{-sm|-md|-lg|-xl}</code>.
-                                Read full
-                                documentation
-                                <a href="https://getbootstrap.com/docs/4.3/content/tables/#responsive-tables"
-                                   target="_blank">here.</a>
-                            </p>
-                            <div class="alert alert-info">
-                                <div class="alert-body">
-                                    <h4 class="text-warning">Vertical clipping/truncation</h4>
-                                    <p>
-                                        Responsive tables make use of <code class="highlighter-rouge">overflow-y:
-                                            hidden</code>,
-                                        which clips off
-                                        any content that goes beyond the bottom or top edges of the table. In
-                                        particular, this
-                                        can clip off
-                                        dropdown menus and other third-party widgets.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
                         <div class="table-responsive">
-                            <table class="table mb-0">
+                            <table class="table dataTable table-striped table-bordered">
                                 <thead>
                                 <tr>
+                                    <th scope="col" class="text-nowrap"></th>
+                                    <th scope="col" class="text-nowrap">
+                                        <input type="text" class="form-control form-control-sm"
+                                               placeholder="Search First name">
+                                    </th>
+                                    <th scope="col" class="text-nowrap">
+                                        <input type="text" class="form-control form-control-sm"
+                                               placeholder="Search First name">
+                                    </th>
+                                    <th scope="col" class="text-nowrap">
+                                        <input type="text" class="form-control form-control-sm"
+                                               placeholder="Search First name">
+                                    </th>
+                                    <th scope="col" class="text-nowrap">
+                                        <input type="text" class="form-control form-control-sm"
+                                               placeholder="Search First name">
+                                    </th>
+                                    <th scope="col" class="text-nowrap">
+                                        <input type="text" class="form-control form-control-sm"
+                                               placeholder="Search First name">
+                                    </th>
+                                    <th scope="col" class="text-nowrap"></th>
+                                </tr>
+                                <tr class="th-header">
                                     <th scope="col" class="text-nowrap">#</th>
                                     <th scope="col" class="text-nowrap">Heading 1</th>
                                     <th scope="col" class="text-nowrap">Heading 2</th>
                                     <th scope="col" class="text-nowrap">Heading 3</th>
                                     <th scope="col" class="text-nowrap">Heading 4</th>
                                     <th scope="col" class="text-nowrap">Heading 5</th>
-                                    <th scope="col" class="text-nowrap">Heading 6</th>
+                                    <th scope="col" class="text-nowrap"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td class="text-nowrap">1</td>
+                                    <td class="text-nowrap td-col-3">1</td>
+                                    <td class="text-nowrap td-col-30">Table cell</td>
                                     <td class="text-nowrap">Table cell</td>
                                     <td class="text-nowrap">Table cell</td>
                                     <td class="text-nowrap">Table cell</td>
                                     <td class="text-nowrap">Table cell</td>
-                                    <td class="text-nowrap">Table cell</td>
-                                    <td class="text-nowrap">Table cell</td>
+                                    <td class="text-nowrap td-col-5 text-center">
+                                        <a class="text-success">
+                                            <i data-feather='edit'></i>
+                                        </a>
+                                        <a class="text-danger">
+                                            <i data-feather='trash-2'></i>
+                                        </a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="text-nowrap">1</td>
@@ -698,28 +593,21 @@
                         </div>
                         <div class="card-body">
                             <div class="d-flex justify-content-between mx-0 row">
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="dataTables_info" id="DataTables_Table_0_info" role="status"
-                                         aria-live="polite">Showing 0 to 0 of 0 entries
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="dataTables_paginate paging_simple_numbers"
-                                         id="DataTables_Table_0_paginate">
-                                        <ul class="pagination">
-                                            <li class="paginate_button page-item previous disabled"
-                                                id="DataTables_Table_0_previous">
-                                                <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0"
-                                                   tabindex="0" class="page-link">&nbsp;</a>
-                                            </li>
-                                            <li class="paginate_button page-item next disabled"
-                                                id="DataTables_Table_0_next">
-                                                <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1"
-                                                   tabindex="0" class="page-link">&nbsp;</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination mt-2">
+                                        <li class="page-item prev"><a class="page-link" href="#"></a></li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item active" aria-current="page">
+                                            <a class="page-link" href="#">4</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">7</a></li>
+                                        <li class="page-item next"><a class="page-link" href="#"></a></li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>

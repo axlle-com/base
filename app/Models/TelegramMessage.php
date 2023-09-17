@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -15,8 +16,8 @@ use Illuminate\Database\Eloquent\Collection;
  * @property string|null $text
  * @property string|null $search
  * @property int|null $date
- * @property int $created_at
- * @property int $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $deleted_at
  *
  * @property TelegramMessage|null $telegramMessage
@@ -28,8 +29,6 @@ use Illuminate\Database\Eloquent\Collection;
 class TelegramMessage extends BaseModel
 {
 	protected $table = 'telegram_message';
-	protected $perPage = 30;
-	public static $snakeAttributes = false;
 
 	protected $casts = [
 		'telegram_message_id' => 'int',

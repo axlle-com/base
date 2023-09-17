@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+
 /**
  * Class PageSetting
  *
@@ -10,8 +12,8 @@ namespace App\Models;
  * @property int $resource_id
  * @property string|null $script
  * @property string|null $css
- * @property int|null $created_at
- * @property int|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $deleted_at
  *
  * @package App\Models
@@ -19,8 +21,6 @@ namespace App\Models;
 class PageSetting extends BaseModel
 {
 	protected $table = 'page_setting';
-	protected $perPage = 30;
-	public static $snakeAttributes = false;
 
 	protected $casts = [
 		'resource_id' => 'int'

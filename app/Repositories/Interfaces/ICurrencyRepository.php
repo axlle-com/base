@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interfaces;
 
-interface ICurrencyRepository
+interface ICurrencyRepository extends IBaseRepository
 {
     public function existOrCreate(array $attributes = []);
 

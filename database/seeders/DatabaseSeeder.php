@@ -2,8 +2,12 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Rights\Helper\Permission as PermissionConst;
+use App\Models\Rights\Helper\Role as RoleConst;
+use App\Models\User\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +16,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $adminRole = Role::create(['name' => RoleConst::ADMINISTRATOR]);
+        $employeeRole = Role::create(['name' => RoleConst::EMPLOYEE]);
+        $permission = Permission::create(['name' => PermissionConst::ENTRY_ALLOWED]);
+        $permission->assignRole($adminRole);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $adminUser = User::create([
+            'email' => 'admin@yandex.ru',
+            'password_hash' => bcrypt('securepass'),
+            'first_name' => 'Admin',
+            'last_name' => 'Admin',
+            'status' => '10',
+        ]);
+        $adminUser->assignRole(RoleConst::ADMINISTRATOR);
+        $adminUser->assignRole(RoleConst::EMPLOYEE);
     }
 }

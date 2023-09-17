@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -13,13 +14,13 @@ use Illuminate\Database\Eloquent\Collection;
  * @property int $resource_id
  * @property string $person
  * @property int $person_id
- * @property int|null $status
- * @property int|null $is_viewed
+ * @property bool|null $status
+ * @property bool|null $is_viewed
  * @property int $level
  * @property string|null $path
  * @property string $text
- * @property int|null $created_at
- * @property int|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $deleted_at
  *
  * @property Comment|null $comment
@@ -29,39 +30,37 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class Comment extends BaseModel
 {
-    protected $table = 'comment';
-    protected $perPage = 30;
-    public static $snakeAttributes = false;
+	protected $table = 'comment';
 
-    protected $casts = [
-        'comment_id' => 'int',
-        'resource_id' => 'int',
-        'person_id' => 'int',
-        'status' => 'int',
-        'is_viewed' => 'int',
-        'level' => 'int'
-    ];
+	protected $casts = [
+		'comment_id' => 'int',
+		'resource_id' => 'int',
+		'person_id' => 'int',
+		'status' => 'bool',
+		'is_viewed' => 'bool',
+		'level' => 'int'
+	];
 
-    protected $fillable = [
-        'comment_id',
-        'resource',
-        'resource_id',
-        'person',
-        'person_id',
-        'status',
-        'is_viewed',
-        'level',
-        'path',
-        'text'
-    ];
+	protected $fillable = [
+		'comment_id',
+		'resource',
+		'resource_id',
+		'person',
+		'person_id',
+		'status',
+		'is_viewed',
+		'level',
+		'path',
+		'text'
+	];
 
-    public function comment()
-    {
-        return $this->belongsTo(Comment::class);
-    }
+	public function comment()
+	{
+		return $this->belongsTo(Comment::class);
+	}
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
+	public function comments()
+	{
+		return $this->hasMany(Comment::class);
+	}
 }

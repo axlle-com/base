@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\User\User;
+
 /**
  * Class Logger
  *
  * @property int $id
  * @property int|null $user_id
- * @property int|null $ips_id
+ * @property int|null $ip_id
  * @property string $uuid
  * @property string $channel
  * @property string $level
@@ -24,18 +26,17 @@ namespace App\Models;
 class Logger extends BaseModel
 {
 	protected $table = 'logger';
-	protected $perPage = 30;
+
 	public $timestamps = false;
-	public static $snakeAttributes = false;
 
 	protected $casts = [
 		'user_id' => 'int',
-		'ips_id' => 'int'
+		'ip_id' => 'int'
 	];
 
 	protected $fillable = [
 		'user_id',
-		'ips_id',
+		'ip_id',
 		'uuid',
 		'channel',
 		'level',
@@ -46,7 +47,7 @@ class Logger extends BaseModel
 
 	public function ip()
 	{
-		return $this->belongsTo(Ip::class, 'ips_id');
+		return $this->belongsTo(Ip::class, 'ip_id');
 	}
 
 	public function user()

@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Interfaces;
 
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -18,4 +19,11 @@ interface IBaseRepository
     public function delete(int $id);
 
     public function update(int $id, array $attributes): bool;
+
+    /**
+     * @param array $attributes
+     * @param array $with
+     * @return BaseModel|null
+     */
+    public function findByAttributes(array $attributes, array $with = []);
 }

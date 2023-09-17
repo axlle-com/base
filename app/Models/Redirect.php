@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+
 /**
  * Class Redirect
  *
  * @property int $id
  * @property string $url
  * @property string $url_old
- * @property int|null $created_at
- * @property int|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $deleted_at
  *
  * @package App\Models
@@ -17,8 +19,6 @@ namespace App\Models;
 class Redirect extends BaseModel
 {
 	protected $table = 'redirect';
-	protected $perPage = 30;
-	public static $snakeAttributes = false;
 
 	protected $fillable = [
 		'url',

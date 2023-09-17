@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+
 /**
  * Class Address
  *
@@ -9,7 +11,7 @@ namespace App\Models;
  * @property string $resource
  * @property int $resource_id
  * @property int $type
- * @property int|null $is_delivery
+ * @property bool|null $is_delivery
  * @property string|null $address
  * @property int|null $index
  * @property string|null $country
@@ -20,39 +22,37 @@ namespace App\Models;
  * @property string|null $apartment
  * @property string|null $description
  * @property string|null $image
- * @property int|null $created_at
- * @property int|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $deleted_at
  *
  * @package App\Models
  */
 class Address extends BaseModel
 {
-    protected $table = 'address';
-    protected $perPage = 30;
-    public static $snakeAttributes = false;
+	protected $table = 'address';
 
-    protected $casts = [
-        'resource_id' => 'int',
-        'type' => 'int',
-        'is_delivery' => 'int',
-        'index' => 'int'
-    ];
+	protected $casts = [
+		'resource_id' => 'int',
+		'type' => 'int',
+		'is_delivery' => 'bool',
+		'index' => 'int'
+	];
 
-    protected $fillable = [
-        'resource',
-        'resource_id',
-        'type',
-        'is_delivery',
-        'address',
-        'index',
-        'country',
-        'region',
-        'city',
-        'street',
-        'house',
-        'apartment',
-        'description',
-        'image'
-    ];
+	protected $fillable = [
+		'resource',
+		'resource_id',
+		'type',
+		'is_delivery',
+		'address',
+		'index',
+		'country',
+		'region',
+		'city',
+		'street',
+		'house',
+		'apartment',
+		'description',
+		'image'
+	];
 }

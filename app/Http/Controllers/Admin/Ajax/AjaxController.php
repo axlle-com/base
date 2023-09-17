@@ -28,6 +28,18 @@ abstract class AjaxController extends Controller
         );
     }
 
+    public function error(mixed $errors = null): JsonResponse
+    {
+        return response()->json(
+            [
+                'status' => 0,
+                'message' => $this->message,
+                'data' => $this->data,
+                'errors' => $errors ?? $this->errors,
+            ],419
+        );
+    }
+
     /**
      * @param int $status
      * @return AjaxController
