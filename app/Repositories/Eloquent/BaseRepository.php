@@ -3,10 +3,9 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\BaseModel;
-use App\Repositories\Interfaces\IBaseRepository;
 use Illuminate\Database\Eloquent\Collection;
 
-abstract class BaseRepository implements IBaseRepository
+abstract class BaseRepository
 {
     /**
      * @var BaseModel

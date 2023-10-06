@@ -151,4 +151,12 @@ class User extends BaseUser
         $user['permissions'] = $this->getAllPermissions()->pluck('name')->toArray();
         session(['_user' => $user]);
     }
+
+    /**
+     * @return string|null
+     */
+    public function avatar(): ?string
+    {
+        return $this->avatar;
+    }
 }

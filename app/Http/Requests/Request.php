@@ -15,11 +15,14 @@ class Request extends FormRequest
 
     public function failedValidation(Validator $validator): void
     {
-        throw new HttpResponseException(response()->json([
-            'status' => 0,
-            'data' => null,
-            'errors' => $validator->errors()->getMessages(),
-        ]));
+        throw new HttpResponseException(
+            response()->json([
+                'status' => 0,
+                'data' => null,
+                'message' => '$this->message',
+                'errors' => $validator->errors()->getMessages(),
+            ])
+        );
     }
 
 }
