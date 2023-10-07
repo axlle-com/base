@@ -23,25 +23,25 @@ use App\Models\BaseModel;
  */
 class PostLanguage extends BaseModel
 {
-	protected $table = 'post_language';
-	public $timestamps = false;
+    protected $table = 'post_language';
+    public $timestamps = false;
 
-	protected $casts = [
-		'post_id' => 'int'
-	];
+    protected $casts = [
+        'post_id' => 'int'
+    ];
 
-	protected $fillable = [
-		'meta_title',
-		'meta_description',
-		'language',
-		'title',
-		'title_short',
-		'preview_description',
-		'description'
-	];
+    protected $fillable = [
+        'meta_title',
+        'meta_description',
+        'language',
+        'title',
+        'title_short',
+        'preview_description',
+        'description'
+    ];
 
-	public function post()
-	{
-		return $this->belongsTo(Post::class);
-	}
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
 }

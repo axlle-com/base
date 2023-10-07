@@ -23,26 +23,26 @@ use Carbon\Carbon;
  */
 class UserToken extends BaseModel
 {
-	protected $table = 'user_token';
+    protected $table = 'user_token';
 
-	protected $casts = [
-		'user_id' => 'int',
-		'expired_at' => 'datetime'
-	];
+    protected $casts = [
+        'user_id' => 'int',
+        'expired_at' => 'datetime'
+    ];
 
-	protected $hidden = [
-		'token'
-	];
+    protected $hidden = [
+        'token'
+    ];
 
-	protected $fillable = [
-		'user_id',
-		'type',
-		'token',
-		'expired_at'
-	];
+    protected $fillable = [
+        'user_id',
+        'type',
+        'token',
+        'expired_at'
+    ];
 
-	public function user()
-	{
-		return $this->belongsTo(User::class);
-	}
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

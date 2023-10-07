@@ -5,8 +5,15 @@ namespace App\Models\Post;
 use App\Models\BaseModel;
 use App\Models\InfoBlock;
 use App\Models\Render;
+use App\Models\Traits\HasGallery;
+use App\Models\Traits\HasGalleryImage;
+use App\Models\Traits\HasHistory;
+use App\Models\Traits\HasUrl;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class PostCategory
@@ -44,68 +51,91 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class PostCategory extends BaseModel
 {
-	protected $table = 'post_category';
+    use HasUrl;
+    use HasGallery;
+    use HasGalleryImage;
+    use HasHistory;
+
+    protected $table = 'post_category';
 
 
-	protected $casts = [
-		'render_id' => 'int',
-		'post_category_id' => 'int',
-		'is_published' => 'bool',
-		'is_favourites' => 'bool',
-		'is_watermark' => 'bool',
-		'is_sitemap' => 'bool',
-		'show_image' => 'bool',
-		'sort' => 'int'
-	];
+    protected $casts = [
+        'render_id' => 'int',
+        'post_category_id' => 'int',
+        'is_published' => 'bool',
+        'is_favourites' => 'bool',
+        'is_watermark' => 'bool',
+        'is_sitemap' => 'bool',
+        'show_image' => 'bool',
+        'sort' => 'int'
+    ];
 
-	protected $fillable = [
-		'render_id',
-		'post_category_id',
-		'meta_title',
-		'meta_description',
-		'alias',
-		'url',
-		'is_published',
-		'is_favourites',
-		'is_watermark',
-		'is_sitemap',
-		'image',
-		'show_image',
-		'title',
-		'title_short',
-		'description',
-		'preview_description',
-		'sort'
-	];
+    protected $fillable = [
+        'render_id',
+        'post_category_id',
+        'meta_title',
+        'meta_description',
+        'alias',
+        'url',
+        'is_published',
+        'is_favourites',
+        'is_watermark',
+        'is_sitemap',
+        'image',
+        'show_image',
+        'title',
+        'title_short',
+        'description',
+        'preview_description',
+        'sort'
+    ];
 
-	public function postCategory()
-	{
-		return $this->belongsTo(PostCategory::class);
-	}
+    /**
+     * @return BelongsTo
+     */
+    public function postCategory(): BelongsTo
+    {
+        return $this->belongsTo(__CLASS__);
+    }
 
-	public function render()
-	{
-		return $this->belongsTo(Render::class);
-	}
+    /**
+     * @return BelongsTo
+     */
+    public function render(): BelongsTo
+    {
+        return $this->belongsTo(Render::class);
+    }
 
-	public function posts()
-	{
-		return $this->hasMany(Post::class);
-	}
+    /**
+     * @return HasMany
+     */
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
 
-	public function postCategories()
-	{
-		return $this->hasMany(PostCategory::class);
-	}
+    /**
+     * @return HasMany
+     */
+    public function postCategories(): HasMany
+    {
+        return $this->hasMany(__CLASS__);
+    }
 
-	public function infoBlocks()
-	{
-		return $this->belongsToMany(InfoBlock::class, 'post_category_has_info_block')
-					->withPivot('sort');
-	}
+    /**
+     * @return BelongsToMany
+     */
+    public function infoBlocks(): BelongsToMany
+    {
+        return $this->belongsToMany(InfoBlock::class, 'post_category_has_info_block')
+            ->withPivot('sort');
+    }
 
-	public function postCategoryLanguages()
-	{
-		return $this->hasMany(PostCategoryLanguage::class);
-	}
+    /**
+     * @return HasMany
+     */
+    public function postCategoryLanguages(): HasMany
+    {
+        return $this->hasMany(PostCategoryLanguage::class);
+    }
 }

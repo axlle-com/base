@@ -30,37 +30,37 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class Comment extends BaseModel
 {
-	protected $table = 'comment';
+    protected $table = 'comment';
 
-	protected $casts = [
-		'comment_id' => 'int',
-		'resource_id' => 'int',
-		'person_id' => 'int',
-		'status' => 'bool',
-		'is_viewed' => 'bool',
-		'level' => 'int'
-	];
+    protected $casts = [
+        'comment_id' => 'int',
+        'resource_id' => 'int',
+        'person_id' => 'int',
+        'status' => 'bool',
+        'is_viewed' => 'bool',
+        'level' => 'int'
+    ];
 
-	protected $fillable = [
-		'comment_id',
-		'resource',
-		'resource_id',
-		'person',
-		'person_id',
-		'status',
-		'is_viewed',
-		'level',
-		'path',
-		'text'
-	];
+    protected $fillable = [
+        'comment_id',
+        'resource',
+        'resource_id',
+        'person',
+        'person_id',
+        'status',
+        'is_viewed',
+        'level',
+        'path',
+        'text'
+    ];
 
-	public function comment()
-	{
-		return $this->belongsTo(Comment::class);
-	}
+    public function comment()
+    {
+        return $this->belongsTo(Comment::class);
+    }
 
-	public function comments()
-	{
-		return $this->hasMany(Comment::class);
-	}
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

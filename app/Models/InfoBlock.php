@@ -34,45 +34,45 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class InfoBlock extends BaseModel
 {
-	protected $table = 'info_block';
+    protected $table = 'info_block';
 
-	protected $casts = [
-		'sort' => 'int',
-		'is_watermark' => 'bool'
-	];
+    protected $casts = [
+        'sort' => 'int',
+        'is_watermark' => 'bool'
+    ];
 
-	protected $fillable = [
-		'position',
-		'sort',
-		'title',
-		'title_short',
-		'preview_description',
-		'description',
-		'is_watermark',
-		'media',
-		'image'
-	];
+    protected $fillable = [
+        'position',
+        'sort',
+        'title',
+        'title_short',
+        'preview_description',
+        'description',
+        'is_watermark',
+        'media',
+        'image'
+    ];
 
-	public function infoBlockLanguages()
-	{
-		return $this->hasMany(InfoBlockLanguage::class);
-	}
+    public function infoBlockLanguages()
+    {
+        return $this->hasMany(InfoBlockLanguage::class);
+    }
 
-	public function pages()
-	{
-		return $this->belongsToMany(Page::class, 'page_has_info_block')
-					->withPivot('sort');
-	}
+    public function pages()
+    {
+        return $this->belongsToMany(Page::class, 'page_has_info_block')
+            ->withPivot('sort');
+    }
 
-	public function postCategories()
-	{
-		return $this->belongsToMany(PostCategory::class, 'post_category_has_info_block')
-					->withPivot('sort');
-	}
+    public function postCategories()
+    {
+        return $this->belongsToMany(PostCategory::class, 'post_category_has_info_block')
+            ->withPivot('sort');
+    }
 
-	public function posts()
-	{
-		return $this->belongsToMany(Post::class, 'post_has_info_block')
-					->withPivot('sort');
-	}
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class, 'post_has_info_block')
+            ->withPivot('sort');
+    }
 }

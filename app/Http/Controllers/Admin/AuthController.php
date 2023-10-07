@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use App\Models\User\User;
 use App\Providers\RouteServiceProvider;
 use App\Services\UserServices;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 
 class AuthController extends Controller
 {
@@ -25,7 +28,7 @@ class AuthController extends Controller
     /**
      * @return Application|Factory|View|\Illuminate\Foundation\Application
      */
-    public function loginForm()
+    public function loginForm(): \Illuminate\Foundation\Application|View|Factory|Application
     {
         $user = User::auth();
         if ($user) {
@@ -34,8 +37,14 @@ class AuthController extends Controller
         return view('admin.auth.login');
     }
 
-    public function login()
+    /**
+     * @param LoginRequest $request
+     * @return Application|\Illuminate\Foundation\Application|RedirectResponse|Redirector|void
+     */
+    public function login(LoginRequest $request)
     {
-        return view('admin.auth.login');
+        if ($this->userServices->login($request->all())) {
+            return redirect(RouteServiceProvider::ADMIN_HOME);
+        }
     }
 }

@@ -23,26 +23,26 @@ use App\Models\BaseModel;
  */
 class PostCategoryLanguage extends BaseModel
 {
-	protected $table = 'post_category_language';
+    protected $table = 'post_category_language';
 
-	public $timestamps = false;
+    public $timestamps = false;
 
-	protected $casts = [
-		'post_category_id' => 'int'
-	];
+    protected $casts = [
+        'post_category_id' => 'int'
+    ];
 
-	protected $fillable = [
-		'meta_title',
-		'meta_description',
-		'language',
-		'title',
-		'title_short',
-		'description',
-		'preview_description'
-	];
+    protected $fillable = [
+        'meta_title',
+        'meta_description',
+        'language',
+        'title',
+        'title_short',
+        'description',
+        'preview_description'
+    ];
 
-	public function postCategory()
-	{
-		return $this->belongsTo(PostCategory::class);
-	}
+    public function postCategory()
+    {
+        return $this->belongsTo(PostCategory::class);
+    }
 }

@@ -22,25 +22,25 @@ use App\Models\BaseModel;
  */
 class TagLanguage extends BaseModel
 {
-	protected $table = 'tag_language';
+    protected $table = 'tag_language';
 
-	public $timestamps = false;
+    public $timestamps = false;
 
-	protected $casts = [
-		'tag_id' => 'int'
-	];
+    protected $casts = [
+        'tag_id' => 'int'
+    ];
 
-	protected $fillable = [
-		'meta_title',
-		'meta_description',
-		'language',
-		'title',
-		'title_short',
-		'description'
-	];
+    protected $fillable = [
+        'meta_title',
+        'meta_description',
+        'language',
+        'title',
+        'title_short',
+        'description'
+    ];
 
-	public function tag()
-	{
-		return $this->belongsTo(Tag::class);
-	}
+    public function tag()
+    {
+        return $this->belongsTo(Tag::class);
+    }
 }

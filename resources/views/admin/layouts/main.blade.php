@@ -19,7 +19,7 @@ $user = User::auth();
     <link rel="stylesheet" href="/backend/css/common.css?v={{ time() }}">
     <title>{{ config('app.company_name') }} | {{ $title ?? 'Заголовок' }}</title>
 </head>
-<body class="a-shop">
+<body class="a-block">
 <div class="sidebar">
     <div class="sidebar-header">
         <a href="/" class="logo">
@@ -94,7 +94,9 @@ $user = User::auth();
             </li>
         </ul>
     </div>
-    <div class="a-shop-block">@yield('content')</div>
+    <div class="a-block-inner">
+        @yield('content')
+    </div>
 </div>
 <script src="/backend/js/main.js"></script>
 <script src="/main/js/glob.js"></script>

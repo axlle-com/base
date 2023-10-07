@@ -25,33 +25,33 @@ use App\Models\User\User;
  */
 class Logger extends BaseModel
 {
-	protected $table = 'logger';
+    protected $table = 'logger';
 
-	public $timestamps = false;
+    public $timestamps = false;
 
-	protected $casts = [
-		'user_id' => 'int',
-		'ip_id' => 'int'
-	];
+    protected $casts = [
+        'user_id' => 'int',
+        'ip_id' => 'int'
+    ];
 
-	protected $fillable = [
-		'user_id',
-		'ip_id',
-		'uuid',
-		'channel',
-		'level',
-		'title',
-		'body',
-		'created_date'
-	];
+    protected $fillable = [
+        'user_id',
+        'ip_id',
+        'uuid',
+        'channel',
+        'level',
+        'title',
+        'body',
+        'created_date'
+    ];
 
-	public function ip()
-	{
-		return $this->belongsTo(Ip::class, 'ip_id');
-	}
+    public function ip()
+    {
+        return $this->belongsTo(Ip::class, 'ip_id');
+    }
 
-	public function user()
-	{
-		return $this->belongsTo(User::class);
-	}
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

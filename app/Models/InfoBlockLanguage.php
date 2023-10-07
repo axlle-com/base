@@ -19,23 +19,23 @@ namespace App\Models;
  */
 class InfoBlockLanguage extends BaseModel
 {
-	protected $table = 'info_block_language';
-	public $timestamps = false;
+    protected $table = 'info_block_language';
+    public $timestamps = false;
 
-	protected $casts = [
-		'info_block_id' => 'int'
-	];
+    protected $casts = [
+        'info_block_id' => 'int'
+    ];
 
-	protected $fillable = [
-		'language',
-		'title',
-		'title_short',
-		'preview_description',
-		'description'
-	];
+    protected $fillable = [
+        'language',
+        'title',
+        'title_short',
+        'preview_description',
+        'description'
+    ];
 
-	public function infoBlock()
-	{
-		return $this->belongsTo(InfoBlock::class);
-	}
+    public function infoBlock()
+    {
+        return $this->belongsTo(InfoBlock::class);
+    }
 }

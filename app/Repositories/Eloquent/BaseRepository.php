@@ -36,7 +36,7 @@ abstract class BaseRepository
     public function find(int $id, array $with = [], array $params = []): ?BaseModel
     {
         /** @var BaseModel $model */
-        $model = $this->model::query()->with($with)->first($id);
+        $model = $this->model::query()->with($with)->find($id);
 
         return $model;
     }

@@ -3,7 +3,6 @@
 namespace App\Models\Currency;
 
 use App\Models\BaseModel;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**

@@ -5,8 +5,15 @@ namespace App\Models\Post;
 use App\Models\BaseModel;
 use App\Models\InfoBlock;
 use App\Models\Render;
+use App\Models\Traits\HasGallery;
+use App\Models\Traits\HasGalleryImage;
+use App\Models\Traits\HasHistory;
+use App\Models\Traits\HasUrl;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Post
@@ -52,76 +59,93 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class Post extends BaseModel
 {
-	protected $table = 'post';
+    use HasUrl;
+    use HasGallery;
+    use HasGalleryImage;
+    use HasHistory;
 
-	protected $casts = [
-		'render_id' => 'int',
-		'post_category_id' => 'int',
-		'is_published' => 'bool',
-		'is_favourites' => 'bool',
-		'is_comments' => 'bool',
-		'is_image_post' => 'bool',
-		'is_image_category' => 'bool',
-		'is_watermark' => 'bool',
-		'is_sitemap' => 'bool',
-		'show_date' => 'bool',
-		'date_pub' => 'datetime',
-		'date_end' => 'datetime',
-		'control_date_pub' => 'bool',
-		'control_date_end' => 'bool',
-		'hits' => 'int',
-		'sort' => 'int',
-		'stars' => 'float'
-	];
+    protected $table = 'post';
 
-	protected $fillable = [
-		'render_id',
-		'post_category_id',
-		'meta_title',
-		'meta_description',
-		'alias',
-		'url',
-		'is_published',
-		'is_favourites',
-		'is_comments',
-		'is_image_post',
-		'is_image_category',
-		'is_watermark',
-		'is_sitemap',
-		'media',
-		'title',
-		'title_short',
-		'preview_description',
-		'description',
-		'show_date',
-		'date_pub',
-		'date_end',
-		'control_date_pub',
-		'control_date_end',
-		'image',
-		'hits',
-		'sort',
-		'stars'
-	];
+    protected $casts = [
+        'render_id' => 'int',
+        'post_category_id' => 'int',
+        'is_published' => 'bool',
+        'is_favourites' => 'bool',
+        'is_comments' => 'bool',
+        'is_image_post' => 'bool',
+        'is_image_category' => 'bool',
+        'is_watermark' => 'bool',
+        'is_sitemap' => 'bool',
+        'show_date' => 'bool',
+        'date_pub' => 'datetime',
+        'date_end' => 'datetime',
+        'control_date_pub' => 'bool',
+        'control_date_end' => 'bool',
+        'hits' => 'int',
+        'sort' => 'int',
+        'stars' => 'float'
+    ];
 
-	public function postCategory()
-	{
-		return $this->belongsTo(PostCategory::class);
-	}
+    protected $fillable = [
+        'render_id',
+        'post_category_id',
+        'meta_title',
+        'meta_description',
+        'alias',
+        'url',
+        'is_published',
+        'is_favourites',
+        'is_comments',
+        'is_image_post',
+        'is_image_category',
+        'is_watermark',
+        'is_sitemap',
+        'media',
+        'title',
+        'title_short',
+        'preview_description',
+        'description',
+        'show_date',
+        'date_pub',
+        'date_end',
+        'control_date_pub',
+        'control_date_end',
+        'image',
+        'hits',
+        'sort',
+        'stars'
+    ];
 
-	public function render()
-	{
-		return $this->belongsTo(Render::class);
-	}
+    /**
+     * @return BelongsTo
+     */
+    public function postCategory(): BelongsTo
+    {
+        return $this->belongsTo(PostCategory::class);
+    }
 
-	public function infoBlocks()
-	{
-		return $this->belongsToMany(InfoBlock::class, 'post_has_info_block')
-					->withPivot('sort');
-	}
+    /**
+     * @return BelongsTo
+     */
+    public function render(): BelongsTo
+    {
+        return $this->belongsTo(Render::class);
+    }
 
-	public function postLanguages()
-	{
-		return $this->hasMany(PostLanguage::class);
-	}
+    /**
+     * @return BelongsToMany
+     */
+    public function infoBlocks(): BelongsToMany
+    {
+        return $this->belongsToMany(InfoBlock::class, 'post_has_info_block')
+            ->withPivot('sort');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function postLanguages(): HasMany
+    {
+        return $this->hasMany(PostLanguage::class);
+    }
 }

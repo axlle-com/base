@@ -24,30 +24,30 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Ip extends BaseModel
 {
-	protected $table = 'ip';
+    protected $table = 'ip';
 
-	protected $casts = [
-		'status' => 'bool'
-	];
+    protected $casts = [
+        'status' => 'bool'
+    ];
 
-	protected $fillable = [
-		'ip',
-		'status'
-	];
-
-    /**
-     * @return HasMany
-     */
-	public function histories(): HasMany
-    {
-		return $this->hasMany(History::class, 'ip_id');
-	}
+    protected $fillable = [
+        'ip',
+        'status'
+    ];
 
     /**
      * @return HasMany
      */
-	public function loggers(): HasMany
+    public function histories(): HasMany
     {
-		return $this->hasMany(Logger::class, 'ip_id');
-	}
+        return $this->hasMany(History::class, 'ip_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function loggers(): HasMany
+    {
+        return $this->hasMany(Logger::class, 'ip_id');
+    }
 }

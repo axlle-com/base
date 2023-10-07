@@ -5,6 +5,10 @@ namespace App\Models\Page;
 use App\Models\BaseModel;
 use App\Models\InfoBlock;
 use App\Models\Render;
+use App\Models\Traits\HasGallery;
+use App\Models\Traits\HasGalleryImage;
+use App\Models\Traits\HasHistory;
+use App\Models\Traits\HasUrl;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -41,52 +45,57 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class Page extends BaseModel
 {
-	protected $table = 'page';
+    use HasUrl;
+    use HasGallery;
+    use HasGalleryImage;
+    use HasHistory;
 
-	protected $casts = [
-		'render_id' => 'int',
-		'is_published' => 'bool',
-		'is_favourites' => 'bool',
-		'is_comments' => 'bool',
-		'is_watermark' => 'bool',
-		'is_sitemap' => 'bool',
-		'hits' => 'int',
-		'sort' => 'int'
-	];
+    protected $table = 'page';
 
-	protected $fillable = [
-		'render_id',
-		'meta_title',
-		'meta_description',
-		'alias',
-		'url',
-		'is_published',
-		'is_favourites',
-		'is_comments',
-		'is_watermark',
-		'is_sitemap',
-		'title',
-		'title_short',
-		'description',
-		'image',
-		'media',
-		'hits',
-		'sort'
-	];
+    protected $casts = [
+        'render_id' => 'int',
+        'is_published' => 'bool',
+        'is_favourites' => 'bool',
+        'is_comments' => 'bool',
+        'is_watermark' => 'bool',
+        'is_sitemap' => 'bool',
+        'hits' => 'int',
+        'sort' => 'int'
+    ];
 
-	public function render()
-	{
-		return $this->belongsTo(Render::class);
-	}
+    protected $fillable = [
+        'render_id',
+        'meta_title',
+        'meta_description',
+        'alias',
+        'url',
+        'is_published',
+        'is_favourites',
+        'is_comments',
+        'is_watermark',
+        'is_sitemap',
+        'title',
+        'title_short',
+        'description',
+        'image',
+        'media',
+        'hits',
+        'sort'
+    ];
 
-	public function infoBlocks()
-	{
-		return $this->belongsToMany(InfoBlock::class, 'page_has_info_block')
-					->withPivot('sort');
-	}
+    public function render()
+    {
+        return $this->belongsTo(Render::class);
+    }
 
-	public function pageLanguages()
-	{
-		return $this->hasMany(PageLanguage::class);
-	}
+    public function infoBlocks()
+    {
+        return $this->belongsToMany(InfoBlock::class, 'page_has_info_block')
+            ->withPivot('sort');
+    }
+
+    public function pageLanguages()
+    {
+        return $this->hasMany(PageLanguage::class);
+    }
 }

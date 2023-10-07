@@ -20,16 +20,16 @@ use Carbon\Carbon;
  */
 class PageSetting extends BaseModel
 {
-	protected $table = 'page_setting';
+    protected $table = 'page_setting';
 
-	protected $casts = [
-		'resource_id' => 'int'
-	];
+    protected $casts = [
+        'resource_id' => 'int'
+    ];
 
-	protected $fillable = [
-		'resource',
-		'resource_id',
-		'script',
-		'css'
-	];
+    protected $fillable = [
+        'resource',
+        'resource_id',
+        'script',
+        'css'
+    ];
 }

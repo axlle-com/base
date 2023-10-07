@@ -33,39 +33,39 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class Tag extends BaseModel
 {
-	protected $table = 'tag';
+    protected $table = 'tag';
 
-	protected $casts = [
-		'is_sitemap' => 'bool',
-		'is_published' => 'bool',
-		'is_favourites' => 'bool',
-		'is_watermark' => 'bool',
-		'show_image' => 'bool',
-		'sort' => 'int'
-	];
+    protected $casts = [
+        'is_sitemap' => 'bool',
+        'is_published' => 'bool',
+        'is_favourites' => 'bool',
+        'is_watermark' => 'bool',
+        'show_image' => 'bool',
+        'sort' => 'int'
+    ];
 
-	protected $fillable = [
-		'meta_title',
-		'meta_description',
-		'is_sitemap',
-		'is_published',
-		'is_favourites',
-		'is_watermark',
-		'image',
-		'show_image',
-		'title',
-		'title_short',
-		'description',
-		'sort'
-	];
+    protected $fillable = [
+        'meta_title',
+        'meta_description',
+        'is_sitemap',
+        'is_published',
+        'is_favourites',
+        'is_watermark',
+        'image',
+        'show_image',
+        'title',
+        'title_short',
+        'description',
+        'sort'
+    ];
 
-	public function tagHasResources()
-	{
-		return $this->hasMany(TagHasResource::class);
-	}
+    public function tagHasResources()
+    {
+        return $this->hasMany(TagHasResource::class);
+    }
 
-	public function tagLanguages()
-	{
-		return $this->hasMany(TagLanguage::class);
-	}
+    public function tagLanguages()
+    {
+        return $this->hasMany(TagLanguage::class);
+    }
 }

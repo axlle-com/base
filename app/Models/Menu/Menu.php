@@ -24,21 +24,21 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class Menu extends BaseModel
 {
-	protected $table = 'menu';
+    protected $table = 'menu';
 
-	protected $fillable = [
-		'title',
-		'name',
-		'description'
-	];
+    protected $fillable = [
+        'title',
+        'name',
+        'description'
+    ];
 
-	public function menuHasResources()
-	{
-		return $this->hasMany(MenuHasResource::class);
-	}
+    public function menuHasResources()
+    {
+        return $this->hasMany(MenuHasResource::class);
+    }
 
-	public function menuItems()
-	{
-		return $this->hasMany(MenuItem::class);
-	}
+    public function menuItems()
+    {
+        return $this->hasMany(MenuItem::class);
+    }
 }

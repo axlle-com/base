@@ -20,7 +20,7 @@ class AdminMenu extends Widget
             [
                 'blog_category',
                 '<i class="material-icons">list_alt</i>',
-                '/admin/blog/category',
+                '/admin/blog/post-category',
                 'Категории',
             ],
             [

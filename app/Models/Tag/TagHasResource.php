@@ -17,19 +17,19 @@ use App\Models\BaseModel;
  */
 class TagHasResource extends BaseModel
 {
-	protected $table = 'tag_has_resource';
+    protected $table = 'tag_has_resource';
 
-	public $incrementing = false;
+    public $incrementing = false;
 
-	public $timestamps = false;
+    public $timestamps = false;
 
-	protected $casts = [
-		'tag_id' => 'int',
-		'resource_id' => 'int'
-	];
+    protected $casts = [
+        'tag_id' => 'int',
+        'resource_id' => 'int'
+    ];
 
-	public function tag()
-	{
-		return $this->belongsTo(Tag::class);
-	}
+    public function tag()
+    {
+        return $this->belongsTo(Tag::class);
+    }
 }

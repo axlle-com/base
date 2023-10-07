@@ -18,21 +18,21 @@ use App\Models\BaseModel;
  */
 class MenuItemLanguage extends BaseModel
 {
-	protected $table = 'menu_item_language';
+    protected $table = 'menu_item_language';
 
-	public $timestamps = false;
+    public $timestamps = false;
 
-	protected $casts = [
-		'menu_item_id' => 'int'
-	];
+    protected $casts = [
+        'menu_item_id' => 'int'
+    ];
 
-	protected $fillable = [
-		'title',
-		'language'
-	];
+    protected $fillable = [
+        'title',
+        'language'
+    ];
 
-	public function menuItem()
-	{
-		return $this->belongsTo(MenuItem::class);
-	}
+    public function menuItem()
+    {
+        return $this->belongsTo(MenuItem::class);
+    }
 }

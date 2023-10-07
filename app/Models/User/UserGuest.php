@@ -19,10 +19,10 @@ use Carbon\Carbon;
  */
 class UserGuest extends BaseModel
 {
-	protected $table = 'user_guest';
+    protected $table = 'user_guest';
 
-	protected $fillable = [
-		'email',
-		'name'
-	];
+    protected $fillable = [
+        'email',
+        'name'
+    ];
 }

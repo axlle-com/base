@@ -18,10 +18,10 @@ use Carbon\Carbon;
  */
 class Redirect extends BaseModel
 {
-	protected $table = 'redirect';
+    protected $table = 'redirect';
 
-	protected $fillable = [
-		'url',
-		'url_old'
-	];
+    protected $fillable = [
+        'url',
+        'url_old'
+    ];
 }

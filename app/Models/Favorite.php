@@ -19,14 +19,14 @@ use Carbon\Carbon;
  */
 class Favorite extends BaseModel
 {
-	protected $table = 'favorites';
-	protected $casts = [
-		'resource_id' => 'int'
-	];
+    protected $table = 'favorites';
+    protected $casts = [
+        'resource_id' => 'int'
+    ];
 
-	protected $fillable = [
-		'resource',
-		'resource_id',
-		'description'
-	];
+    protected $fillable = [
+        'resource',
+        'resource_id',
+        'description'
+    ];
 }

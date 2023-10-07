@@ -23,20 +23,20 @@ use Carbon\Carbon;
  */
 class Setting extends BaseModel
 {
-	protected $table = 'setting';
+    protected $table = 'setting';
 
-	protected $casts = [
-		'value_json' => 'json',
-		'value_bool' => 'int'
-	];
+    protected $casts = [
+        'value_json' => 'json',
+        'value_bool' => 'int'
+    ];
 
-	protected $fillable = [
-		'key',
-		'title',
-		'description',
-		'value_string',
-		'value_text',
-		'value_json',
-		'value_bool'
-	];
+    protected $fillable = [
+        'key',
+        'title',
+        'description',
+        'value_string',
+        'value_text',
+        'value_json',
+        'value_bool'
+    ];
 }

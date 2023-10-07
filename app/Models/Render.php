@@ -7,6 +7,7 @@ use App\Models\Post\Post;
 use App\Models\Post\PostCategory;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Render
@@ -27,26 +28,35 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class Render extends BaseModel
 {
-	protected $table = 'render';
+    protected $table = 'render';
 
-	protected $fillable = [
-		'title',
-		'name',
-		'resource'
-	];
+    protected $fillable = [
+        'title',
+        'name',
+        'resource'
+    ];
 
-	public function pages()
-	{
-		return $this->hasMany(Page::class);
-	}
+    /**
+     * @return HasMany
+     */
+    public function pages(): HasMany
+    {
+        return $this->hasMany(Page::class);
+    }
 
-	public function posts()
-	{
-		return $this->hasMany(Post::class);
-	}
+    /**
+     * @return HasMany
+     */
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
 
-	public function post_categories()
-	{
-		return $this->hasMany(PostCategory::class);
-	}
+    /**
+     * @return HasMany
+     */
+    public function postCategories(): HasMany
+    {
+        return $this->hasMany(PostCategory::class);
+    }
 }

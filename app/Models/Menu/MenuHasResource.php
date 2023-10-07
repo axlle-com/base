@@ -17,18 +17,18 @@ use App\Models\BaseModel;
  */
 class MenuHasResource extends BaseModel
 {
-	protected $table = 'menu_has_resource';
-	public $incrementing = false;
+    protected $table = 'menu_has_resource';
+    public $incrementing = false;
 
-	public $timestamps = false;
+    public $timestamps = false;
 
-	protected $casts = [
-		'menu_id' => 'int',
-		'resource_id' => 'int'
-	];
+    protected $casts = [
+        'menu_id' => 'int',
+        'resource_id' => 'int'
+    ];
 
-	public function menu()
-	{
-		return $this->belongsTo(Menu::class);
-	}
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class);
+    }
 }

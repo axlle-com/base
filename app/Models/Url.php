@@ -21,17 +21,17 @@ use Carbon\Carbon;
  */
 class Url extends BaseModel
 {
-	protected $table = 'url';
+    protected $table = 'url';
 
-	protected $casts = [
-		'resource_id' => 'int'
-	];
+    protected $casts = [
+        'resource_id' => 'int'
+    ];
 
-	protected $fillable = [
-		'resource',
-		'resource_id',
-		'alias',
-		'url',
-		'url_old'
-	];
+    protected $fillable = [
+        'resource',
+        'resource_id',
+        'alias',
+        'url',
+        'url_old'
+    ];
 }

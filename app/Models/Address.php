@@ -30,29 +30,29 @@ use Carbon\Carbon;
  */
 class Address extends BaseModel
 {
-	protected $table = 'address';
+    protected $table = 'address';
 
-	protected $casts = [
-		'resource_id' => 'int',
-		'type' => 'int',
-		'is_delivery' => 'bool',
-		'index' => 'int'
-	];
+    protected $casts = [
+        'resource_id' => 'int',
+        'type' => 'int',
+        'is_delivery' => 'bool',
+        'index' => 'int'
+    ];
 
-	protected $fillable = [
-		'resource',
-		'resource_id',
-		'type',
-		'is_delivery',
-		'address',
-		'index',
-		'country',
-		'region',
-		'city',
-		'street',
-		'house',
-		'apartment',
-		'description',
-		'image'
-	];
+    protected $fillable = [
+        'resource',
+        'resource_id',
+        'type',
+        'is_delivery',
+        'address',
+        'index',
+        'country',
+        'region',
+        'city',
+        'street',
+        'house',
+        'apartment',
+        'description',
+        'image'
+    ];
 }

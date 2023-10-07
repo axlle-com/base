@@ -30,42 +30,42 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class MenuItem extends BaseModel
 {
-	protected $table = 'menu_item';
+    protected $table = 'menu_item';
 
-	protected $casts = [
-		'menu_id' => 'int',
-		'menu_item_id' => 'int',
-		'resource_id' => 'int',
-		'sort' => 'int'
-	];
+    protected $casts = [
+        'menu_id' => 'int',
+        'menu_item_id' => 'int',
+        'resource_id' => 'int',
+        'sort' => 'int'
+    ];
 
-	protected $fillable = [
-		'menu_id',
-		'menu_item_id',
-		'resource',
-		'resource_id',
-		'title',
-		'sort',
-		'url'
-	];
+    protected $fillable = [
+        'menu_id',
+        'menu_item_id',
+        'resource',
+        'resource_id',
+        'title',
+        'sort',
+        'url'
+    ];
 
-	public function menu()
-	{
-		return $this->belongsTo(Menu::class);
-	}
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class);
+    }
 
-	public function menuItem()
-	{
-		return $this->belongsTo(MenuItem::class);
-	}
+    public function menuItem()
+    {
+        return $this->belongsTo(MenuItem::class);
+    }
 
-	public function menuItems()
-	{
-		return $this->hasMany(MenuItem::class);
-	}
+    public function menuItems()
+    {
+        return $this->hasMany(MenuItem::class);
+    }
 
-	public function menuItemLanguages()
-	{
-		return $this->hasMany(MenuItemLanguage::class);
-	}
+    public function menuItemLanguages()
+    {
+        return $this->hasMany(MenuItemLanguage::class);
+    }
 }

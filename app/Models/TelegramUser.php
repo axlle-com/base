@@ -27,28 +27,28 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class TelegramUser extends BaseModel
 {
-	protected $table = 'telegram_user';
+    protected $table = 'telegram_user';
 
-	protected $casts = [
-		'user_id' => 'int'
-	];
+    protected $casts = [
+        'user_id' => 'int'
+    ];
 
-	protected $fillable = [
-		'user_id',
-		'first_name',
-		'last_name',
-		'username',
-		'type',
-		'language_code'
-	];
+    protected $fillable = [
+        'user_id',
+        'first_name',
+        'last_name',
+        'username',
+        'type',
+        'language_code'
+    ];
 
-	public function user()
-	{
-		return $this->belongsTo(User::class);
-	}
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
-	public function telegramMessages()
-	{
-		return $this->hasMany(TelegramMessage::class);
-	}
+    public function telegramMessages()
+    {
+        return $this->hasMany(TelegramMessage::class);
+    }
 }

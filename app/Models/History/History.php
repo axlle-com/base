@@ -30,37 +30,37 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class History extends BaseModel
 {
-	protected $table = 'history';
+    protected $table = 'history';
 
-	protected $casts = [
-		'ip_id' => 'int',
-		'user_id' => 'int',
-		'resource_id' => 'int'
-	];
+    protected $casts = [
+        'ip_id' => 'int',
+        'user_id' => 'int',
+        'resource_id' => 'int'
+    ];
 
-	protected $fillable = [
-		'ip_id',
-		'user_id',
-		'resource',
-		'resource_id',
-		'event',
-		'body',
-		'description'
-	];
-
-    /**
-     * @return BelongsTo
-     */
-	public function ip(): BelongsTo
-    {
-		return $this->belongsTo(Ip::class, 'ip_id');
-	}
+    protected $fillable = [
+        'ip_id',
+        'user_id',
+        'resource',
+        'resource_id',
+        'event',
+        'body',
+        'description'
+    ];
 
     /**
      * @return BelongsTo
      */
-	public function user(): BelongsTo
+    public function ip(): BelongsTo
     {
-		return $this->belongsTo(User::class);
-	}
+        return $this->belongsTo(Ip::class, 'ip_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

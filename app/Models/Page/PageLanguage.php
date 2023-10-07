@@ -22,25 +22,25 @@ use App\Models\BaseModel;
  */
 class PageLanguage extends BaseModel
 {
-	protected $table = 'page_language';
+    protected $table = 'page_language';
 
-	public $timestamps = false;
+    public $timestamps = false;
 
-	protected $casts = [
-		'page_id' => 'int'
-	];
+    protected $casts = [
+        'page_id' => 'int'
+    ];
 
-	protected $fillable = [
-		'meta_title',
-		'meta_description',
-		'language',
-		'title',
-		'title_short',
-		'description'
-	];
+    protected $fillable = [
+        'meta_title',
+        'meta_description',
+        'language',
+        'title',
+        'title_short',
+        'description'
+    ];
 
-	public function page()
-	{
-		return $this->belongsTo(Page::class);
-	}
+    public function page()
+    {
+        return $this->belongsTo(Page::class);
+    }
 }

@@ -20,14 +20,14 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class Phone extends BaseModel
 {
-	protected $table = 'phone';
+    protected $table = 'phone';
 
-	protected $fillable = [
-		'number'
-	];
+    protected $fillable = [
+        'number'
+    ];
 
-	public function phone_has_resources()
-	{
-		return $this->hasMany(PhoneHasResource::class);
-	}
+    public function phone_has_resources()
+    {
+        return $this->hasMany(PhoneHasResource::class);
+    }
 }

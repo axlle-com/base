@@ -1,15 +1,14 @@
 <?php
 
-/** @var $title string
+/**
+ * @var $title string
  * @var $models Post[]
+ * @var $postCategory PostCategory[]
  * @var $post array
  */
 
-use App\Common\Models\Blog\Post;
-use App\Common\Models\Blog\PostCategory;
-use App\Common\Models\Render;
-use App\Common\Models\Setting\Setting;
-use App\Common\Models\User\User;
+use App\Models\Post\Post;
+use App\Models\Post\PostCategory;
 
 $title = $title ?? 'Заголовок';
 $user_id = $post['user_id'] ?? null;
@@ -17,17 +16,17 @@ $render_id = (int)($post['render_id'] ?? null);
 $category_id = (int)($post['category_id'] ?? null);
 
 ?>
-@extends($layout,['title' => $title])
+@extends('admin.layouts.main',['title' => $title])
 
 @section('content')
     <div class="main-body blog-category js-index">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style3">
                 <li class="breadcrumb-item"><a href="/admin">Главная</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><?= $title ?></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $title }}</li>
             </ol>
         </nav>
-        <h5><?= $title ?></h5>
+        <h5>{{ $title }}</h5>
         <div class="card js-index-card">
             <div class="card-body js-index-card-inner">
                 <div class="btn-group btn-group-sm mb-3" role="group">
@@ -44,9 +43,9 @@ $category_id = (int)($post['category_id'] ?? null);
                 <div class="table-responsive">
                     <form id="index-form-filter" action="/admin/blog/post" method="post"></form>
                     <table
-                            class="table table-bordered table-sm has-checkAll mb-0"
-                            data-bulk-target="#bulk-dropdown"
-                            data-checked-class="table-warning">
+                        class="table table-bordered table-sm has-checkAll mb-0"
+                        data-bulk-target="#bulk-dropdown"
+                        data-checked-class="table-warning">
                         <caption class="p-0 text-right"><small>Показано 1 to 5 из 57 строк</small></caption>
                         <thead class="thead-primary">
                         <tr class="column-filter">
@@ -54,42 +53,43 @@ $category_id = (int)($post['category_id'] ?? null);
                             <th>
                                 <label class="input-clearable input-icon input-icon-sm input-icon-right">
                                     <input
-                                            form="index-form-filter"
-                                            type="text"
-                                            value="<?= !empty($post['id']) ? $post['id'] : '' ?>"
-                                            name="id"
-                                            class="form-control form-control-sm border-primary"
-                                            placeholder="Номер">
+                                        form="index-form-filter"
+                                        type="text"
+                                        value="{{ !empty($post['id']) ? $post['id'] : '' }}"
+                                        name="id"
+                                        class="form-control form-control-sm border-primary"
+                                        placeholder="Номер">
                                     <i data-toggle="clear" class="material-icons">clear</i>
                                 </label>
                             </th>
                             <th>
                                 <label class="input-clearable input-icon input-icon-sm input-icon-right">
                                     <input
-                                            form="index-form-filter"
-                                            name="title"
-                                            value="<?= !empty($post['title']) ? $post['title'] : '' ?>"
-                                            type="text"
-                                            class="form-control form-control-sm border-primary"
-                                            placeholder="Заголовок">
+                                        form="index-form-filter"
+                                        name="title"
+                                        value="{{ !empty($post['title']) ? $post['title'] : '' }}"
+                                        type="text"
+                                        class="form-control form-control-sm border-primary"
+                                        placeholder="Заголовок">
                                     <i data-toggle="clear" class="material-icons">clear</i>
                                 </label>
                             </th>
                             <th class="width-200">
                                 <label class="input-clearable input-icon input-icon-sm input-icon-right border-primary">
                                     <select
-                                            form="index-form-filter"
-                                            class="form-control select2"
-                                            data-allow-clear="true"
-                                            data-placeholder="Категория"
-                                            data-select2-search="true"
-                                            name="category_id">
+                                        form="index-form-filter"
+                                        class="form-control select2"
+                                        data-allow-clear="true"
+                                        data-placeholder="Категория"
+                                        data-select2-search="true"
+                                        name="category_id">
                                         <option></option>
-                                        <?php foreach(PostCategory::forSelect() as $item){ ?>
-                                        <option value="<?= $item['id'] ?>" <?= (!empty($post['category_id']) &&
-                                            $post['category_id'] == $item['id']) ? 'selected'
-                                            : '' ?>><?= $item['title'] ?></option>
-                                        <?php } ?>
+                                        @foreach ($postCategory as $item)
+                                            <option value="{{ $item['id'] }}"
+                                                {{ !empty($post['category_id']) && $post['category_id'] === $item['id'] ? 'selected' : '' }}>
+                                                {{ $item['title'] }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                     <i data-toggle="clear" class="material-icons">clear</i>
                                 </label>
@@ -97,18 +97,13 @@ $category_id = (int)($post['category_id'] ?? null);
                             <th class="width-200">
                                 <label class="input-clearable input-icon input-icon-sm input-icon-right border-primary">
                                     <select
-                                            form="index-form-filter"
-                                            class="form-control select2"
-                                            data-allow-clear="true"
-                                            data-placeholder="Шаблон"
-                                            data-select2-search="true"
-                                            name="render_id">
+                                        form="index-form-filter"
+                                        class="form-control select2"
+                                        data-allow-clear="true"
+                                        data-placeholder="Шаблон"
+                                        data-select2-search="true"
+                                        name="render_id">
                                         <option></option>
-                                        <?php foreach(Render::forSelect() as $item){ ?>
-                                        <option value="<?= $item['id'] ?>" <?= (!empty($post['render_id']) &&
-                                            $post['render_id'] == $item['id']) ? 'selected'
-                                            : '' ?>><?= $item['title'] ?></option>
-                                        <?php } ?>
                                     </select>
                                     <i data-toggle="clear" class="material-icons">clear</i>
                                 </label>
@@ -116,18 +111,19 @@ $category_id = (int)($post['category_id'] ?? null);
                             <th class="width-200">
                                 <label class="input-clearable input-icon input-icon-sm input-icon-right border-primary">
                                     <select
-                                            form="index-form-filter"
-                                            class="form-control select2"
-                                            data-allow-clear="true"
-                                            data-placeholder="Автор"
-                                            data-select2-search="true"
-                                            name="user_id">
+                                        form="index-form-filter"
+                                        class="form-control select2"
+                                        data-allow-clear="true"
+                                        data-placeholder="Автор"
+                                        data-select2-search="true"
+                                        name="user_id">
                                         <option></option>
-                                        <?php foreach(User::forSelect() as $item){ ?>
-                                        <option value="<?= $item['id'] ?>" <?= $user_id == $item['id'] ? 'selected' : '' ?>>
-                                                <?= $item['last_name'] ?>
-                                        </option>
-                                        <?php } ?>
+                                        @foreach ($postCategory as $item)
+                                            <option value="{{ $item['id'] }}"
+                                                {{ !empty($post['category_id']) && $post['category_id'] === $item['id'] ? 'selected' : '' }}>
+                                                {{ $item['title'] }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                     <i data-toggle="clear" class="material-icons">clear</i>
                                 </label>
@@ -135,13 +131,13 @@ $category_id = (int)($post['category_id'] ?? null);
                             <th class="width-200">
                                 <label class="input-clearable input-icon input-icon-sm input-icon-right">
                                     <input
-                                            form="index-form-filter"
-                                            type="text"
-                                            name="date"
-                                            value="<?= !empty($post['date']) ? $post['date'] : '' ?>"
-                                            class="form-control form-control-sm border-primary date-range-picker flatpickr-input"
-                                            placeholder="Дата создания"
-                                            readonly="readonly">
+                                        form="index-form-filter"
+                                        type="text"
+                                        name="date"
+                                        value="{{ !empty($post['date']) ? $post['date'] : '' }}"
+                                        class="form-control form-control-sm border-primary date-range-picker flatpickr-input"
+                                        placeholder="Дата создания"
+                                        readonly="readonly">
                                     <i data-toggle="clear" class="material-icons">clear</i>
                                 </label>
                             </th>
@@ -169,61 +165,61 @@ $category_id = (int)($post['category_id'] ?? null);
                         </tr>
                         </thead>
                         <tbody>
-                        <?php if(!empty($models)){ ?>
-                            <?php foreach($models as $item){ ?>
-                        <tr class="js-producer-table">
-                            <td>
-                                <div class="custom-control custom-control-nolabel custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="checkbox-<?= $item->id ?>">
-                                    <label for="checkbox-<?= $item->id ?>" class="custom-control-label"></label>
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <a href="#detail-<?= $item->id ?>"
-                                   class="detail-toggle text-secondary"
-                                   data-toggle="collapse"
-                                   role="button"
-                                   aria-expanded="false"
-                                   aria-controls="detail-<?= $item->id ?>">
-                                </a>
-                            </td>
-                            <td><?= $item->id ?></td>
-                            <td><?= $item->title_seo ?: $item->title ?></td>
-                            <td><?= $item->category_title_short ?: $item->category_title ?></td>
-                            <td><?= $item->render_title ?></td>
-                            <td><?= $item->user_last_name ?></td>
-                            <td><?= date('d.m.Y H:i', $item->created_at) ?></td>
-                            <td class="text-center">
-                                <div class="btn-group btn-group-xs" role="group">
-                                    <a href="/admin/blog/post-update/<?= $item->id ?>"
-                                       class="btn btn-link btn-icon bigger-130 text-success">
-                                        <i data-feather="edit"></i>
+                        @foreach ($models as $item)
+                            <tr class="js-producer-table">
+                                <td>
+                                    <div class="custom-control custom-control-nolabel custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input"
+                                               id="checkbox-{{ $item->id }}">
+                                        <label for="checkbox-{{ $item->id }}" class="custom-control-label"></label>
+                                    </div>
+                                </td>
+                                <td class="td-col-button-details text-center">
+                                    <a href="#detail-{{ $item->id }}"
+                                       class="detail-toggle text-secondary"
+                                       data-toggle="collapse"
+                                       role="button"
+                                       aria-expanded="false"
+                                       aria-controls="detail-{{ $item->id }}">
                                     </a>
-                                    <a href="/admin/blog/post-update/print/<?= $item->id ?>"
-                                       class="btn btn-link btn-icon bigger-130 text-info" target="_blank">
-                                        <i data-feather="printer"></i>
-                                    </a>
-                                    <a href="/admin/blog/post-delete/<?= $item->id ?>"
-                                       class="btn btn-link btn-icon bigger-130 text-danger"
-                                       data-js-post-table-id="<?= $item->id ?>">
-                                        <i data-feather="trash"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="detail-row collapse" id="detail-<?= $item->id ?>">
-                            <td colspan="10">
-                                <ul class="data-detail ml-5">
-                                    <li><span>Заголовок: </span> <span><?= $item->title ?></span></li>
-                                    <li><span>Описание короткое: </span> <span><?= $item->preview_description ?></span>
-                                    </li>
-                                    <li><span>Заголовок SEO: </span> <span><?= $item->title_seo ?></span></li>
-                                    <li><span>Описание SEO: </span> <span><?= $item->description_seo ?></span></li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <?php } ?>
-                        <?php } ?>
+                                </td>
+                                <td class="td-col-id">{{ $item->id }}</td>
+                                <td class="td-col-title">{{ $item->title_short ?: $item->title }}</td>
+                                <td class="td-col-title">{{ $item->category_title_short ?: $item->category_title }}</td>
+                                <td>{{ $item->render_title }}</td>
+                                <td class="td-col-autor">{{ $item->user_last_name }}</td>
+                                <td class="td-col-date">{{ $item->created_at->format('d.m.Y H:i:s') }}</td>
+                                <td class="td-col-action text-center">
+                                    <div class="btn-group btn-group-xs" role="group">
+                                        <a href="{{ route('post.edit',['post' => $item->id ]) }}"
+                                           class="btn btn-link btn-icon bigger-130 text-success">
+                                            <i data-feather="edit"></i>
+                                        </a>
+                                        <a href="{{ route('post.edit',['post' => $item->id ]) }}"
+                                           class="btn btn-link btn-icon bigger-130 text-info" target="_blank">
+                                            <i data-feather="printer"></i>
+                                        </a>
+                                        <a href="{{ route('post.destroy',['post' => $item->id ]) }}"
+                                           class="btn btn-link btn-icon bigger-130 text-danger"
+                                           data-js-post-table-id="{{ $item->id }}">
+                                            <i data-feather="trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="detail-row collapse" id="detail-{{ $item->id }}">
+                                <td colspan="10">
+                                    <ul class="data-detail ml-5">
+                                        <li><span>Заголовок: </span> <span>{{ $item->title }}</span></li>
+                                        <li><span>Описание короткое: </span>
+                                            <span>{{ $item->preview_description }}</span>
+                                        </li>
+                                        <li><span>Заголовок SEO: </span> <span>{{ $item->meta_title }}</span></li>
+                                        <li><span>Описание SEO: </span> <span>{{ $item->meta_description }}</span></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -231,11 +227,11 @@ $category_id = (int)($post['category_id'] ?? null);
                     <div class="dropdown dropup bulk-dropdown align-self-start mr-2 mt-1 mt-sm-0" id="bulk-dropdown"
                          hidden>
                         <button
-                                class="btn btn-light btn-sm dropdown-toggle"
-                                type="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
+                            class="btn btn-light btn-sm dropdown-toggle"
+                            type="button"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
                             <span class="checked-counter"></span>
                         </button>
                         <div class="dropdown-menu">
@@ -251,19 +247,7 @@ $category_id = (int)($post['category_id'] ?? null);
                             </button>
                         </div>
                     </div>
-
-                    <!-- Show entries -->
-                    {{--                    <form class="form-inline mt-1 mt-sm-0">--}}
-                    {{--                        Show--}}
-                    {{--                        <select class="custom-select custom-select-sm w-auto mx-1">--}}
-                    {{--                            <option value="5">5</option>--}}
-                    {{--                            <option value="10">10</option>--}}
-                    {{--                            <option value="20">20</option>--}}
-                    {{--                            <option value="50">50</option>--}}
-                    {{--                        </select>--}}
-                    {{--                        entries--}}
-                    {{--                    </form>--}}
-                    <?= $models->links($pagination) ?>
+                    {!! $models->links($pagination) !!}
                 </div>
             </div>
         </div>

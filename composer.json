@@ -12,6 +12,7 @@
         "ext-pdo": "*",
         "ext-simplexml": "*",
         "amphp/amp": "^3.0",
+        "davejamesmiller/laravel-breadcrumbs": "5.x",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
@@ -19,7 +20,8 @@
         "laravel/ui": "^4.2",
         "revolt/event-loop": "^1.0",
         "spatie/laravel-permission": "^5.10",
-        "wendelladriel/laravel-validated-dto": "^2.10"
+        "wendelladriel/laravel-validated-dto": "^2.10",
+        "ext-exif": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

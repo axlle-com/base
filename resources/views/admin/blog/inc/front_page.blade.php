@@ -1,53 +1,65 @@
 <?php
 
-use App\Common\Models\Blog\Post;
-use App\Common\Models\Blog\PostCategory;
-use App\Common\Models\Render;
+use App\Models\Post\Post;
+use App\Models\Post\PostCategory;
+use App\Models\Render;
+use Illuminate\Database\Eloquent\Collection;
 
-/** @var $title string
+/**
+ * @var $title string
  * @var $model PostCategory|Post
+ * @var $render Render[]|Collection
+ * @var $postCategory PostCategory[]|Collection
  */
 
 ?>
 <div class="col-sm-8">
     <fieldset class="form-block">
         <legend>Связь данных</legend>
-        <?php if(!empty($pid = PostCategory::forSelect())){ ?>
-        <div class="form-group small">
-            <label for="blogTitle">Категория</label>
-            <select
-                class="form-control select2"
-                data-placeholder="Категория"
-                data-select2-search="true"
-                name="category_id"
-                data-validator="category_id">
-                <option></option>
-                <?php foreach ($pid as $item){ ?>
-                <option
-                    value="<?= $item['id'] ?>" <?= ($item['id'] == $model->category_id) ? 'selected' : ''?>><?= $item['title'] ?></option>
-                <?php } ?>
-            </select>
-            <div class="invalid-feedback"></div>
-        </div>
-        <?php } ?>
-        <?php if(!empty($pid = Render::byType($model))){ ?>
-        <div class="form-group small">
-            <label for="blogTitle">Шаблон</label>
-            <select
-                class="form-control select2"
-                data-placeholder="Шаблон"
-                data-select2-search="true"
-                name="render_id"
-                data-validator="render_id">
-                <option></option>
-                <?php foreach ($pid as $item){ ?>
-                <option
-                    value="<?= $item['id'] ?>" <?= ($item['id'] == $model->render_id) ? 'selected' : ''?>><?= $item['title'] ?></option>
-                <?php } ?>
-            </select>
-            <div class="invalid-feedback"></div>
-        </div>
-        <?php } ?>
+        @if(!empty($postCategory))
+            <div class="form-group small">
+                <label for="blogTitle">Категория</label>
+                <select
+                    class="form-control select2"
+                    data-placeholder="Категория"
+                    data-select2-search="true"
+                    name="category_id"
+                    data-validator="category_id">
+                    <option></option>
+                        <?php
+                    foreach ($postCategory as $item){ ?>
+                    <option
+                        value="<?= $item['id'] ?>" <?= ($item['id'] === $model->category_id) ? 'selected' : '' ?>>
+
+                            <?= $item['title'] ?>
+
+                    </option>
+                        <?php
+                    } ?>
+                </select>
+                <div class="invalid-feedback"></div>
+            </div>
+        @endif
+        @if(!empty($render))
+            <div class="form-group small">
+                <label for="blogTitle">Шаблон</label>
+                <select
+                    class="form-control select2"
+                    data-placeholder="Шаблон"
+                    data-select2-search="true"
+                    name="render_id"
+                    data-validator="render_id">
+                    <option></option>
+                        <?php
+                    foreach ($render as $item){ ?>
+                    <option
+                        value="<?= $item['id'] ?>" <?= ($item['id'] === $model->render_id) ? 'selected' : '' ?>><?= $item['title'] ?></option>
+                        <?php
+                    } ?>
+                </select>
+                <div class="invalid-feedback"></div>
+            </div>
+        @endif
     </fieldset>
     <fieldset class="form-block">
         <legend>Заголовок</legend>

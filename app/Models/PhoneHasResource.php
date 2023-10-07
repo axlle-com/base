@@ -15,18 +15,18 @@ namespace App\Models;
  */
 class PhoneHasResource extends BaseModel
 {
-	protected $table = 'phone_has_resource';
-	public $incrementing = false;
+    protected $table = 'phone_has_resource';
+    public $incrementing = false;
 
-	public $timestamps = false;
+    public $timestamps = false;
 
-	protected $casts = [
-		'phone_id' => 'int',
-		'resource_id' => 'int'
-	];
+    protected $casts = [
+        'phone_id' => 'int',
+        'resource_id' => 'int'
+    ];
 
-	public function phone()
-	{
-		return $this->belongsTo(Phone::class);
-	}
+    public function phone()
+    {
+        return $this->belongsTo(Phone::class);
+    }
 }

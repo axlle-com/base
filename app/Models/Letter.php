@@ -23,21 +23,21 @@ use Carbon\Carbon;
  */
 class Letter extends BaseModel
 {
-	protected $table = 'letter';
+    protected $table = 'letter';
 
-	protected $casts = [
-		'resource_id' => 'int',
-		'person_id' => 'int',
-		'is_viewed' => 'bool'
-	];
+    protected $casts = [
+        'resource_id' => 'int',
+        'person_id' => 'int',
+        'is_viewed' => 'bool'
+    ];
 
-	protected $fillable = [
-		'resource',
-		'resource_id',
-		'person',
-		'person_id',
-		'subject',
-		'text',
-		'is_viewed'
-	];
+    protected $fillable = [
+        'resource',
+        'resource_id',
+        'person',
+        'person_id',
+        'subject',
+        'text',
+        'is_viewed'
+    ];
 }

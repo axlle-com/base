@@ -12,8 +12,9 @@ use App\Http\Controllers\Admin\PostController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'admin'], static function () {
-    Route::get('/login', [AuthController::class, 'loginForm'])->name('admin.login.form');
-    Route::post('/login', [AuthAjaxController::class, 'login'])->name('admin.login');
+    Route::get('login', [AuthController::class, 'loginForm'])->name('admin.login.form');
+    Route::post('login', [AuthController::class, 'login'])->name('admin.login');
+    Route::post('ajax/login', [AuthAjaxController::class, 'login'])->name('admin.ajax.login');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'employee'], static function () {
@@ -22,11 +23,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'employee'], static function 
     Route::resource('page', PageController::class);
     Route::apiResource('ajax/page', PageAjaxController::class);
 
-    Route::resource('post', PostController::class);
-    Route::apiResource('ajax/post', PostAjaxController::class);
+    Route::group(['prefix' => 'blog'], static function () {
+        Route::resource('post', PostController::class);
+        Route::apiResource('ajax/post', PostAjaxController::class);
 
-    Route::resource('post-category', PostCategoryController::class);
-    Route::apiResource('ajax/post-category', PostCategoryAjaxController::class);
+        Route::resource('post-category', PostCategoryController::class);
+        Route::apiResource('ajax/post-category', PostCategoryAjaxController::class);
+    });
 
 
 //
