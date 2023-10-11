@@ -6,7 +6,7 @@ use App\Models\BaseModel;
 use App\Models\InfoBlock;
 use App\Models\Render;
 use App\Models\Traits\HasGallery;
-use App\Models\Traits\HasGalleryImage;
+use App\Models\Traits\HasImage;
 use App\Models\Traits\HasHistory;
 use App\Models\Traits\HasUrl;
 use Carbon\Carbon;
@@ -53,7 +53,7 @@ class PostCategory extends BaseModel
 {
     use HasUrl;
     use HasGallery;
-    use HasGalleryImage;
+    use HasImage;
     use HasHistory;
 
     protected $table = 'post_category';

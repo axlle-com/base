@@ -10,6 +10,11 @@ use App\Models\Post\Post;
  */
 
 $title = $title ?? 'Заголовок';
+if ($model->id) {
+    $action = route('admin.ajax.post.update', ['post' => $model->id, '_method' => 'PUT']);
+} else {
+    $action = route('admin.ajax.post.store');
+}
 
 ?>
 @extends('admin.layouts.main',['title' => $title])
@@ -19,15 +24,14 @@ $title = $title ?? 'Заголовок';
         {{--        <?= $breadcrumb ?>--}}
         <h5>{{ $title }}</h5>
         <div>
-            <form id="global-form" action="/admin/blog/ajax/save-post">
-                <input type="hidden" name="id" value="{{ $model->id ?? null }}">
+            <form id="global-form" action="{{ $action }}">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
                                 <div class="list-with-gap mb-2">
                                     <button type="button" class="btn btn-success js-save-button">Сохранить</button>
-                                    <a type="button" class="btn btn-secondary" href="/admin/blog/category">Выйти</a>
+                                    <a type="button" class="btn btn-secondary" href="{{ route('admin.post.index') }}">Выйти</a>
                                 </div>
                                 <div class="list-with-gap mb-2">
                                     <ul class="nav nav-gap-x-1 mt-3" role="tablist">
@@ -61,28 +65,17 @@ $title = $title ?? 'Заголовок';
                                     </ul>
                                 </div>
                                 <div class="tab-content">
-                                    <div class="tab-pane fade active show" id="home-page" role="tabpanel"
+                                    <div class="tab-pane fade active show"
+                                         id="home-page"
+                                         role="tabpanel"
                                          aria-labelledby="home-tab-faded">
                                         <div class="row">
                                             @include('admin.blog.inc.front_page')
-                                            <div class="col-sm-4">
+                                            <div class="col-md-4">
                                                 <fieldset class="form-block">
                                                     <legend>Изображение</legend>
-                                                    @include('admin.inc.image', ['url' => $model->getImage() ?: '', 'model' => $model])
-                                                    <div class="form-group">
-                                                        <label class="control-label button-100" for="js-image-upload">
-                                                            <a type="button" class="btn btn-primary button-image">
-                                                                Загрузить фото
-                                                            </a>
-                                                        </label>
-                                                        <input
-                                                            type="file"
-                                                            id="js-image-upload"
-                                                            class="custom-input-file js-image-upload"
-                                                            name="image"
-                                                            accept="image/*">
-                                                        <div class="invalid-feedback"></div>
-                                                    </div>
+                                                    @include('admin.inc.image', ['url' => $model->image , 'model' => $model])
+                                                    @include('admin.inc.image_empty', ['model' => $model])
                                                     <div class="form-group">
                                                         <div class="custom-control custom-checkbox">
                                                             <input
@@ -207,9 +200,10 @@ $title = $title ?? 'Заголовок';
                                                                 name="control_date_pub"
                                                                 id="control_date_pub"
                                                                 value="1"
-                                                                <?= $model->control_date_pub ? 'checked' : '' ?>>
-                                                            <label class="custom-control-label" for="control_date_pub">Контролировать
-                                                                дату публикации</label>
+                                                                {{ $model->control_date_pub ? 'checked' : '' }}>
+                                                            <label class="custom-control-label" for="control_date_pub">
+                                                                Контролировать дату публикации
+                                                            </label>
                                                             <div class="invalid-feedback"></div>
                                                         </div>
                                                     </div>
@@ -221,9 +215,10 @@ $title = $title ?? 'Заголовок';
                                                                 name="control_date_end"
                                                                 id="control_date_end"
                                                                 value="1"
-                                                                <?= $model->control_date_end ? 'checked' : '' ?>>
-                                                            <label class="custom-control-label" for="control_date_end">Контролировать
-                                                                дату окончания</label>
+                                                                {{ $model->control_date_end ? 'checked' : '' }}>
+                                                            <label class="custom-control-label" for="control_date_end">
+                                                                Контролировать дату окончания
+                                                            </label>
                                                             <div class="invalid-feedback"></div>
                                                         </div>
                                                     </div>
@@ -235,7 +230,7 @@ $title = $title ?? 'Заголовок';
                                                                 name="is_favourites"
                                                                 id="is_favourites"
                                                                 value="1"
-                                                                <?= $model->is_favourites ? 'checked' : '' ?>>
+                                                                {{ $model->is_favourites ? 'checked' : '' }}>
                                                             <label class="custom-control-label" for="is_favourites">Избранное</label>
                                                             <div class="invalid-feedback"></div>
                                                         </div>

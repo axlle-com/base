@@ -28,7 +28,7 @@ class AuthController extends Controller
     /**
      * @return Application|Factory|View|\Illuminate\Foundation\Application
      */
-    public function loginForm(): \Illuminate\Foundation\Application|View|Factory|Application
+    public function loginForm()
     {
         $user = User::auth();
         if ($user) {

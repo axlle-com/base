@@ -13,7 +13,7 @@ use App\Models\Post\PostCategory;
 $title = $title ?? 'Заголовок';
 $user_id = $post['user_id'] ?? null;
 $render_id = (int)($post['render_id'] ?? null);
-$category_id = (int)($post['category_id'] ?? null);
+$category_id = (int)($post['post_category_id'] ?? null);
 
 ?>
 @extends('admin.layouts.main',['title' => $title])
@@ -30,7 +30,7 @@ $category_id = (int)($post['category_id'] ?? null);
         <div class="card js-index-card">
             <div class="card-body js-index-card-inner">
                 <div class="btn-group btn-group-sm mb-3" role="group">
-                    <a class="btn btn-light has-icon" href="/admin/blog/post-update">
+                    <a class="btn btn-light has-icon" href="{{ route('admin.post.create') }}">
                         <i class="material-icons mr-1">add_circle_outline</i>Новая
                     </a>
                     <a type="button" class="btn btn-light has-icon" href="/admin/blog/post">
@@ -82,11 +82,11 @@ $category_id = (int)($post['category_id'] ?? null);
                                         data-allow-clear="true"
                                         data-placeholder="Категория"
                                         data-select2-search="true"
-                                        name="category_id">
+                                        name="post_category_id">
                                         <option></option>
                                         @foreach ($postCategory as $item)
                                             <option value="{{ $item['id'] }}"
-                                                {{ !empty($post['category_id']) && $post['category_id'] === $item['id'] ? 'selected' : '' }}>
+                                                {{ !empty($post['post_category_id']) && $post['post_category_id'] === $item['id'] ? 'selected' : '' }}>
                                                 {{ $item['title'] }}
                                             </option>
                                         @endforeach
@@ -120,7 +120,7 @@ $category_id = (int)($post['category_id'] ?? null);
                                         <option></option>
                                         @foreach ($postCategory as $item)
                                             <option value="{{ $item['id'] }}"
-                                                {{ !empty($post['category_id']) && $post['category_id'] === $item['id'] ? 'selected' : '' }}>
+                                                {{ !empty($post['post_category_id']) && $post['post_category_id'] === $item['id'] ? 'selected' : '' }}>
                                                 {{ $item['title'] }}
                                             </option>
                                         @endforeach
@@ -191,15 +191,15 @@ $category_id = (int)($post['category_id'] ?? null);
                                 <td class="td-col-date">{{ $item->created_at->format('d.m.Y H:i:s') }}</td>
                                 <td class="td-col-action text-center">
                                     <div class="btn-group btn-group-xs" role="group">
-                                        <a href="{{ route('post.edit',['post' => $item->id ]) }}"
+                                        <a href="{{ route('admin.post.edit',['post' => $item->id ]) }}"
                                            class="btn btn-link btn-icon bigger-130 text-success">
                                             <i data-feather="edit"></i>
                                         </a>
-                                        <a href="{{ route('post.edit',['post' => $item->id ]) }}"
+                                        <a href="{{ route('admin.post.edit',['post' => $item->id ]) }}"
                                            class="btn btn-link btn-icon bigger-130 text-info" target="_blank">
                                             <i data-feather="printer"></i>
                                         </a>
-                                        <a href="{{ route('post.destroy',['post' => $item->id ]) }}"
+                                        <a href="{{ route('admin.post.destroy',['post' => $item->id ]) }}"
                                            class="btn btn-link btn-icon bigger-130 text-danger"
                                            data-js-post-table-id="{{ $item->id }}">
                                             <i data-feather="trash"></i>

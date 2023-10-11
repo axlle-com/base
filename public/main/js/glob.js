@@ -58,6 +58,8 @@ const _glob = {
         data;
         view;
         preloader;
+        method = 'POST';
+        isFormReset = true;
 
         constructor(object = null, validate = true) {
             this.reset().validate = validate;
@@ -157,6 +159,11 @@ const _glob = {
             return this;
         }
 
+        setMethod(method) {
+            this.method = method;
+            return this;
+        }
+
         appendPayload(object = null) {
             if (object && this.payload) {
                 if (Object.keys(object).length) {
@@ -210,7 +217,7 @@ const _glob = {
             $.ajax({
                 url: _this.action,
                 headers: {'X-CSRF-TOKEN': csrf},
-                type: 'POST',
+                type: _this.method,
                 dataType: 'json',
                 data: _this.payload,
                 processData: false,

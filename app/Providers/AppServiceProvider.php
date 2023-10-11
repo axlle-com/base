@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Common\Models\Setting\Setting;
 use App\Repositories\Eloquent\CurrencyExchangeRateRepository;
 use App\Repositories\Eloquent\CurrencyRepository;
+use App\Repositories\Eloquent\GalleryImageRepository;
+use App\Repositories\Eloquent\GalleryRepository;
 use App\Repositories\Eloquent\HistoryRepository;
 use App\Repositories\Eloquent\IpRepository;
 use App\Repositories\Eloquent\PageRepository;
@@ -14,6 +16,8 @@ use App\Repositories\Eloquent\RenderRepository;
 use App\Repositories\Eloquent\UserRepository;
 use App\Repositories\Interfaces\ICurrencyExchangeRateRepository;
 use App\Repositories\Interfaces\ICurrencyRepository;
+use App\Repositories\Interfaces\IGalleryImageRepository;
+use App\Repositories\Interfaces\IGalleryRepository;
 use App\Repositories\Interfaces\IHistoryRepository;
 use App\Repositories\Interfaces\IIpRepository;
 use App\Repositories\Interfaces\IPageRepository;
@@ -36,6 +40,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ICurrencyExchangeRateRepository::class, CurrencyExchangeRateRepository::class);
         $this->app->bind(ICurrencyRepository::class, CurrencyRepository::class);
+        $this->app->bind(IGalleryImageRepository::class, GalleryImageRepository::class);
+        $this->app->bind(IGalleryRepository::class, GalleryRepository::class);
         $this->app->bind(IHistoryRepository::class, HistoryRepository::class);
         $this->app->bind(IIpRepository::class, IpRepository::class);
         $this->app->bind(IPageRepository::class, PageRepository::class);

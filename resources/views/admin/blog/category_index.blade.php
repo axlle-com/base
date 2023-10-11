@@ -13,7 +13,7 @@ $title = $title ?? 'Заголовок';
 
 $user_id = $post['user_id'] ?? null;
 $render_id = (int)($post['render_id'] ?? null);
-$category_id = (int)($post['category_id'] ?? null);
+$category_id = (int)($post['post_category_id'] ?? null);
 ?>
 @extends($layout,['title' => $title])
 
@@ -81,7 +81,7 @@ $category_id = (int)($post['category_id'] ?? null);
                                             data-allow-clear="true"
                                             data-placeholder="Категория"
                                             data-select2-search="true"
-                                            name="category_id">
+                                            name="post_category_id">
                                         <option></option>
                                         <?php
                                         foreach(PostCategory::forSelect() as $item){ ?>

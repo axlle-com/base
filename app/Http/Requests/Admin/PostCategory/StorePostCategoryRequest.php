@@ -1,20 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Page;
+namespace App\Http\Requests\Admin\PostCategory;
 
-use App\Http\Requests\Request;
+use App\Http\Requests\Admin\Request;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class UpdatePageRequest extends Request
+class StorePostCategoryRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Ajax;
 
-use App\Http\Requests\PostCategory\StorePostCategoryRequest;
-use App\Http\Requests\PostCategory\UpdatePostCategoryRequest;
+use App\Http\Requests\Admin\PostCategory\StorePostCategoryRequest;
+use App\Http\Requests\Admin\PostCategory\UpdatePostCategoryRequest;
 
 class PostCategoryAjaxController extends AjaxController
 {

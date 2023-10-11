@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PostCategory\StorePostCategoryRequest;
-use App\Http\Requests\PostCategory\UpdatePostCategoryRequest;
+use App\Http\Requests\Admin\PostCategory\StorePostCategoryRequest;
+use App\Http\Requests\Admin\PostCategory\UpdatePostCategoryRequest;
 
 class PostCategoryController extends Controller
 {

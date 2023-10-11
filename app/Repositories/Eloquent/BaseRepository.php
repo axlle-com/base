@@ -21,18 +21,28 @@ abstract class BaseRepository
     }
 
     /**
-     * @return Collection
+     * @return Collection|BaseModel[]
      */
-    public function all()
+    public function get()
     {
         return $this->model::get();
     }
 
+    /**
+     * @param array $attributes
+     * @return BaseModel
+     */
     public function create(array $attributes): BaseModel
     {
         return $this->model::create($attributes);
     }
 
+    /**
+     * @param int $id
+     * @param array $with
+     * @param array $params
+     * @return BaseModel|null
+     */
     public function find(int $id, array $with = [], array $params = []): ?BaseModel
     {
         /** @var BaseModel $model */
@@ -41,21 +51,36 @@ abstract class BaseRepository
         return $model;
     }
 
+    /**
+     * @param int $id
+     * @return BaseModel|null
+     */
     public function findWithTrash(int $id): ?BaseModel
     {
         return $this->model::query()->withTrashed()->find($id);
     }
 
+    /**
+     * @param int $id
+     * @return bool|mixed|null
+     */
     public function delete(int $id)
     {
         return $this->model::query()->find($id)?->delete();
     }
 
-    public function update(int $id, array $attributes): bool
+    /**
+     * @param int $id
+     * @param array $attributes
+     * @return BaseModel|null
+     */
+    public function update(int $id, array $attributes): ?BaseModel
     {
-        $model = $this->find($id);
+        /** @var BaseModel $model */
+        $model = $this->find($id)?->fill($attributes);
+        $model->save();
 
-        return $model && $model->update($attributes);
+        return $model;
     }
 
     /**

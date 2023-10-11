@@ -4,7 +4,6 @@ namespace App\Models\Traits;
 
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Log;
 
 /**
  * @property string $alias
@@ -22,10 +21,9 @@ trait HasUrl
         if (empty($this->title)) {
             return $this;
         }
-        if ($this->isDirty('alias')) {
+        if ($this->alias && $this->isDirty('alias')) {
             $this->alias = $this->checkAlias($this->alias);
         } else {
-            Log::info('title: ' . $this->title);
             $this->alias = $this->checkAlias($this->generateAlias($this->title));
         }
 
@@ -37,7 +35,7 @@ trait HasUrl
      */
     public function setUrl(): static
     {
-        if ($this->isDirty('url')) {
+        if ($this->url && $this->isDirty('url')) {
             $this->url = '/' . $this->checkUrl($this->url);
         } else {
             $this->url = '/' . $this->checkUrl($this->alias);
@@ -97,7 +95,12 @@ trait HasUrl
         return $temp;
     }
 
-    public function generateAlias(string $str, array $options = []): string
+    /**
+     * @param string $str
+     * @param array $options
+     * @return string
+     */
+    protected function generateAlias(string $str, array $options = []): string
     {
         // Make sure string is in UTF-8 and strip invalid UTF-8 characters
         $str = mb_convert_encoding($str, 'UTF-8', mb_list_encodings());

@@ -16,6 +16,7 @@ use App\Common\Models\Widgets\Widgets;
             type="number"
             class="form-control form-shadow"
             placeholder="Сортировка"
+            type="number"
             name="sort"
             value="<?= $model->sort ?>">
         <div class="invalid-feedback"></div>

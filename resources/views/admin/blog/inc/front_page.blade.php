@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
  */
 
 ?>
-<div class="col-sm-8">
+<div class="col-md-8">
     <fieldset class="form-block">
         <legend>Связь данных</legend>
         @if(!empty($postCategory))
@@ -23,19 +23,15 @@ use Illuminate\Database\Eloquent\Collection;
                     class="form-control select2"
                     data-placeholder="Категория"
                     data-select2-search="true"
-                    name="category_id"
-                    data-validator="category_id">
+                    name="post_category_id"
+                    data-validator="post_category_id">
                     <option></option>
-                        <?php
-                    foreach ($postCategory as $item){ ?>
-                    <option
-                        value="<?= $item['id'] ?>" <?= ($item['id'] === $model->category_id) ? 'selected' : '' ?>>
-
-                            <?= $item['title'] ?>
-
-                    </option>
-                        <?php
-                    } ?>
+                    @foreach ($postCategory as $item)
+                        <option
+                            value="{{ $item['id'] }}" {{ ($item['id'] === $model->post_category_id) ? 'selected' : '' }}>
+                            {{ $item['title'] }}
+                        </option>
+                    @endforeach
                 </select>
                 <div class="invalid-feedback"></div>
             </div>
@@ -50,16 +46,41 @@ use Illuminate\Database\Eloquent\Collection;
                     name="render_id"
                     data-validator="render_id">
                     <option></option>
-                        <?php
-                    foreach ($render as $item){ ?>
-                    <option
-                        value="<?= $item['id'] ?>" <?= ($item['id'] === $model->render_id) ? 'selected' : '' ?>><?= $item['title'] ?></option>
-                        <?php
-                    } ?>
+                    @foreach ($render as $item)
+                        <option
+                            value="{{ $item['id'] }}" {{ ($item['id'] === $model->render_id) ? 'selected' : '' }}>
+                            {{ $item['title'] }}
+                        </option>
+                    @endforeach
                 </select>
                 <div class="invalid-feedback"></div>
             </div>
         @endif
+    </fieldset>
+    <fieldset class="form-block">
+        <legend>Ссылка</legend>
+        <div class="form-group small">
+            <label for="blogTitle">Алиас</label>
+            <input
+                class="form-control form-shadow"
+                placeholder="Алиас"
+                name="alias"
+                id="alias"
+                value="<?= $model->alias ?>"
+                data-validator="alias">
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group small">
+            <label for="blogTitle">Ссылка</label>
+            <input
+                class="form-control form-shadow"
+                placeholder="Ссылка"
+                name="url"
+                id="url"
+                value="<?= $model->url ?>"
+                data-validator="url">
+            <div class="invalid-feedback"></div>
+        </div>
     </fieldset>
     <fieldset class="form-block">
         <legend>Заголовок</legend>
@@ -71,18 +92,8 @@ use Illuminate\Database\Eloquent\Collection;
                 name="title"
                 id="title"
                 value="<?= $model->title ?>"
+                data-validator-required
                 data-validator="title">
-            <div class="invalid-feedback"></div>
-        </div>
-        <div class="form-group small">
-            <label for="blogTitle">Алиас</label>
-            <input
-                class="form-control form-shadow"
-                placeholder="Алиас"
-                name="alias"
-                id="alias"
-                value="<?= $model->alias ?>"
-                data-validator="alias">
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group small">
@@ -114,10 +125,11 @@ use Illuminate\Database\Eloquent\Collection;
             <input
                 class="form-control form-shadow"
                 placeholder="Заголовок SEO"
-                name="seo[title]"
+                name="meta_title"
                 id="title_seo"
-                value="<?= $model->title_seo ?>"
-                data-validator="seo.title">
+                value="<?= $model->meta_title ?>"
+                data-validator-required
+                data-validator="meta_title">
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group small">
@@ -125,9 +137,10 @@ use Illuminate\Database\Eloquent\Collection;
             <textarea
                 class="form-control form-shadow"
                 placeholder="Описание SEO"
-                name="seo[description]"
-                id="description_seo"
-                data-validator="seo.description"><?= $model->description_seo ?></textarea>
+                name="meta_description"
+                id="meta_description"
+                data-validator-required
+                data-validator="meta_description"><?= $model->meta_description ?></textarea>
             <div class="invalid-feedback"></div>
         </div>
     </fieldset>

@@ -2,6 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Gallery\Gallery;
+use App\Models\Gallery\GalleryImage;
+use App\Models\Page\Page;
+use App\Models\Post\Post;
+use App\Models\Post\PostCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -18,7 +23,8 @@ use Illuminate\Support\Str;
  * @method static create(array $attributes)
  *
  */
-abstract class BaseModel extends Model
+
+class BaseModel extends Model
 {
     protected $perPage = 30;
     protected bool $isNew = false;

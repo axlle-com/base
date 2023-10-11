@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Ajax;
 
-use App\Http\Requests\Page\StorePageRequest;
-use App\Http\Requests\Page\UpdatePageRequest;
+use App\Http\Requests\Admin\Page\StorePageRequest;
+use App\Http\Requests\Admin\Page\UpdatePageRequest;
 
 class PageAjaxController extends AjaxController
 {

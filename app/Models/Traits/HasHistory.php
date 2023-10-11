@@ -14,29 +14,6 @@ trait HasHistory
 {
     public bool $isHistory = true;
 
-    public function setHistory(string $event): self
-    {
-        /** @var $this BaseModel */
-        if (!$this->isHistory) {
-            return $this;
-        }
-        try {
-            $data = [
-                'ip' => User::auth()->ip ?? $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1',
-                'user_id' => User::auth()->id ?? null,
-                'resource' => $this->getTable(),
-                'resource_id' => $this->id,
-                'event' => $event,
-                'body' => @json_encode($this->getDirty(), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK),
-                'created_at' => time(),
-            ];
-            HistoryJob::dispatch($data);
-        } catch (Exception $exception) {
-        }
-
-        return $this;
-    }
-
     public function scopeCreated(Query $query): Query
     {
         /** @var $this BaseModel */

@@ -1,20 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Page;
+namespace App\Http\Requests\Admin\Post;
 
-use App\Http\Requests\Request;
+use App\Http\Requests\Admin\Request;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class StorePageRequest extends Request
+class UpdatePostRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *

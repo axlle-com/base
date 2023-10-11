@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\Admin\Request;
+
 class LoginRequest extends Request
 {
     /**

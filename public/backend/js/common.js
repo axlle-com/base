@@ -19,7 +19,7 @@ const _form = {
     confirm: function () {
         const _this = this;
         _this._block.on('click', '.js-save-button', function (e) {
-            let saveButton = $(this);
+            const saveButton = $(this);
             Swal.fire({
                 icon: 'warning',
                 title: 'Вы уверены что хотите сохранить все изменения?',
@@ -38,15 +38,18 @@ const _form = {
     },
     send: function (saveButton) {
         const _this = this;
-        let form = saveButton.closest('#global-form');
+        const form = saveButton.closest('#global-form');
+        const method = form.attr('method');
         if (form) {
             const request = new _glob.request(form).setPreloader('.js-product');
+            if (method) {
+                request.setMethod(method);
+            }
             request.send((response) => {
                 if (response.status) {
                     let html = $(response.data.view);
                     _this._block.html(html);
                     _glob.images = {};
-                    _glob.select2();
                     _config.run();
                     Swal.fire('Сохранено', '', 'success');
                 }
@@ -71,7 +74,8 @@ const _image = {
             denyButtonText: 'Отменить',
         }).then((result) => {
             if (result.isConfirmed) {
-                _glob.send.object(obj, '/admin/blog/ajax/delete-image', (response) => {
+                const request = new _glob.request(obj).setPreloader('.js-product');
+                request.send((response) => {
                     if (response.status) {
                         image.remove();
                         _glob.noty.success('Изображение удалено', '', 'success');
@@ -91,13 +95,40 @@ const _image = {
             let file = window.URL.createObjectURL(input[0].files[0]);
             $('.js-image-block-remove').slideDown();
             if (image.length) {
-                $(image).html(`<div class="image-box" style="background-image: url(${file}); background-size: cover;background-position: center;"></div>`);
+                const imageBlock = `
+                    <div class="image-box" style="background-image: url(${file}); background-size: cover;background-position: center;"></div>
+                    <div class="overlay-content text-center justify-content-end">
+                        <div class="btn-group mb-1" role="group">
+                            <a data-fancybox="gallery" href="${file}">
+                                <button type="button" class="btn btn-link btn-icon text-danger">
+                                    <i class="material-icons">zoom_in</i>
+                                </button>
+                            </a>
+                            <button type="button" class="btn btn-link btn-icon text-danger" data-js-image-delete>
+                                <i class="material-icons">delete</i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                $(image).html(imageBlock);
                 _config.fancybox();
             }
             _glob.noty.success('Нажните сохранить, что бы загрузить изображение');
         });
     },
     delete: function () {
+        const _this = this;
+        $('body').on('click', '[data-js-image-delete]', function (evt) {
+            let image = $(this).closest('fieldset').find('.image-box');
+            let input = $(this).closest('fieldset').find('input[type="file"]');
+            if (!image.length || !input.length) {
+                return;
+            }
+            input.val('');
+            image.remove();
+        });
+    },
+    deleteArray: function () {
         const _this = this;
         $('body').on('click', '[data-js-image-array-id]', function (evt) {
             let image = $(this).closest('.js-gallery-item');
@@ -107,6 +138,7 @@ const _image = {
                     return;
                 }
             }
+            const action = $(this).attr('data-js-image-href');
             let id = $(this).attr('data-js-image-array-id');
             let idGall;
             if (id) {
@@ -117,16 +149,16 @@ const _image = {
             let idBd = $(this).attr('data-js-image-id');
             let model = $(this).attr('data-js-image-model');
             if (idBd && model) {
-                _this.confirm({'id': idBd, 'model': model}, image)
+                _this.confirm({_method: 'DELETE', model, action}, image)
             } else {
                 delete _glob.images[idGall]['images'][id];
                 image.remove();
             }
         });
     },
-    arrayAdd: function () {
+    addArray: function () {
         const _this = this;
-        $('body').on('change', '.js-blog-category-gallery-input', function (evt) {
+        $('body').on('change', '.js-gallery-input', function (evt) {
             let idGallery = $(this).attr('data-js-gallery-id');
             if (!idGallery) {
                 idGallery = _glob.uuid();
@@ -146,10 +178,10 @@ const _image = {
                 _glob.images[idGallery]['images'][id]['file'] = fileArray[i];
                 array[id] = fileArray[i];
             }
-            _this.arrayDraw(array, idGallery);
+            _this.drawArray(array, idGallery);
         });
     },
-    arrayDraw: function (array, idGallery) {
+    drawArray: function (array, idGallery) {
         const self = this;
         if (Object.keys(array).length) {
             let selector = `[data-js-gallery-id="${idGallery}"]`;
@@ -182,7 +214,7 @@ const _image = {
                                         <div class="invalid-feedback"></div>
                                     </div>
                                     <div class="form-group small">
-                                        <input class="form-control form-shadow" placeholder="Сортировка" name="galleries[${idGallery}][images][${key}][sort]" value="">
+                                        <input class="form-control form-shadow" type="number" placeholder="Сортировка" name="galleries[${idGallery}][images][${key}][sort]" value="">
                                         <div class="invalid-feedback"></div>
                                     </div>
                                 </div>
@@ -200,7 +232,8 @@ const _image = {
     run: function () {
         this.add();
         this.delete();
-        this.arrayAdd();
+        this.deleteArray();
+        this.addArray();
         this.gallerySort();
     }
 }
@@ -334,7 +367,7 @@ const _config = {
         }
     },
     run: function () {
-        if ($('.a-block .a-product').length) {
+        if ($('.a-block .sortable').length) {
             this.sort();
         }
         this.select2();

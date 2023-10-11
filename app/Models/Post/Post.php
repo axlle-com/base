@@ -6,9 +6,8 @@ use App\Models\BaseModel;
 use App\Models\InfoBlock;
 use App\Models\Render;
 use App\Models\Traits\HasGallery;
-use App\Models\Traits\HasGalleryImage;
 use App\Models\Traits\HasHistory;
-use App\Models\Traits\HasUrl;
+use App\Models\Traits\HasImage;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -59,9 +58,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Post extends BaseModel
 {
-    use HasUrl;
     use HasGallery;
-    use HasGalleryImage;
+    use HasImage;
     use HasHistory;
 
     protected $table = 'post';
