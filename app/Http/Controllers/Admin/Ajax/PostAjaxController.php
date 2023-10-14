@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin\Ajax;
 
 use App\Http\Requests\Admin\Post\StorePostRequest;
 use App\Http\Requests\Admin\Post\UpdatePostRequest;
-use App\Services\Post\PostServices;
-use App\Services\PostCategory\PostCategoryServices;
+use App\Services\Blog\Post\PostServices;
+use App\Services\Blog\PostCategory\PostCategoryServices;
 use App\Services\Render\RenderServices;
 use Illuminate\Http\JsonResponse;
 use Throwable;
@@ -44,8 +44,8 @@ class PostAjaxController extends AjaxController
             $data['view'] = view('admin.blog.post_update', [
                 'title' => 'Редактирование поста',
                 'model' => $model,
-                'postCategory' => $this->postCategoryServices->get(),
-                'render' => $this->renderServices->get(),
+                'postCategories' => $this->postCategoryServices->get(),
+                'renders' => $this->renderServices->get(),
                 'menu' => null,
             ])->renderSections()['content'];
             $data['url'] = route('admin.post.edit', ['post' => $model->id]);
@@ -70,8 +70,8 @@ class PostAjaxController extends AjaxController
             $data['view'] = view('admin.blog.post_update', [
                 'title' => 'Редактирование поста',
                 'model' => $model,
-                'postCategory' => $this->postCategoryServices->get(),
-                'render' => $this->renderServices->get(),
+                'postCategories' => $this->postCategoryServices->get(),
+                'renders' => $this->renderServices->get(),
                 'menu' => null,
             ])->renderSections()['content'];
 

@@ -45,6 +45,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int|null $hits
  * @property int|null $sort
  * @property float|null $stars
+ * @property string|null $script
+ * @property string|null $css
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
@@ -111,7 +113,9 @@ class Post extends BaseModel
         'image',
         'hits',
         'sort',
-        'stars'
+        'stars',
+        'script',
+        'css',
     ];
 
     /**

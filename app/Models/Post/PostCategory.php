@@ -36,6 +36,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null $description
  * @property string|null $preview_description
  * @property int|null $sort
+ * @property string|null $script
+ * @property string|null $css
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
@@ -51,7 +53,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class PostCategory extends BaseModel
 {
-    use HasUrl;
     use HasGallery;
     use HasImage;
     use HasHistory;
@@ -87,7 +88,9 @@ class PostCategory extends BaseModel
         'title_short',
         'description',
         'preview_description',
-        'sort'
+        'sort',
+        'script',
+        'css',
     ];
 
     /**

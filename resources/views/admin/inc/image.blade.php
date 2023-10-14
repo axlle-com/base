@@ -1,13 +1,17 @@
 <?php
 
+use App\Models\Post\Post;
+use App\Models\Post\PostCategory;
+use App\Models\Page\Page;
+
 /**
- * @var $url string
- * @var $model \App\Models\BaseModel
+ * @var string $url
+ * @var Post|PostCategory|Page $model
  */
 
 ?>
 <div class="img block-image js-image-block">
-    @if ($url)
+    @if ($model && $url = $model->image ?? null)
         @php
             $fancybox = '';
             $href = '';

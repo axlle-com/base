@@ -10,18 +10,21 @@ use App\Models\Post\Post;
  */
 
 $title = $title ?? 'Заголовок';
-if ($model->id) {
+if ($model && $model->id) {
     $action = route('admin.ajax.post.update', ['post' => $model->id, '_method' => 'PUT']);
+    $breadcrumbsName = 'post';
 } else {
     $action = route('admin.ajax.post.store');
+    $breadcrumbsName = 'postNew';
 }
 
 ?>
-@extends('admin.layouts.main',['title' => $title])
+
+@extends('admin.layouts.main',['title' => $model->meta_title ?? null])
 
 @section('content')
-    <div class="main-body blog-category js-image a-product-index">
-        {{--        <?= $breadcrumb ?>--}}
+    <div class="main-body">
+        {{ Breadcrumbs::render($breadcrumbsName, $model ?? null) }}
         <h5>{{ $title }}</h5>
         <div>
             <form id="global-form" action="{{ $action }}">
@@ -74,8 +77,8 @@ if ($model->id) {
                                             <div class="col-md-4">
                                                 <fieldset class="form-block">
                                                     <legend>Изображение</legend>
-                                                    @include('admin.inc.image', ['url' => $model->image , 'model' => $model])
-                                                    @include('admin.inc.image_empty', ['model' => $model])
+                                                    @include('admin.inc.image')
+                                                    @include('admin.inc.image_empty')
                                                     <div class="form-group">
                                                         <div class="custom-control custom-checkbox">
                                                             <input
@@ -236,7 +239,7 @@ if ($model->id) {
                                                         </div>
                                                     </div>
                                                 </fieldset>
-                                                @include('admin.inc.side_bar_widgets', ['menu' => $menu])
+                                                @include('admin.inc.side_bar_widgets')
                                             </div>
                                         </div>
                                     </div>

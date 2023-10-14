@@ -8,12 +8,29 @@ use App\Models\Post\PostCategory;
 use App\Models\Rights\Helper\Permission as PermissionConst;
 use App\Models\Rights\Helper\Role as RoleConst;
 use App\Models\User\User;
+use App\Services\Blog\Page\PageServices;
+use App\Services\Blog\Post\PostServices;
+use App\Services\Blog\PostCategory\PostCategoryServices;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
+    private PostServices $postServices;
+    private PostCategoryServices $postCategoryServices;
+    private PageServices $pageServices;
+
+    public function __construct()
+    {
+        $this->postServices = App::make(PostServices::class);
+        $this->postCategoryServices = App::make(PostCategoryServices::class);
+        $this->pageServices = App::make(PageServices::class);
+    }
+
+
     /**
      * Seed the application's database.
      */
@@ -110,7 +127,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($array as $key => $page) {
-            PostCategory::create($page);
+            $this->postCategoryServices->create($page);
             echo 'setPostCategory: ' . $key . PHP_EOL;
         }
 
@@ -205,7 +222,7 @@ class DatabaseSeeder extends Seeder
         foreach ($array as $key => $page) {
             $page['post_category_id'] = PostCategory::query()->first()->id;
             /** @var Post $model */
-            Post::create($page);
+            $this->postServices->create($page);
             echo 'setPost: ' . $key . PHP_EOL;
         }
 
@@ -227,10 +244,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@yandex.ru',
             'password_hash' => bcrypt('securepass'),
             'first_name' => 'Admin',
-            'last_name' => 'Admin',
-            'status' => '10',
+            'last_name' => 'Adminer',
+            'status' => 10,
         ]);
         $adminUser->assignRole(RoleConst::ADMINISTRATOR);
         $adminUser->assignRole(RoleConst::EMPLOYEE);
+        Auth::loginUsingId($adminUser->id);
     }
 }

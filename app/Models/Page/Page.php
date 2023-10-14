@@ -11,6 +11,9 @@ use App\Models\Traits\HasHistory;
 use App\Models\Traits\HasUrl;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Page
@@ -33,6 +36,8 @@ use Illuminate\Database\Eloquent\Collection;
  * @property string|null $media
  * @property int|null $hits
  * @property int|null $sort
+ * @property string|null $script
+ * @property string|null $css
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
@@ -80,21 +85,32 @@ class Page extends BaseModel
         'image',
         'media',
         'hits',
-        'sort'
+        'sort',
+        'script',
+        'css',
     ];
 
-    public function render()
+    /**
+     * @return BelongsTo
+     */
+    public function render(): BelongsTo
     {
         return $this->belongsTo(Render::class);
     }
 
-    public function infoBlocks()
+    /**
+     * @return BelongsToMany
+     */
+    public function infoBlocks(): BelongsToMany
     {
         return $this->belongsToMany(InfoBlock::class, 'page_has_info_block')
             ->withPivot('sort');
     }
 
-    public function pageLanguages()
+    /**
+     * @return HasMany
+     */
+    public function pageLanguages(): HasMany
     {
         return $this->hasMany(PageLanguage::class);
     }

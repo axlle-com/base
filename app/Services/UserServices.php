@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User\User;
 use App\Repositories\Interfaces\IUserRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -29,7 +30,7 @@ class UserServices
         if (
             ($user = $this->userRepo->findByAttributes(['email' => $attributes['email']]))
             && Hash::check($attributes['password'], $user->password_hash)
-            && Auth::loginUsingId($user->id, $attributes['remember'])
+            && Auth::loginUsingId($user->id, $attributes['remember'] ?? false)
         ) {
             $user->setSessionRoles();
 
@@ -37,6 +38,17 @@ class UserServices
         }
 
         return false;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function get(): Collection
+    {
+        /** @var  Collection|User[] $get */
+        $get = $this->userRepo->get();
+
+        return $get;
     }
 
 }

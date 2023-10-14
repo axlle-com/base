@@ -1,75 +1,72 @@
 <?php
 
-namespace App\Services\Post;
+namespace App\Services\Blog;
 
 use App\Models\BaseModel;
+use App\Models\Page\Page;
 use App\Models\Post\Post;
-use App\Repositories\Interfaces\IPostRepository;
+use App\Models\Post\PostCategory;
+use App\Repositories\Interfaces\IBaseRepository;
 use App\Services\Gallery\GalleryServices;
 use App\Services\Image\ImageServices;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class PostServices
+/**
+ * @property IBaseRepository $repo
+ * @property BaseModel $model
+ * @property GalleryServices $galleryServices
+ * @property ImageServices $imageServices
+ *
+ */
+trait EntitySaveServices
 {
-    private IPostRepository $postRepo;
-    private ImageServices $imageServices;
-    private Post $model;
-    private GalleryServices $galleryServices;
-
-    /**
-     * @param IPostRepository $postRepo
-     * @param ImageServices $imageServices
-     * @param Post $model
-     * @param GalleryServices $galleryServices
-     */
-    public function __construct(
-        IPostRepository $postRepo,
-        ImageServices $imageServices,
-        Post $model,
-        GalleryServices $galleryServices
-    ) {
-        $this->postRepo = $postRepo;
-        $this->imageServices = $imageServices;
-        $this->model = $model;
-        $this->galleryServices = $galleryServices;
-    }
-
-
     /**
      * @param int $id
-     * @return Post|null
+     * @return Post|PostCategory|Page|null
      */
-    public function find(int $id): ?Post
+    public function find(int $id): ?BaseModel
     {
-        /** @var Post $model */
-        $model = $this->postRepo->find($id);
+        /** @var Post|PostCategory|Page $model */
+        $model = $this->repo->find($id);
+
+        return $model;
+    }
+
+    /**
+     * @return Post[]|PostCategory[]|Page[]|Collection
+     */
+    public function get(): Collection
+    {
+        /** @var Post[]|PostCategory[]|Page[]|Collection $model */
+        $model = $this->repo->get();
 
         return $model;
     }
 
     /**
      * @param array $request
-     * @return LengthAwarePaginator
+     * @return LengthAwarePaginator|Post[]|PostCategory[]|Page[]
      */
     public function filter(array $request): LengthAwarePaginator
     {
-        /** @var LengthAwarePaginator|Post[] $filter */
-        $filter = $this->postRepo->filter($request);
+        /** @var LengthAwarePaginator|Post[]|PostCategory[]|Page[] $filter */
+        $filter = $this->repo->filter($request);
 
         return $filter;
     }
 
     /**
      * @param array $attributes
-     * @return Post
+     * @return Post|PostCategory
      */
-    public function create(array $attributes): Post
+    public function create(array $attributes): BaseModel
     {
-        /** @var Post $model */
+        /** @var Post|PostCategory|Page $model */
         $attributes = $this->prepareAttributes($attributes);
-        $model = $this->postRepo->create($attributes);
+        $model = $this->repo->create($attributes);
         $ids = $this->galleryServices->uploadFromArray($attributes);
-        $this->postRepo->syncGallery($model, $ids);
+        $this->repo->syncGallery($model, $ids);
 
         return $model;
     }
@@ -77,16 +74,16 @@ class PostServices
     /**
      * @param int $id
      * @param array $attributes
-     * @return Post
+     * @return Post|PostCategory
      */
-    public function update(int $id, array $attributes): Post
+    public function update(int $id, array $attributes): BaseModel
     {
-        /** @var Post $model */
+        /** @var Post|PostCategory|Page $model */
         $attributes['id'] = $id;
         $attributes = $this->prepareAttributes($attributes);
-        $model = $this->postRepo->update($id, $attributes);
+        $model = $this->repo->update($id, $attributes);
         $ids = $this->galleryServices->uploadFromArray($attributes);
-        $this->postRepo->syncGallery($model, $ids);
+        $this->repo->syncGallery($model, $ids);
 
         return $model;
     }
@@ -98,12 +95,12 @@ class PostServices
     public function prepareAttributes(array $attributes): array
     {
         $id = $attributes['id'] ?? null;
-        if ($attributes['alias']) {
+        if (!empty($attributes['alias'])) {
             $attributes['alias'] = $this->checkAlias($attributes['alias'], $id);
         } else {
             $attributes['alias'] = $this->checkAlias($this->generateAlias($attributes['title']), $id);
         }
-        if ($attributes['url']) {
+        if (!empty($attributes['url'])) {
             $attributes['url'] = '/' . $this->checkUrl($attributes['url'], $id);
         } else {
             $attributes['url'] = '/' . $this->checkUrl($attributes['alias'], $id);
@@ -126,7 +123,7 @@ class PostServices
     {
         $cnt = 1;
         $temp = $alias;
-        while ($this->postRepo->existAlias($temp, $id)) {
+        while ($this->repo->existAlias($temp, $id)) {
             $temp = $alias . '-' . $cnt;
             $cnt++;
         }
@@ -141,17 +138,24 @@ class PostServices
      */
     protected function checkUrl(string $url, ?int $id = null): string
     {
-        /** @var BaseModel $this */
+        /** @var Post|PostCategory|Page $this */
         $cnt = 1;
         $url = trim($url, '/');
         $temp = $url;
-        while ($this->postRepo->existUrl($temp, $id)) {
+        while ($this->existUrl($temp, $id)) {
             $temp = $url . '-' . $cnt;
             $cnt++;
         }
 
         return $temp;
     }
+
+    /**
+     * @param string $temp
+     * @param int|null $id
+     * @return bool
+     */
+    abstract public function existUrl(string $temp, ?int $id): bool;
 
     /**
      * @param string $str

@@ -35,6 +35,12 @@ class AdminMenu extends Widget
                 '/admin/blog/comment',
                 'Комментарии',
             ],
+            [
+                'blog_page',
+                '<i class="material-icons">list_alt</i>',
+                '/admin/blog/page',
+                'Страницы',
+            ],
         ],
     ];
 
@@ -43,63 +49,16 @@ class AdminMenu extends Widget
      */
     private function page(): void
     {
-        $url = $_SERVER['REQUEST_URI'];
-        if ($url === '/admin') {
-            $this->activePage['admin'] = 'active';
-        }
-        if (strripos($url, '/admin/blog/category') !== false) {
+        $parseUrl = parse_url($_SERVER['REQUEST_URI']);
+        $array = explode('/', trim($parseUrl['path'], '/'));
+        if (($array[2] ?? null) === 'post-category') {
             $this->activePage['blog_category'] = 'active';
         }
-        if (strripos($url, '/admin/blog/post') !== false) {
+        if (($array[2] ?? null) === 'post') {
             $this->activePage['blog_post'] = 'active';
         }
-        if (strripos($url, '/admin/catalog/category') !== false) {
-            $this->activePage['catalog_category'] = 'active';
-        }
-        if (strripos($url, 'admin/catalog/product') !== false) {
-            $this->activePage['catalog_product'] = 'active';
-        }
-        if (strripos($url, 'admin/catalog/property') !== false) {
-            $this->activePage['catalog_property'] = 'active';
-        }
-        if (strripos($url, '/admin/catalog/coupon') !== false) {
-            $this->activePage['coupon'] = 'active';
-        }
-        if (strripos($url, '/admin/catalog/document') !== false) {
-            $this->activePage['document'] = 'active';
-        }
-        if (strripos($url, '/admin/catalog/document/order') !== false) {
-            $this->activePage['order'] = 'active';
-        }
-        if (strripos($url, '/admin/catalog/document/fin-invoice') !== false) {
-            $this->activePage['fin_invoice'] = 'active';
-        }
-        if (strripos($url, '/admin/catalog/document/coming') !== false) {
-            $this->activePage['coming'] = 'active';
-        }
-        if (strripos($url, '/admin/catalog/document/write-off') !== false) {
-            $this->activePage['write-off'] = 'active';
-        }
-        if (strripos($url, '/admin/catalog/document/reservation') !== false) {
-            $this->activePage['reservation'] = 'active';
-        }
-        if (strripos($url, '/admin/catalog/document/reservation-cancel') !== false) {
-            $this->activePage['reservation-cancel'] = 'active';
-        }
-        if (strripos($url, '/admin/page') !== false) {
+        if (($array[2] ?? null) === 'page') {
             $this->activePage['page'] = 'active';
-        }
-        if (strripos($url, '/admin/catalog/storage') !== false) {
-            $this->activePage['catalog_storage'] = 'active';
-        }
-        if (strripos($url, '/admin/storage-place') !== false) {
-            $this->activePage['storage_place'] = 'active';
-        }
-        if (strripos($url, '/admin/report') !== false) {
-            $this->activePage['report'] = 'active show';
-        }
-        if (strripos($url, '/admin/report/storage-balance-simple') !== false) {
-            $this->activePage['storage_balance_simple'] = 'active';
         }
     }
 

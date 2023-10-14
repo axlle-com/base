@@ -15,8 +15,10 @@ $user = User::auth();
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <link rel="stylesheet" href="/backend/css/main.css">
-    @stack('css')
     <link rel="stylesheet" href="/backend/css/common.css?v={{ time() }}">
+    <!-- custom styles -->
+    @stack('styles')
+    <!-- /custom styles -->
     <title>{{ config('app.company_name') }} | {{ $title ?? 'Заголовок' }}</title>
 </head>
 <body class="a-block">
@@ -100,7 +102,9 @@ $user = User::auth();
 </div>
 <script src="/backend/js/main.js"></script>
 <script src="/main/js/glob.js"></script>
-@stack('scripts')
 <script src="/backend/js/common.js?v={{ time() }}"></script>
+<!-- custom scripts -->
+@stack('scripts')
+<!-- /custom scripts -->
 </body>
 </html>

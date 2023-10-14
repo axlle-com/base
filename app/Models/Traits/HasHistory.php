@@ -2,12 +2,10 @@
 
 namespace App\Models\Traits;
 
-use App\Jobs\HistoryJob;
 use App\Models\BaseModel;
 use App\Models\History\History;
 use App\Models\Ip;
 use App\Models\User\User;
-use Exception;
 use Illuminate\Database\Eloquent\Builder as Query;
 
 trait HasHistory
@@ -16,7 +14,7 @@ trait HasHistory
 
     public function scopeCreated(Query $query): Query
     {
-        /** @var $this BaseModel */
+        /** @var BaseModel $this */
         $table = $this->getTable();
         $query->addSelect([
             $table . '.*',
@@ -32,6 +30,7 @@ trait HasHistory
             })
             ->leftJoin(User::table(), History::table('user_id'), '=', User::table('id'))
             ->leftJoin(Ip::table(), History::table('ip_id'), '=', Ip::table('id'));
+
         return $query;
     }
 }

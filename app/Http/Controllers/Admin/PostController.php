@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Request;
 use App\Models\Post\Post;
-use App\Services\Post\PostServices;
-use App\Services\PostCategory\PostCategoryServices;
+use App\Services\Blog\Post\PostServices;
+use App\Services\Blog\PostCategory\PostCategoryServices;
 use App\Services\Render\RenderServices;
+use App\Services\UserServices;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -17,21 +18,26 @@ class PostController extends Controller
     private PostServices $postServices;
     private RenderServices $renderServices;
     private PostCategoryServices $postCategoryServices;
+    private UserServices $userServices;
 
     /**
      * @param PostServices $postServices
      * @param RenderServices $renderServices
      * @param PostCategoryServices $postCategoryServices
+     * @param UserServices $userServices
      */
     public function __construct(
         PostServices $postServices,
         RenderServices $renderServices,
-        PostCategoryServices $postCategoryServices
+        PostCategoryServices $postCategoryServices,
+        UserServices $userServices
     ) {
         $this->postServices = $postServices;
         $this->renderServices = $renderServices;
         $this->postCategoryServices = $postCategoryServices;
+        $this->userServices = $userServices;
     }
+
 
     /**
      * Display a listing of the resource.
@@ -46,7 +52,9 @@ class PostController extends Controller
         return view('admin.blog.post_index', [
             'title' => $title,
             'models' => $this->postServices->filter($request->all()),
-            'postCategory' => $this->postCategoryServices->get(),
+            'postCategories' => $this->postCategoryServices->get(),
+            'renders' => $this->renderServices->get(),
+            'users' => $this->userServices->get(),
             'post' => $request->all(),
         ]);
     }
@@ -60,11 +68,12 @@ class PostController extends Controller
     {
         $title = 'Новый пост';
 
+        # TODO: разделить view
         return view('admin.blog.post_update', [
             'title' => $title,
             'model' => new Post(),
-            'postCategory' => $this->postCategoryServices->get(),
-            'render' => $this->renderServices->get(),
+            'postCategories' => $this->postCategoryServices->get(),
+            'renders' => $this->renderServices->get(),
             'menu' => null,
         ]);
     }
@@ -82,8 +91,8 @@ class PostController extends Controller
         return view('admin.blog.post_update', [
             'title' => $title,
             'model' => $this->postServices->find($id),
-            'postCategory' => $this->postCategoryServices->get(),
-            'render' => $this->renderServices->get(),
+            'postCategories' => $this->postCategoryServices->get(),
+            'renders' => $this->renderServices->get(),
             'menu' => null,
         ]);
     }

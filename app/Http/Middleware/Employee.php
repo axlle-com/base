@@ -15,6 +15,6 @@ class Employee
         if ($user && in_array(Permission::ENTRY_ALLOWED, $user->getSessionPermissions(), true)) {
             return $next($request);
         }
-        abort(404);
+        return redirect('/admin/login');
     }
 }

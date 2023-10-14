@@ -1,22 +1,23 @@
 <?php
 
 use App\Models\Post\Post;
+use App\Models\Page\Page;
 use App\Models\Post\PostCategory;
 use App\Models\Render;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @var $title string
- * @var $model PostCategory|Post
+ * @var $model PostCategory|Post|Page
  * @var $render Render[]|Collection
- * @var $postCategory PostCategory[]|Collection
+ * @var $postCategories PostCategory[]|Collection
  */
 
 ?>
 <div class="col-md-8">
     <fieldset class="form-block">
         <legend>Связь данных</legend>
-        @if(!empty($postCategory))
+        @if(!empty($postCategories))
             <div class="form-group small">
                 <label for="blogTitle">Категория</label>
                 <select
@@ -26,7 +27,7 @@ use Illuminate\Database\Eloquent\Collection;
                     name="post_category_id"
                     data-validator="post_category_id">
                     <option></option>
-                    @foreach ($postCategory as $item)
+                    @foreach ($postCategories as $item)
                         <option
                             value="{{ $item['id'] }}" {{ ($item['id'] === $model->post_category_id) ? 'selected' : '' }}>
                             {{ $item['title'] }}
@@ -36,7 +37,7 @@ use Illuminate\Database\Eloquent\Collection;
                 <div class="invalid-feedback"></div>
             </div>
         @endif
-        @if(!empty($render))
+        @if(!empty($renders))
             <div class="form-group small">
                 <label for="blogTitle">Шаблон</label>
                 <select
@@ -46,7 +47,7 @@ use Illuminate\Database\Eloquent\Collection;
                     name="render_id"
                     data-validator="render_id">
                     <option></option>
-                    @foreach ($render as $item)
+                    @foreach ($renders as $item)
                         <option
                             value="{{ $item['id'] }}" {{ ($item['id'] === $model->render_id) ? 'selected' : '' }}>
                             {{ $item['title'] }}
@@ -66,7 +67,7 @@ use Illuminate\Database\Eloquent\Collection;
                 placeholder="Алиас"
                 name="alias"
                 id="alias"
-                value="<?= $model->alias ?>"
+                value="<?= $model->alias ?? null ?>"
                 data-validator="alias">
             <div class="invalid-feedback"></div>
         </div>
@@ -77,7 +78,7 @@ use Illuminate\Database\Eloquent\Collection;
                 placeholder="Ссылка"
                 name="url"
                 id="url"
-                value="<?= $model->url ?>"
+                value="<?= $model->url ?? null ?>"
                 data-validator="url">
             <div class="invalid-feedback"></div>
         </div>
@@ -91,7 +92,7 @@ use Illuminate\Database\Eloquent\Collection;
                 placeholder="Обычный"
                 name="title"
                 id="title"
-                value="<?= $model->title ?>"
+                value="<?= $model->title ?? null ?>"
                 data-validator-required
                 data-validator="title">
             <div class="invalid-feedback"></div>
@@ -103,7 +104,7 @@ use Illuminate\Database\Eloquent\Collection;
                 placeholder="Короткий"
                 name="title_short"
                 id="title_short"
-                value="<?= $model->title_short ?>"
+                value="<?= $model->title_short ?? null ?>"
                 data-validator="title_short">
             <div class="invalid-feedback"></div>
         </div>
@@ -114,7 +115,7 @@ use Illuminate\Database\Eloquent\Collection;
                 placeholder="Короткое описание"
                 name="preview_description"
                 id="preview_description"
-                data-validator="preview_description"><?= $model->preview_description ?></textarea>
+                data-validator="preview_description"><?= $model->preview_description ?? null ?></textarea>
             <div class="invalid-feedback"></div>
         </div>
     </fieldset>
@@ -127,7 +128,7 @@ use Illuminate\Database\Eloquent\Collection;
                 placeholder="Заголовок SEO"
                 name="meta_title"
                 id="title_seo"
-                value="<?= $model->meta_title ?>"
+                value="<?= $model->meta_title ?? null ?>"
                 data-validator-required
                 data-validator="meta_title">
             <div class="invalid-feedback"></div>
@@ -140,7 +141,7 @@ use Illuminate\Database\Eloquent\Collection;
                 name="meta_description"
                 id="meta_description"
                 data-validator-required
-                data-validator="meta_description"><?= $model->meta_description ?></textarea>
+                data-validator="meta_description"><?= $model->meta_description ?? null ?></textarea>
             <div class="invalid-feedback"></div>
         </div>
     </fieldset>
@@ -148,6 +149,6 @@ use Illuminate\Database\Eloquent\Collection;
         <textarea
             name="description"
             id="description"
-            class="form-control summernote-500"><?= $model->description ?></textarea>
+            class="form-control summernote-500"><?= $model->description ?? null ?></textarea>
     </div>
 </div>

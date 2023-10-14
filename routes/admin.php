@@ -26,14 +26,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'employee'], static function 
 
     Route::apiResource('ajax/gallery-image', GalleryImageAjaxController::class, ['as' => 'admin.ajax']);
 
-    Route::resource('page', PageController::class, ['as' => 'admin']);
-    Route::apiResource('ajax/page', PageAjaxController::class, ['as' => 'admin.ajax']);
-
     Route::group(['prefix' => 'blog'], static function () {
         Route::resource('post', PostController::class, ['as' => 'admin']);
         Route::apiResource('ajax/post', PostAjaxController::class, ['as' => 'admin.ajax']);
 
         Route::resource('post-category', PostCategoryController::class, ['as' => 'admin']);
         Route::apiResource('ajax/post-category', PostCategoryAjaxController::class, ['as' => 'admin.ajax']);
+
+        Route::resource('page', PageController::class, ['as' => 'admin']);
+        Route::apiResource('ajax/page', PageAjaxController::class, ['as' => 'admin.ajax']);
     });
 });

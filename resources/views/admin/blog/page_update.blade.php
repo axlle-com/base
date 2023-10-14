@@ -1,34 +1,40 @@
 <?php
 
-use App\Common\Models\Page\Page;
-use App\Common\Models\Setting\Setting;
+use App\Models\Page\Page;
 
 
-
-
-/** @var $title string
+/**
+ * @var $title string
  * @var $breadcrumb string
- * @var $model      Page
+ * @var $model Page|null
  */
 
 $title = $title ?? 'Заголовок';
+if ($model && $model->id) {
+    $action = route('admin.ajax.page.update', ['page' => $model->id, '_method' => 'PUT']);
+    $breadcrumbsName = 'page';
+} else {
+    $action = route('admin.ajax.page.store');
+    $breadcrumbsName = 'pageNew';
+}
 
 ?>
-@extends($layout,['title' => $title])
+
+@extends('admin.layouts.main',['title' => $model->meta_title ?? null])
+
 @section('content')
     <div class="main-body">
-        <?= $breadcrumb ?>
-        <h5><?= $title ?></h5>
+        {{ Breadcrumbs::render($breadcrumbsName, $model ?? null) }}
+        <h5>{{ $title }}</h5>
         <div>
-            <form id="global-form" action="/admin/page/ajax-save">
-                <input type="hidden" name="id" value="<?= $model->id ?? null?>">
+            <form id="global-form" action="{{ $action }}">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
                                 <div class="list-with-gap mb-2">
                                     <button type="button" class="btn btn-success js-save-button">Сохранить</button>
-                                    <a type="button" class="btn btn-secondary" href="/admin/page">Выйти</a>
+                                    <a type="button" class="btn btn-secondary" href="{{ route('admin.page.index') }}">Выйти</a>
                                 </div>
                                 <div class="list-with-gap mb-2">
                                     <ul class="nav nav-gap-x-1 mt-3" role="tablist">
@@ -62,70 +68,43 @@ $title = $title ?? 'Заголовок';
                                     </ul>
                                 </div>
                                 <div class="tab-content">
-                                    <div class="tab-pane fade active show" id="home-page" role="tabpanel"
+                                    <div class="tab-pane fade active show"
+                                         id="home-page"
+                                         role="tabpanel"
                                          aria-labelledby="home-tab-faded">
                                         <div class="row">
-                                            @include($backendTemplate.'.page.inc.front_page')
-                                            <div class="col-sm-4">
+                                            @include('admin.blog.inc.front_page')
+                                            <div class="col-md-4">
                                                 <fieldset class="form-block">
                                                     <legend>Изображение</legend>
-                                                    @include($backendTemplate.'.inc.image', ['url' => $model->getImage(),'model' => $model])
-                                                    <div class="form-group">
-                                                        <label class="control-label button-100" for="js-image-upload">
-                                                            <a type="button" class="btn btn-primary button-image">Загрузить
-                                                                фото</a>
-                                                        </label>
-                                                        <input
-                                                                type="file"
-                                                                id="js-image-upload"
-                                                                class="custom-input-file js-image-upload"
-                                                                name="image"
-                                                                accept="image/*">
-                                                        <div class="invalid-feedback"></div>
-                                                    </div>
+                                                    @include('admin.inc.image')
+                                                    @include('admin.inc.image_empty')
                                                 </fieldset>
                                                 <fieldset class="form-block">
                                                     <div class="custom-control custom-checkbox">
                                                         <input
-                                                                type="checkbox"
-                                                                class="custom-control-input"
-                                                                name="is_comments"
-                                                                id="is_comments"
-                                                            <?= $model->is_comments ? 'checked' : '' ?>>
-                                                        <label class="custom-control-label" for="is_comments">Подключить
-                                                            комментарии</label>
+                                                            type="checkbox"
+                                                            class="custom-control-input"
+                                                            name="is_comments"
+                                                            id="is_comments"
+                                                            value="1"
+                                                            {{ $model && $model->is_comments ? 'checked' : '' }}>
+                                                        <label class="custom-control-label" for="is_comments">
+                                                            Подключить комментарии
+                                                        </label>
                                                     </div>
                                                 </fieldset>
                                                 <fieldset class="form-block">
                                                     <legend>Публикация</legend>
-                                                    <div class="input-group datepicker-wrap form-group">
-                                                        <label for="blogTitle">Дата публикации</label>
-                                                        <input
-                                                                type="text"
-                                                                class="form-control"
-                                                                name="date_pub"
-                                                                value="<?= date('d.m.Y', $model->created_at) ?>"
-                                                                placeholder="Укажите дату"
-                                                                autocomplete="off"
-                                                                data-input>
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-light btn-icon" type="button"
-                                                                    title="Choose date" data-toggle><i
-                                                                        class="material-icons">calendar_today</i>
-                                                            </button>
-                                                            <button class="btn btn-light btn-icon" type="button"
-                                                                    title="Clear" data-clear><i class="material-icons">close</i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
                                                     <div class="form-group">
                                                         <div class="custom-control custom-checkbox">
                                                             <input
-                                                                    type="checkbox"
-                                                                    class="custom-control-input"
-                                                                    name="is_published"
-                                                                    id="is_published"
-                                                                <?= $model->is_published ? 'checked' : '' ?>>
+                                                                type="checkbox"
+                                                                class="custom-control-input"
+                                                                name="is_published"
+                                                                id="is_published"
+                                                                value="1"
+                                                                <?= $model && $model->is_published ? 'checked' : '' ?>>
                                                             <label class="custom-control-label" for="is_published">Опубликовано</label>
                                                             <div class="invalid-feedback"></div>
                                                         </div>
@@ -133,23 +112,24 @@ $title = $title ?? 'Заголовок';
                                                     <div class="form-group">
                                                         <div class="custom-control custom-checkbox">
                                                             <input
-                                                                    type="checkbox"
-                                                                    class="custom-control-input"
-                                                                    name="is_favourites"
-                                                                    id="is_favourites"
-                                                                <?= $model->is_favourites ? 'checked' : '' ?>>
+                                                                type="checkbox"
+                                                                class="custom-control-input"
+                                                                name="is_favourites"
+                                                                id="is_favourites"
+                                                                value="1"
+                                                                {{ $model && $model->is_favourites ? 'checked' : '' }}>
                                                             <label class="custom-control-label" for="is_favourites">Избранное</label>
                                                             <div class="invalid-feedback"></div>
                                                         </div>
                                                     </div>
                                                 </fieldset>
-                                                @include($backendTemplate.'.inc.side_bar_widgets')
+                                                @include('admin.inc.side_bar_widgets')
                                             </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="tab2Faded" role="tabpanel"
                                          aria-labelledby="profile-tab-faded">
-                                        @include($backendTemplate.'.inc.gallery')
+                                        @include('admin.inc.gallery')
                                     </div>
                                     <div class="tab-pane fade" id="tab3Faded" role="tabpanel"
                                          aria-labelledby="contact-tab-faded">

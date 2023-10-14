@@ -18,7 +18,7 @@ $title = $title ?? 'Заголовок';
 @extends($layout,['title' => $title])
 
 @section('content')
-    <div class="main-body blog-category js-index">
+    <div class="main-body">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style3">
                 <li class="breadcrumb-item"><a href="/admin">Главная</a></li>

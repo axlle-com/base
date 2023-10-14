@@ -112,7 +112,7 @@ class User extends BaseUser
             if (__CLASS__ === $subclass) {
                 /** @var User $user */
                 if ($user = Auth::user()) {
-                    $user->ip = $_SERVER['REMOTE_ADDR'];
+                    $user->ip = $_SERVER['REMOTE_ADDR'] ?? null;
                     if (!$user->getSessionRoles()) {
                         $user->setSessionRoles();
                     }
