@@ -53,7 +53,7 @@ class PostController extends Controller
             'title' => $title,
             'models' => $this->postServices->filter($request->all()),
             'postCategories' => $this->postCategoryServices->get(),
-            'renders' => $this->renderServices->get(),
+            'renders' => $this->renderServices->get(Post::table()),
             'users' => $this->userServices->get(),
             'post' => $request->all(),
         ]);
@@ -73,7 +73,7 @@ class PostController extends Controller
             'title' => $title,
             'model' => new Post(),
             'postCategories' => $this->postCategoryServices->get(),
-            'renders' => $this->renderServices->get(),
+            'renders' => $this->renderServices->get(Post::table()),
             'menu' => null,
         ]);
     }
@@ -92,7 +92,7 @@ class PostController extends Controller
             'title' => $title,
             'model' => $this->postServices->find($id),
             'postCategories' => $this->postCategoryServices->get(),
-            'renders' => $this->renderServices->get(),
+            'renders' => $this->renderServices->get(Post::table()),
             'menu' => null,
         ]);
     }

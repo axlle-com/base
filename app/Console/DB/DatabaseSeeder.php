@@ -4,6 +4,7 @@ namespace App\Console\DB;
 
 use Doctrine\DBAL\Exception;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
@@ -25,20 +26,11 @@ class DatabaseSeeder extends Command
 
     /**
      * Execute the console command.
-     * @throws Exception
      */
     public function handle(): void
     {
-        Schema::disableForeignKeyConstraints();
-        $tableNames = Schema::getConnection()->getDoctrineSchemaManager()->listTableNames();
-        foreach ($tableNames as $name) {
-            if ($name === 'migrations') {
-                continue;
-            }
-            DB::table($name)->truncate();
-        }
-
-        Schema::enableForeignKeyConstraints();
+        Schema::dropAllTables();
+        Artisan::call('migrate');
         (new \Database\Seeders\DatabaseSeeder())->run();
     }
 }

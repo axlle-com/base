@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Ajax;
 
 use App\Http\Requests\Admin\PostCategory\StorePostCategoryRequest;
 use App\Http\Requests\Admin\PostCategory\UpdatePostCategoryRequest;
+use App\Models\Post\PostCategory;
 use App\Services\Blog\PostCategory\PostCategoryServices;
 use App\Services\Render\RenderServices;
 use Illuminate\Http\JsonResponse;
@@ -46,7 +47,7 @@ class PostCategoryAjaxController extends AjaxController
                 'title' => 'Редактирование поста',
                 'model' => $model,
                 'postCategories' => $this->postCategoryServices->get(),
-                'renders' => $this->renderServices->get(),
+                'renders' => $this->renderServices->get(PostCategory::table()),
                 'menu' => null,
             ])->renderSections()['content'];
             $data['url'] = route('admin.page.edit', ['post_category' => $model->id]);
@@ -72,7 +73,7 @@ class PostCategoryAjaxController extends AjaxController
                 'title' => 'Редактирование поста',
                 'model' => $model,
                 'postCategories' => $this->postCategoryServices->get(),
-                'renders' => $this->renderServices->get(),
+                'renders' => $this->renderServices->get(PostCategory::table()),
                 'menu' => null,
             ])->renderSections()['content'];
 

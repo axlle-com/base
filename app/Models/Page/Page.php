@@ -3,15 +3,13 @@
 namespace App\Models\Page;
 
 use App\Models\BaseModel;
-use App\Models\InfoBlock;
-use App\Models\Render;
+use App\Models\InfoBlock\InfoBlock;
 use App\Models\Traits\HasGallery;
-use App\Models\Traits\HasImage;
 use App\Models\Traits\HasHistory;
+use App\Models\Traits\HasImage;
 use App\Models\Traits\HasUrl;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -19,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Class Page
  *
  * @property int $id
- * @property int|null $render_id
+ * @property string|null $render
  * @property string|null $meta_title
  * @property string|null $meta_description
  * @property string $alias
@@ -42,7 +40,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
  *
- * @property Render|null $render
  * @property Collection|InfoBlock[] $infoBlocks
  * @property Collection|PageLanguage[] $pageLanguages
  *
@@ -58,7 +55,6 @@ class Page extends BaseModel
     protected $table = 'page';
 
     protected $casts = [
-        'render_id' => 'int',
         'is_published' => 'bool',
         'is_favourites' => 'bool',
         'is_comments' => 'bool',
@@ -69,7 +65,7 @@ class Page extends BaseModel
     ];
 
     protected $fillable = [
-        'render_id',
+        'render',
         'meta_title',
         'meta_description',
         'alias',
@@ -91,20 +87,18 @@ class Page extends BaseModel
     ];
 
     /**
-     * @return BelongsTo
-     */
-    public function render(): BelongsTo
-    {
-        return $this->belongsTo(Render::class);
-    }
-
-    /**
      * @return BelongsToMany
      */
     public function infoBlocks(): BelongsToMany
     {
-        return $this->belongsToMany(InfoBlock::class, 'page_has_info_block')
-            ->withPivot('sort');
+        return $this->belongsToMany(
+            InfoBlock::class,
+            'info_block_has_resource',
+            'resource_id',
+            'info_block_id',
+        )
+            ->wherePivot('resource', '=', $this->getTable())
+            ->withPivot(['position', 'sort']);
     }
 
     /**

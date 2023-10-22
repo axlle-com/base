@@ -3,11 +3,13 @@
 use App\Http\Controllers\Admin\Ajax\AuthAjaxController;
 use App\Http\Controllers\Admin\Ajax\GalleryImageAjaxController;
 use App\Http\Controllers\Admin\Ajax\ImageAjaxController;
+use App\Http\Controllers\Admin\Ajax\InfoBlockAjaxController;
 use App\Http\Controllers\Admin\Ajax\PageAjaxController;
 use App\Http\Controllers\Admin\Ajax\PostAjaxController;
 use App\Http\Controllers\Admin\Ajax\PostCategoryAjaxController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\InfoBlockController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\PostController;
@@ -35,5 +37,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'employee'], static function 
 
         Route::resource('page', PageController::class, ['as' => 'admin']);
         Route::apiResource('ajax/page', PageAjaxController::class, ['as' => 'admin.ajax']);
+
+        Route::resource('info-block', InfoBlockController::class, ['as' => 'admin']);
+        Route::apiResource('ajax/info-block', PageAjaxController::class, ['as' => 'admin.ajax']);
     });
+    Route::resource('page', PageController::class, ['as' => 'admin']);
+    Route::apiResource('ajax/page', PageAjaxController::class, ['as' => 'admin.ajax']);
+
+    Route::resource('info-block', InfoBlockController::class, ['as' => 'admin']);
+    Route::apiResource('ajax/info-block', InfoBlockAjaxController::class, ['as' => 'admin.ajax']);
 });

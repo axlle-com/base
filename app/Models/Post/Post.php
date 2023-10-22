@@ -3,8 +3,7 @@
 namespace App\Models\Post;
 
 use App\Models\BaseModel;
-use App\Models\InfoBlock;
-use App\Models\Render;
+use App\Models\InfoBlock\InfoBlock;
 use App\Models\Traits\HasGallery;
 use App\Models\Traits\HasHistory;
 use App\Models\Traits\HasImage;
@@ -18,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Class Post
  *
  * @property int $id
- * @property int|null $render_id
+ * @property string|null $render
  * @property int|null $post_category_id
  * @property string|null $meta_title
  * @property string|null $meta_description
@@ -52,8 +51,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null $deleted_at
  *
  * @property PostCategory|null $postCategory
- * @property Render|null $render
- * @property Collection|InfoBlock[] $infoBlocks
+ * @property Collection|\App\Models\InfoBlock\InfoBlock[] $infoBlocks
  * @property Collection|PostLanguage[] $postLanguages
  *
  * @package App\Models
@@ -67,7 +65,6 @@ class Post extends BaseModel
     protected $table = 'post';
 
     protected $casts = [
-        'render_id' => 'int',
         'post_category_id' => 'int',
         'is_published' => 'bool',
         'is_favourites' => 'bool',
@@ -87,7 +84,7 @@ class Post extends BaseModel
     ];
 
     protected $fillable = [
-        'render_id',
+        'render',
         'post_category_id',
         'meta_title',
         'meta_description',
@@ -127,20 +124,18 @@ class Post extends BaseModel
     }
 
     /**
-     * @return BelongsTo
-     */
-    public function render(): BelongsTo
-    {
-        return $this->belongsTo(Render::class);
-    }
-
-    /**
      * @return BelongsToMany
      */
     public function infoBlocks(): BelongsToMany
     {
-        return $this->belongsToMany(InfoBlock::class, 'post_has_info_block')
-            ->withPivot('sort');
+        return $this->belongsToMany(
+            InfoBlock::class,
+            'info_block_has_resource',
+            'resource_id',
+            'info_block_id',
+        )
+            ->wherePivot('resource', '=', $this->getTable())
+            ->withPivot(['position', 'sort']);
     }
 
     /**

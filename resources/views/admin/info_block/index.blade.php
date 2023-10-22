@@ -15,7 +15,6 @@ use App\Models\User\User;
 $title = $title ?? 'Заголовок';
 $user_id = (int)($post['user_id'] ?? null);
 $render = (string)($post['render'] ?? null);
-$category_id = (int)($post['post_category_id'] ?? null);
 
 ?>
 @extends('admin.layouts.main', ['title' => $title])
@@ -28,15 +27,15 @@ $category_id = (int)($post['post_category_id'] ?? null);
 
 @section('content')
     <div class="main-body">
-        {{ Breadcrumbs::render('posts') }}
+        {{ Breadcrumbs::render('infoBlocks') }}
         <h5>{{ $title }}</h5>
         <div class="card js-index-card">
             <div class="card-body js-index-card-inner">
                 <div class="btn-group btn-group-sm mb-3" role="group">
-                    <a class="btn btn-light has-icon" href="{{ route('admin.post.create') }}">
+                    <a class="btn btn-light has-icon" href="{{ route('admin.info-block.create') }}">
                         <i class="material-icons mr-1">add_circle_outline</i>Новая
                     </a>
-                    <a type="button" class="btn btn-light has-icon" href="/admin/blog/post">
+                    <a type="button" class="btn btn-light has-icon" href="{{ route('admin.info-block.index') }}">
                         <i class="material-icons mr-1">refresh</i>Обновить
                     </a>
                     <button type="button" class="btn btn-light has-icon">
@@ -44,7 +43,7 @@ $category_id = (int)($post['post_category_id'] ?? null);
                     </button>
                 </div>
                 <div class="table-responsive">
-                    <form id="index-form-filter" action="/admin/blog/post" method="post"></form>
+                    <form id="index-form-filter" action="{{ route('admin.info-block.index') }}" method="post"></form>
                     <table
                         class="table table-bordered table-sm has-checkAll mb-0"
                         data-bulk-target="#bulk-dropdown"
@@ -74,26 +73,6 @@ $category_id = (int)($post['post_category_id'] ?? null);
                                         type="text"
                                         class="form-control form-control-sm border-primary"
                                         placeholder="Заголовок">
-                                    <i data-toggle="clear" class="material-icons">clear</i>
-                                </label>
-                            </th>
-                            <th class="width-200">
-                                <label class="input-clearable input-icon input-icon-sm input-icon-right border-primary">
-                                    <select
-                                        form="index-form-filter"
-                                        class="form-control select2"
-                                        data-allow-clear="true"
-                                        data-placeholder="Категория"
-                                        data-select2-search="true"
-                                        name="post_category_id">
-                                        <option></option>
-                                        @foreach ($postCategories as $item)
-                                            <option value="{{ $item['id'] }}"
-                                                {{ !empty($post['post_category_id']) && $post['post_category_id'] === $item['id'] ? 'selected' : '' }}>
-                                                {{ $item['title'] }}
-                                            </option>
-                                        @endforeach
-                                    </select>
                                     <i data-toggle="clear" class="material-icons">clear</i>
                                 </label>
                             </th>
@@ -166,7 +145,6 @@ $category_id = (int)($post['post_category_id'] ?? null);
                             <th scope="col" class="text-center">Детали</th>
                             <th scope="col" class="width-7"><a href="javascript:void(0)" class="sorting asc">ID</a></th>
                             <th scope="col"><a href="javascript:void(0)" class="sorting">Заголовок</a></th>
-                            <th scope="col"><a href="javascript:void(0)" class="sorting">Категория</a></th>
                             <th scope="col"><a href="javascript:void(0)" class="sorting">Шаблон</a></th>
                             <th scope="col"><a href="javascript:void(0)" class="sorting">Автор</a></th>
                             <th scope="col"><a href="javascript:void(0)" class="sorting">Дата создания</a></th>
@@ -194,21 +172,20 @@ $category_id = (int)($post['post_category_id'] ?? null);
                                 </td>
                                 <td class="td-col-id">{{ $item->id }}</td>
                                 <td class="td-col-title">{{ $item->title_short ?: $item->title }}</td>
-                                <td class="td-col-title">{{ $item->category_title_short ?: $item->category_title }}</td>
                                 <td>{{ $item->render }}</td>
                                 <td class="td-col-autor">{{ $item->user_last_name }}</td>
                                 <td class="td-col-date">{{ $item->created_at->format('d.m.Y H:i:s') }}</td>
                                 <td class="td-col-action text-center">
                                     <div class="btn-group btn-group-xs" role="group">
-                                        <a href="{{ route('admin.post.edit',['post' => $item->id ]) }}"
+                                        <a href="{{ route('admin.info-block.edit',['info_block' => $item->id ]) }}"
                                            class="btn btn-link btn-icon bigger-130 text-success">
                                             <i data-feather="edit"></i>
                                         </a>
-                                        <a href="{{ route('admin.post.edit',['post' => $item->id ]) }}"
+                                        <a href="{{ route('admin.info-block.edit',['info_block' => $item->id ]) }}"
                                            class="btn btn-link btn-icon bigger-130 text-info" target="_blank">
                                             <i data-feather="printer"></i>
                                         </a>
-                                        <a href="{{ route('admin.post.destroy',['post' => $item->id ]) }}"
+                                        <a href="{{ route('admin.info-block.destroy',['info_block' => $item->id ]) }}"
                                            class="btn btn-link btn-icon bigger-130 text-danger"
                                            data-js-post-table-id="{{ $item->id }}">
                                             <i data-feather="trash"></i>
@@ -223,8 +200,6 @@ $category_id = (int)($post['post_category_id'] ?? null);
                                         <li><span>Описание короткое: </span>
                                             <span>{{ $item->preview_description }}</span>
                                         </li>
-                                        <li><span>Заголовок SEO: </span> <span>{{ $item->meta_title }}</span></li>
-                                        <li><span>Описание SEO: </span> <span>{{ $item->meta_description }}</span></li>
                                     </ul>
                                 </td>
                             </tr>

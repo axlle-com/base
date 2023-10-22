@@ -40,7 +40,7 @@ class GalleryImageServices
                 } catch (Exception $e) {
                 }
                 if (!empty($types)) {
-                    $dir = '/upload/' . $attributes['images_path'];
+                    $dir = '/upload/' . trim($attributes['images_path'], '/');
                     $path = public_path($dir);
                     if (!File::isDirectory($path)) {
                         File::makeDirectory($path, 0777, true, true);

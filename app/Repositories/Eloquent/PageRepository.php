@@ -3,9 +3,6 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Page\Page;
-use App\Models\Post\Post;
-use App\Models\Post\PostCategory;
-use App\Models\Render;
 use App\Repositories\Interfaces\IPageRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -79,10 +76,6 @@ class PageRepository extends BaseRepository implements IPageRepository
     public function filter(array $filter = [], array $with = []): LengthAwarePaginator
     {
         return $this->model::query()
-            ->select([
-                Render::table('title') . ' as render_title',
-            ])
-            ->leftJoin(Render::table(), Render::table('id'), '=', $this->model::table('render_id'))
             ->created()
             ->paginate();
     }

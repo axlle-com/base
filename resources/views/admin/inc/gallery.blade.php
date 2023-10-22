@@ -48,7 +48,7 @@ $galleries = $model->manyGalleryWithImages ?? [];
                                             type="hidden"
                                             name="galleries[{{ $gallery->id }}][images][{{ $image->id }}][id]"
                                             value="{{ $image->id }}">
-                                        @include('admin.inc.image', ['gallery' => true])
+                                        @include('admin.inc.image', ['model' => $image, 'gallery' => true])
                                     </div>
                                     <div>
                                         <div class="form-group small">

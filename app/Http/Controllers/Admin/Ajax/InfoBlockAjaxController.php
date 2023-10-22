@@ -5,26 +5,29 @@ namespace App\Http\Controllers\Admin\Ajax;
 use App\Http\Requests\Admin\Page\StorePageRequest;
 use App\Http\Requests\Admin\Page\UpdatePageRequest;
 use App\Models\Page\Page;
-use App\Services\Blog\Page\PageServices;
+use App\Services\Blog\InfoBlock\InfoBlockServices;
 use App\Services\Render\RenderServices;
 use App\Services\UserServices;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
-class PageAjaxController extends AjaxController
+class InfoBlockAjaxController extends AjaxController
 {
-    private PageServices $pageServices;
+    private InfoBlockServices $infoBlockServices;
     private RenderServices $renderServices;
     private UserServices $userServices;
 
     /**
-     * @param PageServices $pageServices
+     * @param InfoBlockServices $infoBlockServices
      * @param RenderServices $renderServices
      * @param UserServices $userServices
      */
-    public function __construct(PageServices $pageServices, RenderServices $renderServices, UserServices $userServices)
-    {
-        $this->pageServices = $pageServices;
+    public function __construct(
+        InfoBlockServices $infoBlockServices,
+        RenderServices $renderServices,
+        UserServices $userServices
+    ) {
+        $this->infoBlockServices = $infoBlockServices;
         $this->renderServices = $renderServices;
         $this->userServices = $userServices;
     }
@@ -46,14 +49,14 @@ class PageAjaxController extends AjaxController
      */
     public function store(StorePageRequest $request): JsonResponse
     {
-        if ($model = $this->pageServices->create($request->all())) {
-            $data['view'] = view('admin.blog.page_update', [
+        if ($model = $this->infoBlockServices->create($request->all())) {
+            $data['view'] = view('admin.info_block.update', [
                 'title' => 'Редактирование страницы',
                 'model' => $model,
                 'renders' => $this->renderServices->get(Page::table()),
                 'menu' => null,
             ])->renderSections()['content'];
-            $data['url'] = route('admin.page.edit', ['page' => $model->id]);
+            $data['url'] = route('admin.info-block.edit', ['info_block' => $model->id]);
 
             return $this->setData($data)->response();
         }
@@ -71,8 +74,8 @@ class PageAjaxController extends AjaxController
      */
     public function update(UpdatePageRequest $request, int $id): JsonResponse
     {
-        if ($model = $this->pageServices->update($id, $request->all())) {
-            $data['view'] = view('admin.blog.page_update', [
+        if ($model = $this->infoBlockServices->update($id, $request->all())) {
+            $data['view'] = view('admin.info_block.update', [
                 'title' => 'Редактирование поста',
                 'model' => $model,
                 'renders' => $this->renderServices->get(Page::table()),

@@ -6,47 +6,46 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Page\StorePageRequest;
 use App\Http\Requests\Admin\Page\UpdatePageRequest;
 use App\Http\Requests\Admin\Request;
-use App\Models\Page\Page;
-use App\Services\Blog\Page\PageServices;
+use App\Models\InfoBlock\InfoBlock;
+use App\Services\Blog\InfoBlock\InfoBlockServices;
 use App\Services\Render\RenderServices;
 use App\Services\UserServices;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 
-class PageController extends Controller
+class InfoBlockController extends Controller
 {
-    private PageServices $pageServices;
+    private InfoBlockServices $infoBlockServices;
     private RenderServices $renderServices;
     private UserServices $userServices;
 
     /**
-     * @param PageServices $pageServices
+     * @param InfoBlockServices $infoBlockServices
      * @param RenderServices $renderServices
      * @param UserServices $userServices
      */
     public function __construct(
-        PageServices $pageServices,
+        InfoBlockServices $infoBlockServices,
         RenderServices $renderServices,
         UserServices $userServices
     ) {
-        $this->pageServices = $pageServices;
+        $this->infoBlockServices = $infoBlockServices;
         $this->renderServices = $renderServices;
         $this->userServices = $userServices;
     }
-
 
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $title = 'Список страниц';
+        $title = 'Список инфо-блоков';
 
-        return view('admin.blog.page_index', [
+        return view('admin.info_block.index', [
             'title' => $title,
-            'models' => $this->pageServices->filter($request->all()),
-            'renders' => $this->renderServices->get(Page::table()),
+            'models' => $this->infoBlockServices->filter($request->all()),
+            'renders' => $this->renderServices->get(InfoBlock::table()),
             'users' => $this->userServices->get(),
             'post' => $request->all(),
         ]);
@@ -57,12 +56,12 @@ class PageController extends Controller
      */
     public function create()
     {
-        $title = 'Новая страница';
+        $title = 'Новый инфо-блок';
 
-        return view('admin.blog.page_update', [
+        return view('admin.info_block.update', [
             'title' => $title,
+            'renders' => $this->renderServices->get(InfoBlock::table()),
             'model' => null,
-            'renders' => $this->renderServices->get(Page::table()),
             'menu' => null,
         ]);
     }
@@ -91,12 +90,12 @@ class PageController extends Controller
      */
     public function edit(int $id)
     {
-        $title = 'Редактирование страницы';
+        $title = 'Редактирование инфо-блока';
 
-        return view('admin.blog.page_update', [
+        return view('admin.info_block.update', [
             'title' => $title,
-            'model' => $this->pageServices->find($id),
-            'renders' => $this->renderServices->get(Page::table()),
+            'model' => $this->infoBlockServices->find($id),
+            'renders' => $this->renderServices->get(InfoBlock::table()),
             'menu' => null,
         ]);
     }

@@ -3,13 +3,11 @@
 use App\Models\Post\Post;
 use App\Models\Page\Page;
 use App\Models\Post\PostCategory;
-use App\Models\Render;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @var $title string
  * @var $model PostCategory|Post|Page
- * @var $render Render[]|Collection
  * @var $postCategories PostCategory[]|Collection
  */
 
@@ -44,13 +42,13 @@ use Illuminate\Database\Eloquent\Collection;
                     class="form-control select2"
                     data-placeholder="Шаблон"
                     data-select2-search="true"
-                    name="render_id"
-                    data-validator="render_id">
+                    name="render"
+                    data-validator="render">
                     <option></option>
-                    @foreach ($renders as $item)
+                    @foreach ($renders as $key => $item)
                         <option
-                            value="{{ $item['id'] }}" {{ ($item['id'] === $model->render_id) ? 'selected' : '' }}>
-                            {{ $item['title'] }}
+                            value="{{ $key }}" {{ ($key === $model->render) ? 'selected' : '' }}>
+                            {{ $item }}
                         </option>
                     @endforeach
                 </select>

@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\InfoBlock\InfoBlock;
 use App\Models\Page\Page;
 use App\Models\Post\Post;
 use App\Models\Post\PostCategory;
+use App\Observers\InfoBlockObserver;
 use App\Observers\PageObserver;
 use App\Observers\PostCategoryObserver;
 use App\Observers\PostObserver;
@@ -33,6 +35,7 @@ class EventServiceProvider extends ServiceProvider
         Page::observe(PageObserver::class);
         Post::observe(PostObserver::class);
         PostCategory::observe(PostCategoryObserver::class);
+        InfoBlock::observe(InfoBlockObserver::class);
     }
 
     /**

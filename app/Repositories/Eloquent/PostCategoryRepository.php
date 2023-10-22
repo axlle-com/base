@@ -2,9 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Models\Page\Page;
 use App\Models\Post\PostCategory;
-use App\Models\Render;
 use App\Repositories\Interfaces\IPostCategoryRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -33,11 +31,9 @@ class PostCategoryRepository extends BaseRepository implements IPostCategoryRepo
     {
         return $this->model::query()
             ->select([
-                Render::table('title') . ' as render_title',
                 'pc.title as category_title',
                 'pc.title_short as category_title_short',
             ])
-            ->leftJoin(Render::table(), Render::table('id'), '=', $this->model::table('render_id'))
             ->leftJoin(PostCategory::table() . ' as pc', 'pc.id', '=', $this->model::table('post_category_id'))
             ->created()
             ->paginate();

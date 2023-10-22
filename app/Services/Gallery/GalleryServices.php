@@ -33,7 +33,6 @@ class GalleryServices
         $ids = [];
         foreach ($attributes['galleries'] ?? [] as $gallery) {
             $gallery['title'] = $attributes['title'];
-            $gallery['images_path'] = $attributes['images_path'];
             /** @var $model Gallery */
             if (
                 empty($gallery['gallery_id'])
@@ -43,7 +42,7 @@ class GalleryServices
             } else {
                 $model = $this->galleryRepo->update($model->id, $gallery);
             }
-
+            $gallery['images_path'] = $model::table() . '/' . $model->id;
             if ($model) {
                 if (!empty($gallery['images'])) {
                     $gallery['gallery_id'] = $model->id;

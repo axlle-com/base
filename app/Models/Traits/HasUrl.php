@@ -22,9 +22,9 @@ trait HasUrl
             return $this;
         }
         if ($this->alias && $this->isDirty('alias')) {
-            $this->alias = $this->checkAlias($this->alias);
+            $this->alias = $this->prepareAlias($this->alias);
         } else {
-            $this->alias = $this->checkAlias($this->generateAlias($this->title));
+            $this->alias = $this->prepareAlias($this->generateAlias($this->title));
         }
 
         return $this;
@@ -36,9 +36,9 @@ trait HasUrl
     public function setUrl(): static
     {
         if ($this->url && $this->isDirty('url')) {
-            $this->url = '/' . $this->checkUrl($this->url);
+            $this->url = '/' . $this->prepareUrl($this->url);
         } else {
-            $this->url = '/' . $this->checkUrl($this->alias);
+            $this->url = '/' . $this->prepareUrl($this->alias);
         }
 
         return $this;
@@ -48,7 +48,7 @@ trait HasUrl
      * @param string $alias
      * @return string
      */
-    protected function checkAlias(string $alias): string
+    protected function prepareAlias(string $alias): string
     {
         /** @var BaseModel $this */
         $cnt = 1;
@@ -73,7 +73,7 @@ trait HasUrl
      * @param string $url
      * @return string
      */
-    protected function checkUrl(string $url): string
+    protected function prepareUrl(string $url): string
     {
         /** @var BaseModel $this */
         $cnt = 1;
