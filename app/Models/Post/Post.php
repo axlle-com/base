@@ -7,6 +7,7 @@ use App\Models\InfoBlock\InfoBlock;
 use App\Models\Traits\HasGallery;
 use App\Models\Traits\HasHistory;
 use App\Models\Traits\HasImage;
+use App\Models\Traits\HasInfoBlock;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -51,7 +52,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null $deleted_at
  *
  * @property PostCategory|null $postCategory
- * @property Collection|\App\Models\InfoBlock\InfoBlock[] $infoBlocks
+ * @property Collection|InfoBlock[] $infoBlocks
  * @property Collection|PostLanguage[] $postLanguages
  *
  * @package App\Models
@@ -61,6 +62,7 @@ class Post extends BaseModel
     use HasGallery;
     use HasImage;
     use HasHistory;
+    use HasInfoBlock;
 
     protected $table = 'post';
 
@@ -121,21 +123,6 @@ class Post extends BaseModel
     public function postCategory(): BelongsTo
     {
         return $this->belongsTo(PostCategory::class);
-    }
-
-    /**
-     * @return BelongsToMany
-     */
-    public function infoBlocks(): BelongsToMany
-    {
-        return $this->belongsToMany(
-            InfoBlock::class,
-            'info_block_has_resource',
-            'resource_id',
-            'info_block_id',
-        )
-            ->wherePivot('resource', '=', $this->getTable())
-            ->withPivot(['position', 'sort']);
     }
 
     /**

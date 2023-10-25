@@ -70,7 +70,7 @@ class PostCategoryController extends Controller
         # TODO: разделить view
         return view('admin.blog.category_update', [
             'title' => $title,
-            'model' => new PostCategory(),
+            'model' => null,
             'postCategories' => $this->postCategoryServices->get(),
             'renders' => $this->renderServices->get(PostCategory::table()),
             'menu' => null,

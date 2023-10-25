@@ -62,7 +62,6 @@ class InfoBlockController extends Controller
             'title' => $title,
             'renders' => $this->renderServices->get(InfoBlock::table()),
             'model' => null,
-            'menu' => null,
         ]);
     }
 
@@ -96,7 +95,6 @@ class InfoBlockController extends Controller
             'title' => $title,
             'model' => $this->infoBlockServices->find($id),
             'renders' => $this->renderServices->get(InfoBlock::table()),
-            'menu' => null,
         ]);
     }
 

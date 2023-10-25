@@ -7,6 +7,7 @@ use App\Models\InfoBlock\InfoBlock;
 use App\Models\Traits\HasGallery;
 use App\Models\Traits\HasHistory;
 use App\Models\Traits\HasImage;
+use App\Models\Traits\HasInfoBlock;
 use App\Models\Traits\HasUrl;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -51,6 +52,7 @@ class Page extends BaseModel
     use HasGallery;
     use HasImage;
     use HasHistory;
+    use HasInfoBlock;
 
     protected $table = 'page';
 
@@ -85,21 +87,6 @@ class Page extends BaseModel
         'script',
         'css',
     ];
-
-    /**
-     * @return BelongsToMany
-     */
-    public function infoBlocks(): BelongsToMany
-    {
-        return $this->belongsToMany(
-            InfoBlock::class,
-            'info_block_has_resource',
-            'resource_id',
-            'info_block_id',
-        )
-            ->wherePivot('resource', '=', $this->getTable())
-            ->withPivot(['position', 'sort']);
-    }
 
     /**
      * @return HasMany

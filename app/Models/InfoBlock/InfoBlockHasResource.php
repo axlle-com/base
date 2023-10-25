@@ -20,6 +20,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class InfoBlockHasResource extends BaseModel
 {
+    public const POSITION_TOP = 'top';
+    public const POSITION_BOTTOM = 'bottom';
+
 	protected $table = 'info_block_has_resource';
 	public $timestamps = false;
 
@@ -36,6 +39,17 @@ class InfoBlockHasResource extends BaseModel
 		'position',
 		'sort'
 	];
+
+    /**
+     * @return array
+     */
+    public static function getPositions(): array
+    {
+        return [
+            self::POSITION_TOP => 'Сверху',
+            self::POSITION_BOTTOM => 'Снизу',
+        ];
+    }
 
     /**
      * @return BelongsTo

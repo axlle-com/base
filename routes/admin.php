@@ -34,16 +34,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'employee'], static function 
 
         Route::resource('post-category', PostCategoryController::class, ['as' => 'admin']);
         Route::apiResource('ajax/post-category', PostCategoryAjaxController::class, ['as' => 'admin.ajax']);
-
-        Route::resource('page', PageController::class, ['as' => 'admin']);
-        Route::apiResource('ajax/page', PageAjaxController::class, ['as' => 'admin.ajax']);
-
-        Route::resource('info-block', InfoBlockController::class, ['as' => 'admin']);
-        Route::apiResource('ajax/info-block', PageAjaxController::class, ['as' => 'admin.ajax']);
     });
     Route::resource('page', PageController::class, ['as' => 'admin']);
     Route::apiResource('ajax/page', PageAjaxController::class, ['as' => 'admin.ajax']);
 
     Route::resource('info-block', InfoBlockController::class, ['as' => 'admin']);
     Route::apiResource('ajax/info-block', InfoBlockAjaxController::class, ['as' => 'admin.ajax']);
+    Route::get('ajax/info-block/get-for-resource/{id}', [InfoBlockAjaxController::class, 'getForResource'])
+        ->name('admin.ajax.info-block.get-for-resource');
 });

@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Collection;
                     <option></option>
                     @foreach ($postCategories as $item)
                         <option
-                            value="{{ $item['id'] }}" {{ ($item['id'] === $model->post_category_id) ? 'selected' : '' }}>
+                            value="{{ $item['id'] }}" {{ ($model && $item['id'] === $model->post_category_id) ? 'selected' : '' }}>
                             {{ $item['title'] }}
                         </option>
                     @endforeach
@@ -47,7 +47,7 @@ use Illuminate\Database\Eloquent\Collection;
                     <option></option>
                     @foreach ($renders as $key => $item)
                         <option
-                            value="{{ $key }}" {{ ($key === $model->render) ? 'selected' : '' }}>
+                            value="{{ $key }}" {{ ($model && $key === $model->render) ? 'selected' : '' }}>
                             {{ $item }}
                         </option>
                     @endforeach

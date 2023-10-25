@@ -54,7 +54,6 @@ class InfoBlockAjaxController extends AjaxController
                 'title' => 'Редактирование страницы',
                 'model' => $model,
                 'renders' => $this->renderServices->get(Page::table()),
-                'menu' => null,
             ])->renderSections()['content'];
             $data['url'] = route('admin.info-block.edit', ['info_block' => $model->id]);
 
@@ -79,7 +78,6 @@ class InfoBlockAjaxController extends AjaxController
                 'title' => 'Редактирование поста',
                 'model' => $model,
                 'renders' => $this->renderServices->get(Page::table()),
-                'menu' => null,
             ])->renderSections()['content'];
 
             return $this->setData($data)->response();
@@ -94,5 +92,23 @@ class InfoBlockAjaxController extends AjaxController
     public function destroy(int $id)
     {
         //
+    }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     * @throws Throwable
+     */
+    public function getForResource(int $id): JsonResponse
+    {
+        if ($model = $this->infoBlockServices->find($id)) {
+            $data['view'] = view('admin.inc.info_block_one', [
+                'infoBlock' => $model,
+            ])->render();
+
+            return $this->setData($data)->response();
+        }
+
+        return $this->error();
     }
 }

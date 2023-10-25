@@ -2,11 +2,8 @@
 
 namespace App\Services\Blog\InfoBlock;
 
-use App\Models\BaseModel;
 use App\Models\InfoBlock\InfoBlock;
 use App\Models\Page\Page;
-use App\Models\Post\Post;
-use App\Models\Post\PostCategory;
 use App\Repositories\Eloquent\InfoBlockRepository;
 use App\Services\Gallery\GalleryServices;
 use App\Services\Image\ImageServices;

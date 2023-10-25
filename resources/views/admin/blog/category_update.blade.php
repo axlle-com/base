@@ -89,7 +89,7 @@ if ($model && $model->id) {
                                                                 name="is_published"
                                                                 id="is_published"
                                                                 value="1"
-                                                                <?= $model->is_published ? 'checked' : '' ?>>
+                                                                <?= ($model && $model->is_published) ? 'checked' : '' ?>>
                                                             <label class="custom-control-label" for="is_published">Опубликовано</label>
                                                             <div class="invalid-feedback"></div>
                                                         </div>
@@ -102,7 +102,7 @@ if ($model && $model->id) {
                                                                 name="is_favourites"
                                                                 id="is_favourites"
                                                                 value="1"
-                                                                {{ $model->is_favourites ? 'checked' : '' }}>
+                                                                {{ ($model && $model->is_favourites) ? 'checked' : '' }}>
                                                             <label class="custom-control-label" for="is_favourites">Избранное</label>
                                                             <div class="invalid-feedback"></div>
                                                         </div>

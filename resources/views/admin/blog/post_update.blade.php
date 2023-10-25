@@ -2,7 +2,6 @@
 
 use App\Models\Post\Post;
 
-
 /**
  * @var $title string
  * @var $breadcrumb string
@@ -58,11 +57,20 @@ if ($model && $model->id) {
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link nav-link-faded"
-                                               id="contact-tab-faded"
+                                               id="info-block-tab-faded"
                                                data-toggle="tab"
                                                href="#tab3Faded"
                                                role="tab"
                                                aria-controls="tab3Faded"
+                                               aria-selected="true">Инфо-блоки</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link nav-link-faded"
+                                               id="settings-tab-faded"
+                                               data-toggle="tab"
+                                               href="#tab4Faded"
+                                               role="tab"
+                                               aria-controls="tab4Faded"
                                                aria-selected="true">Настройки</a>
                                         </li>
                                     </ul>
@@ -87,7 +95,7 @@ if ($model && $model->id) {
                                                                 name="is_image_post"
                                                                 id="is_image_post"
                                                                 value="1"
-                                                                {{ $model->is_image_post ? 'checked' : '' }}>
+                                                                {{ $model && $model->is_image_post ? 'checked' : '' }}>
                                                             <label class="custom-control-label" for="is_image_post">
                                                                 Отобразить изображение
                                                             </label>
@@ -100,7 +108,7 @@ if ($model && $model->id) {
                                                                 name="is_image_category"
                                                                 id="is_image_category"
                                                                 value="1"
-                                                                {{ $model->is_image_category ? 'checked' : '' }}>
+                                                                {{ $model && $model->is_image_category ? 'checked' : '' }}>
                                                             <label class="custom-control-label" for="is_image_category">
                                                                 Отобразить изображение в категории
                                                             </label>
@@ -115,7 +123,7 @@ if ($model && $model->id) {
                                                             name="is_comments"
                                                             id="is_comments"
                                                             value="1"
-                                                            {{ $model->is_comments ? 'checked' : '' }}>
+                                                            {{ $model && $model->is_comments ? 'checked' : '' }}>
                                                         <label class="custom-control-label" for="is_comments">
                                                             Подключить комментарии
                                                         </label>
@@ -129,7 +137,7 @@ if ($model && $model->id) {
                                                             type="text"
                                                             class="form-control"
                                                             name="date_pub"
-                                                            value="{{ $model->date_pub?->format('d.m.Y H:i:s') }}"
+                                                            value="{{ $model ? $model->date_pub?->format('d.m.Y H:i:s') : '' }}"
                                                             placeholder="Укажите дату"
                                                             autocomplete="off"
                                                             data-input>
@@ -156,7 +164,7 @@ if ($model && $model->id) {
                                                                 name="is_published"
                                                                 id="is_published"
                                                                 value="1"
-                                                                <?= $model->is_published ? 'checked' : '' ?>>
+                                                                <?= $model && $model->is_published ? 'checked' : '' ?>>
                                                             <label class="custom-control-label" for="is_published">Опубликовано</label>
                                                             <div class="invalid-feedback"></div>
                                                         </div>
@@ -169,7 +177,7 @@ if ($model && $model->id) {
                                                                 name="show_date"
                                                                 id="show_date"
                                                                 value="1"
-                                                                <?= $model->show_date ? 'checked' : '' ?>>
+                                                                <?= $model && $model->show_date ? 'checked' : '' ?>>
                                                             <label class="custom-control-label" for="show_date">Показывать
                                                                 дату в посте</label>
                                                             <div class="invalid-feedback"></div>
@@ -181,7 +189,7 @@ if ($model && $model->id) {
                                                             type="text"
                                                             class="form-control"
                                                             name="date_end"
-                                                            value="{{ $model->date_end?->format('d.m.Y H:i:s') }}"
+                                                            value="{{ $model ? $model->date_end?->format('d.m.Y H:i:s') : '' }}"
                                                             placeholder="Укажите дату"
                                                             autocomplete="off"
                                                             data-input>
@@ -203,7 +211,7 @@ if ($model && $model->id) {
                                                                 name="control_date_pub"
                                                                 id="control_date_pub"
                                                                 value="1"
-                                                                {{ $model->control_date_pub ? 'checked' : '' }}>
+                                                                {{ $model && $model->control_date_pub ? 'checked' : '' }}>
                                                             <label class="custom-control-label" for="control_date_pub">
                                                                 Контролировать дату публикации
                                                             </label>
@@ -218,7 +226,7 @@ if ($model && $model->id) {
                                                                 name="control_date_end"
                                                                 id="control_date_end"
                                                                 value="1"
-                                                                {{ $model->control_date_end ? 'checked' : '' }}>
+                                                                {{ $model && $model->control_date_end ? 'checked' : '' }}>
                                                             <label class="custom-control-label" for="control_date_end">
                                                                 Контролировать дату окончания
                                                             </label>
@@ -233,7 +241,7 @@ if ($model && $model->id) {
                                                                 name="is_favourites"
                                                                 id="is_favourites"
                                                                 value="1"
-                                                                {{ $model->is_favourites ? 'checked' : '' }}>
+                                                                {{ $model && $model->is_favourites ? 'checked' : '' }}>
                                                             <label class="custom-control-label" for="is_favourites">Избранное</label>
                                                             <div class="invalid-feedback"></div>
                                                         </div>
@@ -248,8 +256,8 @@ if ($model && $model->id) {
                                         @include('admin.inc.gallery')
                                     </div>
                                     <div class="tab-pane fade" id="tab3Faded" role="tabpanel"
-                                         aria-labelledby="contact-tab-faded">
-                                        Settings
+                                         aria-labelledby="info-block-tab-faded">
+                                        @include('admin.inc.info_block')
                                     </div>
                                 </div>
                             </div>

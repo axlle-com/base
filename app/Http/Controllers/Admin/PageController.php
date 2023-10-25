@@ -35,7 +35,6 @@ class PageController extends Controller
         $this->userServices = $userServices;
     }
 
-
     /**
      * Display a listing of the resource.
      */

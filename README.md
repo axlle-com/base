@@ -14,22 +14,6 @@
 6. Запускаем команду `php artisan migrate` запускать в консоли из папки проекта
 7. Если возникли проблемы с базой `database/files/db.sql` можно взять дамп
 8. Лежит схема MySQL Workbench `database/files/ax_blog.mwb`, можно развернуть
-9. После миграций все базы будут развернуты, тестовый пользователь `login:axlle@mail.ru | password:558088`
-
-```
-Работа с валютами:
-```
-1. Запуск парсера валют за 180 дней (парсит в очереди) `php artisan currency` запускать в консоли из папки проекта
-2. Запуск очередей `php artisan queue:work` запускать в консоли из папки проекта
-3. Получить все валюты `GET` `/api/v1/currency`
-4. Запросить курс валюты за определенный день `GET` `/api/v1/currency-rate?currency={CODE}&date={DATE}`
-   пример : `/api/v1/currency-rate?currency=AUD&date=23.07.2023`
-```json
-{
-    "CODE": "required|string",
-    "DATE": "nullable|string"
-}
-```
 
 ---
 На память
