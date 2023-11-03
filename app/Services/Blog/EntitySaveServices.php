@@ -67,6 +67,9 @@ trait EntitySaveServices
         $model = $this->repo->create($attributes);
         $ids = $this->galleryServices->uploadFromArray($attributes);
         $this->repo->syncGallery($model, $ids);
+        if ($attributes['info_block'] ?? null) {
+            $this->infoBlockHasResourceServices->createOrUpdateFromArray($attributes['info_block'], $model);
+        }
 
         return $model;
     }
@@ -84,6 +87,9 @@ trait EntitySaveServices
         $model = $this->repo->update($id, $attributes);
         $ids = $this->galleryServices->uploadFromArray($attributes);
         $this->repo->syncGallery($model, $ids);
+        if ($attributes['info_block'] ?? null) {
+            $this->infoBlockHasResourceServices->createOrUpdateFromArray($attributes['info_block'], $model);
+        }
 
         return $model;
     }

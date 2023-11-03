@@ -3,12 +3,12 @@
 use App\Models\Post\Post;
 use App\Models\Post\PostCategory;
 use App\Models\Page\Page;
-use App\Models\InfoBlock\InfoBlockHasResource;
+use App\Models\InfoBlock\InfoBlock;
 
 /**
  * @var $title string
  * @var $model PostCategory|Post|Page
- * @var $infoBlocks \App\Models\InfoBlock\InfoBlock[]
+ * @var $infoBlocks InfoBlock[]
  */
 
 $modelInfoBlocks = $model->infoBlocks ?? [];
@@ -53,6 +53,11 @@ $modelInfoBlocks = $model->infoBlocks ?? [];
             </div>
         </div>
     @else
-        <div class="js-info-block-general-block"></div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="parts-info-block js-info-block-general-block sortable swap">
+                </div>
+            </div>
+        </div>
     @endif
 </div>

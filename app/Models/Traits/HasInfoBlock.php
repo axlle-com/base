@@ -25,6 +25,7 @@ trait HasInfoBlock
             'info_block_id',
         )
             ->wherePivot('resource', '=', $this->getTable())
+            ->orderBy('info_block_has_resource.sort', 'asc')
             ->withPivot(['id', 'position', 'sort']);
     }
 

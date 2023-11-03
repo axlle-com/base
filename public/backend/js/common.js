@@ -268,14 +268,20 @@ const _infoBlock = {
     },
     delete: function () {
         const _this = this;
-        $('body').on('click', '[data-js-image-delete]', function (evt) {
-            let image = $(this).closest('fieldset').find('.image-box');
-            let input = $(this).closest('fieldset').find('input[type="file"]');
-            if (!image.length || !input.length) {
-                return;
+        $('body').on('click', '.js-info-block-item-delete', function (evt) {
+            const id = $(this).attr('data-id');
+            const action = $(this).attr('data-href');
+            const block = $(this).closest('.js-info-block-item');
+            if (id && action) {
+                const request = new _glob.request({action});
+                request.setMethod('DELETE').send((response) => {
+                    if (response.status) {
+                        block.remove();
+                    }
+                });
+            } else {
+                block.remove();
             }
-            input.val('');
-            image.remove();
         });
     },
     run: function () {
