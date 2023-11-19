@@ -401,11 +401,13 @@ table td.td-col-3 {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
-.info-block-item-delete{
+
+.info-block-item-delete {
     position: absolute;
     right: 5px;
     cursor: pointer;
 }
+
 /********** //info-block **********/
 
 /********** loader **********/
