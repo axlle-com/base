@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\InfoBlock;
+
+use App\Models\BaseModel;
 
 /**
  * Class InfoBlockLanguage

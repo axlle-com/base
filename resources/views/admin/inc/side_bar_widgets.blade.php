@@ -29,7 +29,7 @@
                 multiple
                 data-placeholder="Выберете меню">
                 @foreach ($menu as $item)
-                    <option value="{{ $item['id'] }}" {{ $item['id'] === $model->render_id ? 'selected' : '' }}>
+                    <option value="{{ $item['id'] }}" {{ $item['id'] === $model->render ? 'selected' : '' }}>
                         {{ $item['title'] }}
                     </option>
                 @endforeach
@@ -50,7 +50,7 @@
                 multiple
                 data-placeholder="Выберете виджет">
                 @foreach ($menu as $item)
-                    <option value="{{ $item['id'] }}" {{ $item['id'] === $model->render_id ? 'selected' : '' }}>
+                    <option value="{{ $item['id'] }}" {{ $item['id'] === $model->render ? 'selected' : '' }}>
                         {{ $item['title'] }}
                     </option>
                 @endforeach

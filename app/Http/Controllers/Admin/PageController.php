@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Page\StorePageRequest;
 use App\Http\Requests\Admin\Page\UpdatePageRequest;
 use App\Http\Requests\Admin\Request;
+use App\Models\Page\Page;
 use App\Services\Blog\Page\PageServices;
 use App\Services\Render\RenderServices;
 use App\Services\UserServices;
@@ -34,7 +35,6 @@ class PageController extends Controller
         $this->userServices = $userServices;
     }
 
-
     /**
      * Display a listing of the resource.
      */
@@ -45,7 +45,7 @@ class PageController extends Controller
         return view('admin.blog.page_index', [
             'title' => $title,
             'models' => $this->pageServices->filter($request->all()),
-            'renders' => $this->renderServices->get(),
+            'renders' => $this->renderServices->get(Page::table()),
             'users' => $this->userServices->get(),
             'post' => $request->all(),
         ]);
@@ -61,7 +61,7 @@ class PageController extends Controller
         return view('admin.blog.page_update', [
             'title' => $title,
             'model' => null,
-            'renders' => $this->renderServices->get(),
+            'renders' => $this->renderServices->get(Page::table()),
             'menu' => null,
         ]);
     }
@@ -95,7 +95,7 @@ class PageController extends Controller
         return view('admin.blog.page_update', [
             'title' => $title,
             'model' => $this->pageServices->find($id),
-            'renders' => $this->renderServices->get(),
+            'renders' => $this->renderServices->get(Page::table()),
             'menu' => null,
         ]);
     }

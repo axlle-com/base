@@ -6,15 +6,15 @@ use Illuminate\Support\ServiceProvider;
 return [
     'name' => env('APP_NAME', 'Laravel'),
     'company_name' => env('COMPANY_NAME', 'Laravel'),
-    'env' => env('APP_ENV', 'production'),
-    'debug' => (bool) env('APP_DEBUG', false),
-    'url' => env('APP_URL', 'http://localhost'),
+    'env' => env('APP_ENV', 'dev'),
+    'debug' => (bool) env('APP_DEBUG', true),
+    'url' => env('APP_URL', 'http://localhost:8080'),
     'asset_url' => env('ASSET_URL'),
     'timezone' => 'UTC',
-    'locale' => 'en',
+    'locale' => 'ru',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => env('APP_KEY'),
+    'key' => env('APP_KEY','base64:0guEFDzx5Q4U9mc8U99A67TCEWmmxVmZLNFHXTNXlI8='),
     'cipher' => 'AES-256-CBC',
 
     /*

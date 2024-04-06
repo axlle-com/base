@@ -39,12 +39,13 @@ class AuthController extends Controller
 
     /**
      * @param LoginRequest $request
-     * @return Application|\Illuminate\Foundation\Application|RedirectResponse|Redirector|void
+     * @return Application|Factory|\Illuminate\Foundation\Application|Redirector|RedirectResponse|View
      */
     public function login(LoginRequest $request)
     {
         if ($this->userServices->login($request->all())) {
             return redirect(RouteServiceProvider::ADMIN_HOME);
         }
+        return view('admin.auth.login');
     }
 }

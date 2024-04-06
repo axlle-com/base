@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Ajax;
 
 use App\Http\Requests\Admin\Page\StorePageRequest;
 use App\Http\Requests\Admin\Page\UpdatePageRequest;
+use App\Models\Page\Page;
 use App\Services\Blog\Page\PageServices;
 use App\Services\Render\RenderServices;
 use App\Services\UserServices;
@@ -49,7 +50,7 @@ class PageAjaxController extends AjaxController
             $data['view'] = view('admin.blog.page_update', [
                 'title' => 'Редактирование страницы',
                 'model' => $model,
-                'renders' => $this->renderServices->get(),
+                'renders' => $this->renderServices->get(Page::table()),
                 'menu' => null,
             ])->renderSections()['content'];
             $data['url'] = route('admin.page.edit', ['page' => $model->id]);
@@ -74,7 +75,7 @@ class PageAjaxController extends AjaxController
             $data['view'] = view('admin.blog.page_update', [
                 'title' => 'Редактирование поста',
                 'model' => $model,
-                'renders' => $this->renderServices->get(),
+                'renders' => $this->renderServices->get(Page::table()),
                 'menu' => null,
             ])->renderSections()['content'];
 

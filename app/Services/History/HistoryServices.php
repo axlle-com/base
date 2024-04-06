@@ -23,7 +23,10 @@ class HistoryServices
                 'resource' => $model->getTable(),
                 'resource_id' => $model->id,
                 'event' => $event,
-                'body' => @json_encode($model->getDirty(), JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK),
+                'body' => @json_encode(
+                    $model->getDirty(),
+                    JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK
+                ),
                 'created_at' => time(),
             ];
             HistoryJob::dispatch($data);

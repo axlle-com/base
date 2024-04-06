@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Ajax;
 
 use App\Http\Requests\Admin\Post\StorePostRequest;
 use App\Http\Requests\Admin\Post\UpdatePostRequest;
+use App\Models\Post\Post;
+use App\Services\Blog\InfoBlock\InfoBlockServices;
 use App\Services\Blog\Post\PostServices;
 use App\Services\Blog\PostCategory\PostCategoryServices;
 use App\Services\Render\RenderServices;
@@ -15,20 +17,24 @@ class PostAjaxController extends AjaxController
     private PostServices $postServices;
     private RenderServices $renderServices;
     private PostCategoryServices $postCategoryServices;
+    private InfoBlockServices $infoBlockServices;
 
     /**
      * @param PostServices $postServices
      * @param RenderServices $renderServices
      * @param PostCategoryServices $postCategoryServices
+     * @param InfoBlockServices $infoBlockServices
      */
     public function __construct(
         PostServices $postServices,
         RenderServices $renderServices,
-        PostCategoryServices $postCategoryServices
+        PostCategoryServices $postCategoryServices,
+        InfoBlockServices $infoBlockServices
     ) {
         $this->postServices = $postServices;
         $this->renderServices = $renderServices;
         $this->postCategoryServices = $postCategoryServices;
+        $this->infoBlockServices = $infoBlockServices;
     }
 
     /**
@@ -45,7 +51,8 @@ class PostAjaxController extends AjaxController
                 'title' => 'Редактирование поста',
                 'model' => $model,
                 'postCategories' => $this->postCategoryServices->get(),
-                'renders' => $this->renderServices->get(),
+                'renders' => $this->renderServices->get(Post::table()),
+                'infoBlocks' => $this->infoBlockServices->get(),
                 'menu' => null,
             ])->renderSections()['content'];
             $data['url'] = route('admin.post.edit', ['post' => $model->id]);
@@ -71,7 +78,8 @@ class PostAjaxController extends AjaxController
                 'title' => 'Редактирование поста',
                 'model' => $model,
                 'postCategories' => $this->postCategoryServices->get(),
-                'renders' => $this->renderServices->get(),
+                'renders' => $this->renderServices->get(Post::table()),
+                'infoBlocks' => $this->infoBlockServices->get(),
                 'menu' => null,
             ])->renderSections()['content'];
 

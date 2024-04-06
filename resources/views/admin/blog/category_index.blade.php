@@ -4,19 +4,16 @@
  * @var $title string
  * @var $models PostCategory[]
  * @var $postCategories PostCategory[]
- * @var $renders Render[]
  * @var $users User[]
  * @var $post array
  */
 
-use App\Models\Post\Post;
 use App\Models\Post\PostCategory;
-use App\Models\Render;
 use App\Models\User\User;
 
 $title = $title ?? 'Заголовок';
 $user_id = (int)($post['user_id'] ?? null);
-$render_id = (int)($post['render_id'] ?? null);
+$render = (string)($post['render'] ?? null);
 $category_id = (int)($post['post_category_id'] ?? null);
 
 ?>
@@ -102,11 +99,11 @@ $category_id = (int)($post['post_category_id'] ?? null);
                                         data-allow-clear="true"
                                         data-placeholder="Шаблон"
                                         data-select2-search="true"
-                                        name="render_id">
+                                        name="render">
                                         <option></option>
                                         @foreach ($renders as $item)
                                             <option value="{{ $item['id'] }}"
-                                                {{ !empty($post['render_id']) && $post['render_id'] === $item['id'] ? 'selected' : '' }}>
+                                                {{ !empty($post['render']) && $post['render'] === $item['id'] ? 'selected' : '' }}>
                                                 {{ $item['title'] }}
                                             </option>
                                         @endforeach
@@ -192,7 +189,7 @@ $category_id = (int)($post['post_category_id'] ?? null);
                                 <td class="td-col-id">{{ $item->id }}</td>
                                 <td class="td-col-title">{{ $item->title_short ?: $item->title }}</td>
                                 <td class="td-col-title">{{ $item->category_title_short ?: $item->category_title }}</td>
-                                <td>{{ $item->render_title }}</td>
+                                <td>{{ $item->render }}</td>
                                 <td class="td-col-autor">{{ $item->user_last_name }}</td>
                                 <td class="td-col-date">{{ $item->created_at->format('d.m.Y H:i:s') }}</td>
                                 <td class="td-col-action text-center">

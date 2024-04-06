@@ -36,10 +36,16 @@ class AdminMenu extends Widget
                 'Комментарии',
             ],
             [
-                'blog_page',
+                'page',
                 '<i class="material-icons">list_alt</i>',
-                '/admin/blog/page',
+                '/admin/page',
                 'Страницы',
+            ],
+            [
+                'info_block',
+                '<i class="material-icons">list_alt</i>',
+                '/admin/info-block',
+                'Инфо-Блоки',
             ],
         ],
     ];
@@ -57,8 +63,11 @@ class AdminMenu extends Widget
         if (($array[2] ?? null) === 'post') {
             $this->activePage['blog_post'] = 'active';
         }
-        if (($array[2] ?? null) === 'page') {
+        if (($array[1] ?? null) === 'page') {
             $this->activePage['page'] = 'active';
+        }
+        if (($array[1] ?? null) === 'info-block') {
+            $this->activePage['info_block'] = 'active';
         }
     }
 

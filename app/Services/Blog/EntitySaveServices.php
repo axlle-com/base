@@ -58,7 +58,7 @@ trait EntitySaveServices
 
     /**
      * @param array $attributes
-     * @return Post|PostCategory
+     * @return Post|PostCategory|Page
      */
     public function create(array $attributes): BaseModel
     {
@@ -67,6 +67,9 @@ trait EntitySaveServices
         $model = $this->repo->create($attributes);
         $ids = $this->galleryServices->uploadFromArray($attributes);
         $this->repo->syncGallery($model, $ids);
+        if ($attributes['info_block'] ?? null) {
+            $this->infoBlockHasResourceServices->createOrUpdateFromArray($attributes['info_block'], $model);
+        }
 
         return $model;
     }
@@ -74,7 +77,7 @@ trait EntitySaveServices
     /**
      * @param int $id
      * @param array $attributes
-     * @return Post|PostCategory
+     * @return Post|PostCategory|Page
      */
     public function update(int $id, array $attributes): BaseModel
     {
@@ -84,6 +87,9 @@ trait EntitySaveServices
         $model = $this->repo->update($id, $attributes);
         $ids = $this->galleryServices->uploadFromArray($attributes);
         $this->repo->syncGallery($model, $ids);
+        if ($attributes['info_block'] ?? null) {
+            $this->infoBlockHasResourceServices->createOrUpdateFromArray($attributes['info_block'], $model);
+        }
 
         return $model;
     }
@@ -94,18 +100,14 @@ trait EntitySaveServices
      */
     public function prepareAttributes(array $attributes): array
     {
-        $id = $attributes['id'] ?? null;
-        if (!empty($attributes['alias'])) {
-            $attributes['alias'] = $this->checkAlias($attributes['alias'], $id);
-        } else {
-            $attributes['alias'] = $this->checkAlias($this->generateAlias($attributes['title']), $id);
+        $attributes['id'] = $attributes['id'] ?? null;
+        if (empty($attributes['alias'])) {
+            $attributes['alias'] = $this->generateAlias($attributes['title']);
         }
-        if (!empty($attributes['url'])) {
-            $attributes['url'] = '/' . $this->checkUrl($attributes['url'], $id);
-        } else {
-            $attributes['url'] = '/' . $this->checkUrl($attributes['alias'], $id);
-        }
-        $attributes['images_path'] = '/upload/' . $this->model::table() . '/' . $attributes['alias'];
+        $alias = $this->prepareAlias($attributes);
+        $attributes['alias'] = $alias;
+        $attributes['url'] = $this->generateUrl($attributes);
+        $attributes['images_path'] = '/upload/' . $this->model::table() . '/' . $alias;
         if ($attributes['image'] ?? null) {
             $attributes['image'] = $this->imageServices->load($attributes['image'], $attributes['images_path']);
         }
@@ -115,16 +117,15 @@ trait EntitySaveServices
     }
 
     /**
-     * @param string $alias
-     * @param int|null $id
+     * @param array $attributes
      * @return string
      */
-    protected function checkAlias(string $alias, ?int $id = null): string
+    protected function prepareAlias(array $attributes): string
     {
         $cnt = 1;
-        $temp = $alias;
-        while ($this->repo->existAlias($temp, $id)) {
-            $temp = $alias . '-' . $cnt;
+        $temp = $attributes['alias'];
+        while ($this->repo->existAlias($temp, $attributes['id'])) {
+            $temp = $attributes['alias'] . '-' . $cnt;
             $cnt++;
         }
 
@@ -136,11 +137,10 @@ trait EntitySaveServices
      * @param int|null $id
      * @return string
      */
-    protected function checkUrl(string $url, ?int $id = null): string
+    protected function prepareUrl(string $url, ?int $id = null): string
     {
         /** @var Post|PostCategory|Page $this */
         $cnt = 1;
-        $url = trim($url, '/');
         $temp = $url;
         while ($this->existUrl($temp, $id)) {
             $temp = $url . '-' . $cnt;
@@ -148,6 +148,17 @@ trait EntitySaveServices
         }
 
         return $temp;
+    }
+
+    /**
+     * @param array $attributes
+     * @return string
+     */
+    protected function generateUrl(array $attributes): string
+    {
+        $url = '/' . trim($attributes['alias'], '/');
+
+        return $this->prepareUrl($url, $attributes['id']);
     }
 
     /**
@@ -494,6 +505,4 @@ trait EntitySaveServices
 
         return $options['lowercase'] ? mb_strtolower($str, 'UTF-8') : $str;
     }
-
-
 }

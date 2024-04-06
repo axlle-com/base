@@ -54,7 +54,7 @@ class PostCategoryController extends Controller
             'title' => $title,
             'models' => $this->postCategoryServices->filter($request->all()),
             'postCategories' => $this->postCategoryServices->get(),
-            'renders' => $this->renderServices->get(),
+            'renders' => $this->renderServices->get(PostCategory::table()),
             'users' => $this->userServices->get(),
             'post' => $request->all(),
         ]);
@@ -70,9 +70,9 @@ class PostCategoryController extends Controller
         # TODO: разделить view
         return view('admin.blog.category_update', [
             'title' => $title,
-            'model' => new PostCategory(),
+            'model' => null,
             'postCategories' => $this->postCategoryServices->get(),
-            'renders' => $this->renderServices->get(),
+            'renders' => $this->renderServices->get(PostCategory::table()),
             'menu' => null,
         ]);
     }
@@ -108,7 +108,7 @@ class PostCategoryController extends Controller
             'title' => $title,
             'model' => $this->postCategoryServices->find($id),
             'postCategories' => $this->postCategoryServices->get(),
-            'renders' => $this->renderServices->get(),
+            'renders' => $this->renderServices->get(PostCategory::table()),
             'menu' => null,
         ]);
     }

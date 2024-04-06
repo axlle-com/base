@@ -72,9 +72,9 @@ abstract class BaseRepository
     /**
      * @param int $id
      * @param array $attributes
-     * @return BaseModel|null
+     * @return BaseModel
      */
-    public function update(int $id, array $attributes): ?BaseModel
+    public function update(int $id, array $attributes): BaseModel
     {
         /** @var BaseModel $model */
         $model = $this->find($id)?->fill($attributes);

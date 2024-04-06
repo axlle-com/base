@@ -62,7 +62,7 @@ const _form = {
             this.confirm();
         }
     }
-}
+};
 const _image = {
     confirm: (obj, image) => {
         Swal.fire({
@@ -236,7 +236,7 @@ const _image = {
         this.addArray();
         this.gallerySort();
     }
-}
+};
 const _post = {
     login: function () {
         const _this = this;
@@ -248,6 +248,45 @@ const _post = {
     },
     run: function () {
 
+    }
+};
+const _infoBlock = {
+    add: function () {
+        const _this = this;
+        $('body').on('click', '.js-info-block-add', function () {
+            let div = $(this).closest('.js-info-block-select-form');
+            let select = div.find('select').val();
+            const request = new _glob.request({action: '/admin/ajax/info-block/get-for-resource/' + select});
+            request.setMethod('GET').send((response) => {
+                if (response.status) {
+                    let html = $(response.data.view);
+                    $('.js-info-block-general-block').append(html);
+                    _config.select2();
+                }
+            });
+        });
+    },
+    delete: function () {
+        const _this = this;
+        $('body').on('click', '.js-info-block-item-delete', function (evt) {
+            const id = $(this).attr('data-id');
+            const action = $(this).attr('data-href');
+            const block = $(this).closest('.js-info-block-item');
+            if (id && action) {
+                const request = new _glob.request({action});
+                request.setMethod('DELETE').send((response) => {
+                    if (response.status) {
+                        block.remove();
+                    }
+                });
+            } else {
+                block.remove();
+            }
+        });
+    },
+    run: function () {
+        this.add();
+        this.delete();
     }
 };
 const _config = {
@@ -383,6 +422,7 @@ $(document).ready(function () {
     _glob.run();
     _form.run('.a-block-inner');
     _image.run();
+    _infoBlock.run();
     _config.run();
     _auth.run();
     _post.run();

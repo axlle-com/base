@@ -3,12 +3,11 @@
 namespace App\Models\Post;
 
 use App\Models\BaseModel;
-use App\Models\InfoBlock;
-use App\Models\Render;
+use App\Models\InfoBlock\InfoBlock;
 use App\Models\Traits\HasGallery;
-use App\Models\Traits\HasImage;
 use App\Models\Traits\HasHistory;
-use App\Models\Traits\HasUrl;
+use App\Models\Traits\HasImage;
+use App\Models\Traits\HasInfoBlock;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Class PostCategory
  *
  * @property int $id
- * @property int|null $render_id
+ * @property string|null $render
  * @property int|null $post_category_id
  * @property string|null $meta_title
  * @property string|null $meta_description
@@ -43,7 +42,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null $deleted_at
  *
  * @property PostCategory|null $postCategory
- * @property Render|null $render
  * @property Collection|Post[] $posts
  * @property Collection|PostCategory[] $postCategories
  * @property Collection|InfoBlock[] $infoBlocks
@@ -56,12 +54,12 @@ class PostCategory extends BaseModel
     use HasGallery;
     use HasImage;
     use HasHistory;
+    use HasInfoBlock;
 
     protected $table = 'post_category';
 
 
     protected $casts = [
-        'render_id' => 'int',
         'post_category_id' => 'int',
         'is_published' => 'bool',
         'is_favourites' => 'bool',
@@ -72,7 +70,7 @@ class PostCategory extends BaseModel
     ];
 
     protected $fillable = [
-        'render_id',
+        'render',
         'post_category_id',
         'meta_title',
         'meta_description',
@@ -102,14 +100,6 @@ class PostCategory extends BaseModel
     }
 
     /**
-     * @return BelongsTo
-     */
-    public function render(): BelongsTo
-    {
-        return $this->belongsTo(Render::class);
-    }
-
-    /**
      * @return HasMany
      */
     public function posts(): HasMany
@@ -123,15 +113,6 @@ class PostCategory extends BaseModel
     public function postCategories(): HasMany
     {
         return $this->hasMany(__CLASS__);
-    }
-
-    /**
-     * @return BelongsToMany
-     */
-    public function infoBlocks(): BelongsToMany
-    {
-        return $this->belongsToMany(InfoBlock::class, 'post_category_has_info_block')
-            ->withPivot('sort');
     }
 
     /**

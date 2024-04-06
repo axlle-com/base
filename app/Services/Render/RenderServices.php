@@ -2,42 +2,40 @@
 
 namespace App\Services\Render;
 
-use App\Models\Render;
-use App\Repositories\Interfaces\IRenderRepository;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\InfoBlock\InfoBlock;
+use App\Models\Page\Page;
+use App\Models\Post\Post;
+use App\Models\Post\PostCategory;
 
 class RenderServices
 {
-    private IRenderRepository $renderRepo;
-
     /**
-     * @param IRenderRepository $renderRepo
+     * @param string|null $table
+     * @return array[]
      */
-    public function __construct(IRenderRepository $renderRepo)
+    public function get(string $table = null): array
     {
-        $this->renderRepo = $renderRepo;
+        $array = [
+            Post::table() => [],
+            PostCategory::table() => [],
+            Page::table() => [],
+            InfoBlock::table() => [],
+        ];
+        return $table ? $array[$table] : $array;
     }
 
     /**
-     * @param int $id
-     * @return Render|null
+     * @param string $name
+     * @return string|null
      */
-    public function find(int $id): ?Render
+    public function find(string $name): ?string
     {
-        /** @var Render $model */
-        $model = $this->renderRepo->find($id);
+        foreach ($this->get() as $key => $items) {
+            if (array_key_exists($name, $items)) {
+                return $items[$name];
+            }
+        }
 
-        return $model;
-    }
-
-    /**
-     * @return Collection|Render[]
-     */
-    public function get(): Collection
-    {
-        /** @var  Collection|Render[] $get */
-        $get = $this->renderRepo->get();
-
-        return $get;
+        return null;
     }
 }

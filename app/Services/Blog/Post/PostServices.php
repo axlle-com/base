@@ -7,6 +7,7 @@ use App\Repositories\Interfaces\IPageRepository;
 use App\Repositories\Interfaces\IPostCategoryRepository;
 use App\Repositories\Interfaces\IPostRepository;
 use App\Services\Blog\EntitySaveServices;
+use App\Services\Blog\InfoBlock\InfoBlockHasResourceServices;
 use App\Services\Gallery\GalleryServices;
 use App\Services\Image\ImageServices;
 
@@ -20,6 +21,7 @@ class PostServices
     protected GalleryServices $galleryServices;
     protected IPostCategoryRepository $postCategoryRepo;
     protected IPageRepository $pageRepo;
+    protected InfoBlockHasResourceServices $infoBlockHasResourceServices;
 
     /**
      * @param IPostRepository $repo
@@ -28,6 +30,7 @@ class PostServices
      * @param GalleryServices $galleryServices
      * @param IPostCategoryRepository $postCategoryRepo
      * @param IPageRepository $pageRepo
+     * @param InfoBlockHasResourceServices $infoBlockHasResourceServices
      */
     public function __construct(
         IPostRepository $repo,
@@ -35,7 +38,8 @@ class PostServices
         Post $model,
         GalleryServices $galleryServices,
         IPostCategoryRepository $postCategoryRepo,
-        IPageRepository $pageRepo
+        IPageRepository $pageRepo,
+        InfoBlockHasResourceServices $infoBlockHasResourceServices
     ) {
         $this->repo = $repo;
         $this->imageServices = $imageServices;
@@ -43,7 +47,9 @@ class PostServices
         $this->galleryServices = $galleryServices;
         $this->postCategoryRepo = $postCategoryRepo;
         $this->pageRepo = $pageRepo;
+        $this->infoBlockHasResourceServices = $infoBlockHasResourceServices;
     }
+
 
     public function existUrl(string $temp, ?int $id): bool
     {

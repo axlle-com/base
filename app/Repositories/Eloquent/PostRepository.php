@@ -4,7 +4,6 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Post\Post;
 use App\Models\Post\PostCategory;
-use App\Models\Render;
 use App\Repositories\Interfaces\IPostRepository;
 use App\Services\Image\ImageServices;
 use Illuminate\Database\Eloquent\Builder;
@@ -47,11 +46,9 @@ class PostRepository extends BaseRepository implements IPostRepository
     {
         return $this->model::query()
             ->select([
-                Render::table('title') . ' as render_title',
                 PostCategory::table('title') . ' as category_title',
                 PostCategory::table('title_short') . ' as category_title_short',
             ])
-            ->leftJoin(Render::table(), Render::table('id'), '=', $this->model::table('render_id'))
             ->leftJoin(PostCategory::table(), PostCategory::table('id'), '=', $this->model::table('post_category_id'))
             ->created()
             ->paginate();
